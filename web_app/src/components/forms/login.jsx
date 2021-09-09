@@ -1,5 +1,4 @@
-import { React, useState, useCallback } from "react";
-import PropTypes from "prop-types";
+import { React, useState } from "react";
 import {
   Box,
   Button,
@@ -7,7 +6,6 @@ import {
   Checkbox,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   Text,
@@ -17,13 +15,13 @@ import {
   InputRightElement,
   FormErrorMessage,
 } from "@chakra-ui/react";
-import { ArrowForwardIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
 const VARIANT_COLOR = "teal";
 
-const LoginArea = ({ onLogin }) => {
+const LoginArea = () => {
   return (
     <Flex
       //   minHeight="100vh"
@@ -40,26 +38,13 @@ const LoginArea = ({ onLogin }) => {
         width="full"
         bg="transparent"
       >
-        <LoginHeader />
-        <LoginForm onLogin={onLogin} />
+        <LoginForm />
       </Box>
     </Flex>
   );
 };
 
-LoginArea.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-};
-
-const LoginHeader = () => {
-  return (
-    <Box textAlign="center">
-      <Heading>Sign in to Your Account</Heading>
-    </Box>
-  );
-};
-
-const LoginForm = ({ onLogin }) => {
+const LoginForm = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
 
@@ -83,32 +68,13 @@ const LoginForm = ({ onLogin }) => {
       >
         {(props) => (
           <Box>
-            <Text fontSize="16px" color="tomato">
-              "error"
-            </Text>
+            <Text fontSize="16px" color="tomato"></Text>
             <Stack isInline justifyContent="space-between" mt={4}>
               <FormControl
                 isInvalid={props.errors.email && props.touched.email}
                 mr={2}
               >
-                <FormLabel>First Name</FormLabel>
-                <Input
-                  type="firstName"
-                  name="firstName"
-                  value={props.initialValues.email}
-                  {...props.getFieldProps("email")}
-                  border="0"
-                  borderBottom="1px"
-                  borderRadius="0"
-                />
-                <FormErrorMessage>{props.errors.password}</FormErrorMessage>
-              </FormControl>
-
-              <FormControl
-                isInvalid={props.errors.email && props.touched.email}
-                ml={2}
-              >
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>EMAIL</FormLabel>
                 <Input
                   type="email"
                   name="email"
@@ -118,28 +84,14 @@ const LoginForm = ({ onLogin }) => {
                   borderBottom="1px"
                   borderRadius="0"
                 />
-                <FormErrorMessage>{props.errors.password}</FormErrorMessage>
+                <FormErrorMessage>{props.errors.email}</FormErrorMessage>
               </FormControl>
             </Stack>
-
-            <FormControl isInvalid={props.errors.email && props.touched.email}>
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                name="email"
-                value={props.initialValues.email}
-                {...props.getFieldProps("email")}
-                border="0"
-                borderBottom="1px"
-                borderRadius="0"
-              />
-              <FormErrorMessage>{props.errors.password}</FormErrorMessage>
-            </FormControl>
-
             <FormControl
               isInvalid={props.errors.password && props.touched.password}
+              mt="5"
             >
-              <FormLabel>Password:</FormLabel>
+              <FormLabel>PASSWORD</FormLabel>
               <InputGroup>
                 <Input
                   type={passwordShow ? "text" : "password"}
@@ -177,8 +129,9 @@ const LoginForm = ({ onLogin }) => {
             </Stack>
             <Button
               onClick={props.submitForm}
-              colorScheme={VARIANT_COLOR}
+              backgroundColor="#0F4C75"
               width="full"
+              color="white"
               mt={4}
               loadingText="Signinig in"
             >
@@ -186,12 +139,13 @@ const LoginForm = ({ onLogin }) => {
             </Button>
             <Button
               onClick={props.submitForm}
-              colorScheme={VARIANT_COLOR}
+              backgroundColor="0F4C75"
               width="full"
               mt={4}
               loadingText="Signinig in"
+              border="1px"
             >
-              Sign Up with Amazon
+              <Text>Sign Up with Amazon</Text>
             </Button>
           </Box>
         )}

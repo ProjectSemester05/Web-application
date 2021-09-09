@@ -1,23 +1,12 @@
 import { React } from "react";
 import {
   Box,
-  Button,
-  IconButton,
-  Heading,
-  Input,
-  Stack,
   Text,
-  Link,
   Flex,
-  Image,
-  Center
 } from "@chakra-ui/react";
-import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
-import { SiLinkedin, SiMessenger } from 'react-icons/si';
 
 
-const Header = ({ onLogin }) => {
+const Header = () => {
   return (
     <Flex
       width="full"

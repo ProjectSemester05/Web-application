@@ -1,12 +1,10 @@
 import { React, useState } from "react";
-import PropTypes from "prop-types";
 import {
   Box,
   Button,
   IconButton,
   FormControl,
   FormLabel,
-  Heading,
   Input,
   Stack,
   Text,
@@ -15,7 +13,6 @@ import {
   InputRightElement,
   FormErrorMessage,
   extendTheme,
-  Image,
 } from "@chakra-ui/react";
 //import amazon from '../../assets/images/amazon.png'
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -30,7 +27,7 @@ const theme = extendTheme({
   },
 });
 
-const LoginArea = ({ onLogin }) => {
+const SignUpArea = () => {
   return (
     <Flex
       //   minHeight="100vh"
@@ -47,19 +44,13 @@ const LoginArea = ({ onLogin }) => {
         width="full"
         bg="transparent"
       >
-        <LoginForm onLogin={onLogin} />
+        <SignUpForm />
       </Box>
     </Flex>
   );
 };
 
-LoginArea.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-};
-
-
-
-const LoginForm = ({ onLogin }) => {
+const SignUpForm = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
 
@@ -202,4 +193,4 @@ const LoginForm = ({ onLogin }) => {
   );
 };
 
-export default LoginArea;
+export default SignUpArea;
