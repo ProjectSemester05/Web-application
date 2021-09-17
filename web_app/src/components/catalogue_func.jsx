@@ -8,9 +8,9 @@ import {
     ModalCloseButton,
     React,
     Button,
-    useDisclosure,FormControl,FormLabel, Input,Textarea, useRef
+    useDisclosure,FormControl,FormLabel, Input,Textarea
   } from "@chakra-ui/react"
-  import { CheckCircleIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons'
+  import {  EditIcon } from '@chakra-ui/icons'
 function InitialFocus() {
     const { isOpen, onOpen, onClose } = useDisclosure()
   

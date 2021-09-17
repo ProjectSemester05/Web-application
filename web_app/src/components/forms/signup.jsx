@@ -19,6 +19,7 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import "@fontsource/montserrat";
+import '../../style/landing.css'
 
 const theme = extendTheme({
   fonts: {
@@ -55,7 +56,7 @@ const SignUpForm = () => {
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
 
   return (
-    <Box my={8} textAlign="center">
+    <Box my={8} textAlign="center" >
       <Formik
         initialValues={{
           email: "",
@@ -73,7 +74,7 @@ const SignUpForm = () => {
         }}
       >
         {(props) => (
-          <Box theme={theme}>
+          <Box theme={theme}  >
             <Text fontSize="16px" color="tomato">
             </Text>
             <Stack isInline justifyContent="space-between" mt={4} mb={6}>
@@ -133,7 +134,7 @@ const SignUpForm = () => {
               isInvalid={props.errors.password && props.touched.password}
               mt="3"
             >
-              <FormLabel>Password</FormLabel>
+              <FormLabel >Password</FormLabel>
               <InputGroup>
                 <Input
                   type={passwordShow ? "text" : "password"}

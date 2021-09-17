@@ -1,6 +1,6 @@
 import { React } from "react";
 import { Box, Text, Flex, Image, Button } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons'
+import { DeleteIcon } from '@chakra-ui/icons'
 import InitialFocus from "../../components/catalogue_func";
 const ItemBox = ({ name, img, description, reminder }) => {
   return (

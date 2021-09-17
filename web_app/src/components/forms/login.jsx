@@ -48,6 +48,17 @@ const LoginForm = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
 
+  // const loginAmazon = () => {
+  //     let options = {}
+  //     options.scope = 'profile';
+  //     options.scope_data = {
+  //         'profile' : {'essential': false}
+  //     };
+  //     amazon.Login.authorize(options,
+  //         'https://www.example.com/handle_login.php');
+  //     return false;
+  // }
+
   return (
     <Box my={8} textAlign="center">
       <Formik
@@ -74,7 +85,7 @@ const LoginForm = () => {
                 isInvalid={props.errors.email && props.touched.email}
                 mr={2}
               >
-                <FormLabel>EMAIL</FormLabel>
+                <FormLabel>Email</FormLabel>
                 <Input
                   type="email"
                   name="email"
@@ -91,7 +102,7 @@ const LoginForm = () => {
               isInvalid={props.errors.password && props.touched.password}
               mt="5"
             >
-              <FormLabel>PASSWORD</FormLabel>
+              <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input
                   type={passwordShow ? "text" : "password"}
@@ -138,12 +149,14 @@ const LoginForm = () => {
               Sign Up
             </Button>
             <Button
-              onClick={props.submitForm}
+              //onClick={loginAmazon}
               backgroundColor="0F4C75"
               width="full"
               mt={4}
-              loadingText="Signinig in"
+              loadingText="Signing in"
               border="1px"
+              id="LoginWithAmazon"
+
             >
               <Text>Sign Up with Amazon</Text>
             </Button>

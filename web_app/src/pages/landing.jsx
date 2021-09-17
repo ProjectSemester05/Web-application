@@ -24,11 +24,11 @@ const LandingPage = () => {
   };
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" overflow="auto">
       <Flex>
         <Header />
       </Flex>
-      <Flex background="#EEEEEE">
+      <Flex background="#EEEEEE" mb="3">
         <Box flex="2">
           <Text
             fontSize="4xl"
@@ -45,7 +45,7 @@ const LandingPage = () => {
         </Box>
         <Box flex="1" boxShadow="2xl" borderRadius="7px" m={2} mr={5} h="80%">
           <Flex flexDirection="column">
-            <Flex justifyContent="center" mt="5" position="relative">
+            <Flex justifyContent="center" mt="5" mb="5" position="relative">
               <Button
                 className="signup-button active"
                 onClick={() => {

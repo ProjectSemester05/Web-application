@@ -2,13 +2,11 @@ import { React } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import { Heading } from "@chakra-ui/react"
-import { Divider } from "@chakra-ui/react"
 import Footer from "../components/footer";
 import Header from "../components/header";
-import InitialFocus from "../components/catalogue_func";
 import CatalogueCard from "../components/cards/catalogue";
 import ItemBox from "../components/cards/itembox";
-import { CheckCircleIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { CheckCircleIcon } from '@chakra-ui/icons';
 import "../style/catalogues.css";
 
 const CataloguePage = () => {
