@@ -7,8 +7,6 @@ import Header from "../components/header";
 import "../style/landing.css";
 import LoginArea from "../components/forms/login";
 
-
-
 const LandingPage = () => {
   const [signUpActive, setSignUpActive] = useState(true);
   const toggleForm = (form) => {
@@ -30,8 +28,8 @@ const LandingPage = () => {
       <Flex>
         <Header />
       </Flex>
-      <Flex  mb="3">
-        <Box flex={["0","0","2"]} display={["none","block"]}>
+      <Flex mb="3">
+        <Box flex={["0", "0", "2"]} display={["none", "block"]}>
           <Text
             fontSize="4xl"
             textAlign="center"
@@ -69,9 +67,7 @@ const LandingPage = () => {
           </Flex>
         </Box>
       </Flex>
-      <Flex>
-        <Footer minHeight="20px" />
-      </Flex>
+      <Footer />
     </Flex>
   );
 };
