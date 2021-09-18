@@ -16,7 +16,6 @@ const CataloguePage = () => {
         <Header />
       </Flex>
       <Heading m={5} isTruncated>
-        {/* <Text as="u">Kitchen Items</Text> */}
         Kitchen Items
       </Heading>
       {/* <Divider /> */}
@@ -96,7 +95,7 @@ const CataloguePage = () => {
         reminder = "none"
       />    
       <Flex mt="auto">
-        <Footer minHeight="20px" position="static" bottom="0" />
+        <Footer minHeight="20px"/>
       </Flex>
     </Flex>
   );

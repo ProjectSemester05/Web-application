@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <Flex
       width="full"
-      mt="0"
+      mt="4"
       backgroundColor="#1B262C"
       color="white"
       minHeight="50px"

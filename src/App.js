@@ -13,7 +13,6 @@ function App() {
           <Route component={CataloguePage} path="/catalogues" exact/>
           <Route component={HomePage} path="/home" exact/>
           <Route component={LandingPage} path="/" />
-          
         </Switch>
       </BrowserRouter>
 

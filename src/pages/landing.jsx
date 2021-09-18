@@ -7,6 +7,8 @@ import Header from "../components/header";
 import "../style/landing.css";
 import LoginArea from "../components/forms/login";
 
+
+
 const LandingPage = () => {
   const [signUpActive, setSignUpActive] = useState(true);
   const toggleForm = (form) => {
@@ -24,12 +26,12 @@ const LandingPage = () => {
   };
 
   return (
-    <Flex flexDirection="column" overflow="auto">
+    <Flex flexDirection="column" background="#EEEEEE">
       <Flex>
         <Header />
       </Flex>
-      <Flex background="#EEEEEE" mb="3">
-        <Box flex="2">
+      <Flex  mb="3">
+        <Box flex={["0","0","2"]} display={["none","block"]}>
           <Text
             fontSize="4xl"
             textAlign="center"

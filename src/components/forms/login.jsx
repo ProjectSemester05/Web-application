@@ -18,6 +18,7 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useHistory } from 'react-router-dom';
 
 const VARIANT_COLOR = "teal";
 
@@ -47,6 +48,7 @@ const LoginArea = () => {
 const LoginForm = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
+	const history = useHistory();
 
   // const loginAmazon = () => {
   //     let options = {}
@@ -75,6 +77,8 @@ const LoginForm = () => {
         })}
         onSubmit={(values) => {
           //					onAuth(values.email, values.password, onLogin);
+          console.log(values);
+          history.push("/home")
         }}
       >
         {(props) => (
@@ -89,11 +93,12 @@ const LoginForm = () => {
                 <Input
                   type="email"
                   name="email"
+                  variant="flushed"
+
                   value={props.initialValues.email}
                   {...props.getFieldProps("email")}
-                  border="0"
-                  borderBottom="1px"
-                  borderRadius="0"
+                  borderColor="black"
+                  borderBottomWidth="1px"
                 />
                 <FormErrorMessage>{props.errors.email}</FormErrorMessage>
               </FormControl>
@@ -107,11 +112,11 @@ const LoginForm = () => {
                 <Input
                   type={passwordShow ? "text" : "password"}
                   name="password"
+                  variant="flushed"
                   value={props.initialValues.password}
                   {...props.getFieldProps("password")}
-                  border="0"
-                  borderBottom="1px"
-                  borderRadius="0"
+                  borderColor="black"
+                  borderBottomWidth="1px"
                 />
                 <InputRightElement width="4.5rem">
                   <IconButton
@@ -133,7 +138,7 @@ const LoginForm = () => {
                 <Checkbox>Remember Me</Checkbox>
               </Box>
               <Box>
-                <Link color={`${VARIANT_COLOR}.500`} href="#">
+                <Link href="#">
                   Forget Your Password?
                 </Link>
               </Box>
@@ -146,7 +151,7 @@ const LoginForm = () => {
               mt={4}
               loadingText="Signinig in"
             >
-              Sign Up
+              Login
             </Button>
             <Button
               //onClick={loginAmazon}
@@ -158,7 +163,7 @@ const LoginForm = () => {
               id="LoginWithAmazon"
 
             >
-              <Text>Sign Up with Amazon</Text>
+              <Text>Log in with Amazon</Text>
             </Button>
           </Box>
         )}
