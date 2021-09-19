@@ -58,7 +58,7 @@ function AddItemPopup() {
 
           <ModalFooter>
             <Button onClick={Welcome} colorScheme="blue" mr={3} >
-              Add
+              Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
