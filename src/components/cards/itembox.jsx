@@ -23,7 +23,7 @@ const ItemBox = ({ name, img, description, reminder }) => {
               w="auto"
               />
         </Td>
-        <Td>{name}</Td>
+        <Td><b>{name}</b></Td>
         <Td>{description}</Td>
         <Td>{reminder}</Td>
         <Td textAlign="center"><InitialFocus itemname={item} />
