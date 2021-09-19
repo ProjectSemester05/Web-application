@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <Flex
       width="full"
-      mt="0"
+      mt="4"
       backgroundColor="#1B262C"
       color="white"
       minHeight="50px"
@@ -22,7 +22,7 @@ const Footer = () => {
       mb="0"
     >
       <Box flex={1} p="20px">
-        <Flex h="100" m>
+        <Flex>
           <Box flex="1" justifyContent="flex-end">
             <Text color="white" mr="2" lineHeight="35px" >
               Powered by

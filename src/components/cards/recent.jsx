@@ -8,10 +8,10 @@ const RecentItem = ({ name, img, catalogue, date }) => {
       width="200px"
       maxH="250px"
       mb="0"
-      border-radius="24px"
+      border-radius="8px"
       flexDirection="column"
       backgroundColor="white"
-      borderRadius="24px"
+      borderRadius="8px"
       border="2px solid #CCC9C9"
       boxSizing="border-box"
       p={4}

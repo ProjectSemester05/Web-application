@@ -24,12 +24,12 @@ const LandingPage = () => {
   };
 
   return (
-    <Flex flexDirection="column" overflow="auto">
+    <Flex flexDirection="column" background="#EEEEEE">
       <Flex>
         <Header />
       </Flex>
-      <Flex background="#EEEEEE" mb="3">
-        <Box flex="2">
+      <Flex mb="3">
+        <Box flex={["0", "0", "2"]} display={["none", "block"]}>
           <Text
             fontSize="4xl"
             textAlign="center"
@@ -67,9 +67,7 @@ const LandingPage = () => {
           </Flex>
         </Box>
       </Flex>
-      <Flex>
-        <Footer minHeight="20px" />
-      </Flex>
+      <Footer />
     </Flex>
   );
 };
