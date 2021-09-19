@@ -1,5 +1,5 @@
 import { React } from "react";
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Box, Text, Flex, Grid } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import Footer from "../components/footer";
 import Header from "../components/header";
@@ -8,16 +8,15 @@ import CatalogueCard from "../components/cards/catalogue";
 import UserProfile from "../components/cards/profile";
 import SearchBar from "../components/forms/search";
 import NewCatalogueCard from "../components/cards/new_catalogue";
+import "../style/slider.css";
 
 const HomePage = () => {
   return (
-    <Flex flexDirection="column" position="relative">
-      <Flex>
-        <Header />
-      </Flex>
+    <Flex flexDirection="column">
+      <Header />
       <Flex width="full" py={5}>
         <Flex width="full" px="3">
-          <UserProfile flex="1" ml="20px" />
+          <UserProfile flex="1"/>
           <Box flex="2" mx="2" ml="100px" px="2">
             <Box>
               <SearchBar w="full" />
@@ -25,42 +24,53 @@ const HomePage = () => {
             <Text fontSize="24px" mt="4" mb="20px">
               Recent Deadlines
             </Text>
-            <Flex justifyContent="space-between">
-              <RecentItem
-                name="Paint Bucket"
-                catalogue="Garage Items"
-                date="Sept 18"
-                img="/assets/images/paint.png"
-              />
-              <RecentItem
-                name="Motor oil"
-                catalogue="Garage Items"
-                date="Sept 23"
-                img="/assets/images/motor_oil.jpg"
-              />
-              <RecentItem
-                name="Battery"
-                catalogue="Garage Items"
-                date="Nov 18"
-                img="/assets/images/battery.png"
-              />
-              <RecentItem
-                name="CS Assignment"
-                catalogue="Assignment"
-                date="Oct 21"
-                img="/assets/images/cs_assignment.png"
-              />
-              <RecentItem
-                name="Da Vincis Daemons"
-                catalogue="Books"
-                date="June 06"
-                img="/assets/images/book.jpg"
-              />
-            </Flex>
+            <Box>
+              <Grid
+                w="100%"
+                templateColumns="repeat(auto-fill,200px)"
+                // gridAutoColumns="minmax(200px, 1fr))"
+                gridAutoFlow="column"
+                padding="16px"
+                gap={"16px"}
+                overflowX="scroll"
+                className="no-scrollbar"
+              >
+                <RecentItem
+                  name="Paint Bucket"
+                  catalogue="Garage Items"
+                  date="Sept 18"
+                  img="/assets/images/paint.png"
+                />
+                <RecentItem
+                  name="Motor oil"
+                  catalogue="Garage Items"
+                  date="Sept 23"
+                  img="/assets/images/motor_oil.jpg"
+                />
+                <RecentItem
+                  name="Battery"
+                  catalogue="Garage Items"
+                  date="Nov 18"
+                  img="/assets/images/battery.png"
+                />
+                <RecentItem
+                  name="CS Assignment"
+                  catalogue="Assignment"
+                  date="Oct 21"
+                  img="/assets/images/cs_assignment.png"
+                />
+                <RecentItem
+                  name="Da Vincis Daemons"
+                  catalogue="Books"
+                  date="June 06"
+                  img="/assets/images/book.jpg"
+                />
+              </Grid>
+            </Box>
           </Box>
         </Flex>
       </Flex>
-      <Flex width="full" flexDirection="column" p="20px">
+      <Flex width="full" flexDirection="column" p="20px" pb="-20px">
         <Text fontSize="22px" mb="2">
           My Catalogues
         </Text>
@@ -82,9 +92,7 @@ const HomePage = () => {
           />
         </Flex>
       </Flex>
-      <Flex>
-        <Footer minHeight="20px" position="absolute" bottom="0" />
-      </Flex>
+      <Footer />
     </Flex>
   );
 };

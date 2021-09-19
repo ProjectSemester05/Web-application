@@ -6,13 +6,15 @@ const UserProfile = () => {
     <Flex
       width="280px"
       h="260px"
-      mt="0"
+      ml="30px" 
+      mt="40px"
       color="black"
       mb="0"
       flexDirection="column"
       backgroundColor="white"
       borderRadius="2px"
       boxShadow="lg"
+      justifyContent="center"
       p="4px"
     >
       <Box px="auto">

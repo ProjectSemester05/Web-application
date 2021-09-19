@@ -1,12 +1,37 @@
-import axios from 'axios';
+import axios from "./axios";
 
-import { BASE_API } from '../utils/constants';
+export const getRequest = async (url, body) => {
+  try {
+    let response = body ? await axios.get(url, body) : await axios.get(url);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
-const instance = axios.create({
-    baseURL: BASE_API
-});
+export const postRequest = async (url, data) => {
+  try {
+    let response = await axios.post(url, data);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
-const token = localStorage.getItem('token');
-if (token) instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+export const putRequest = async (url, data) => {
+  try {
+    let response = await axios.put(url, data);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
 
-export default instance;
+export const deleteRequest = async (url) => {
+  try {
+    let response = await axios.delete(url);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

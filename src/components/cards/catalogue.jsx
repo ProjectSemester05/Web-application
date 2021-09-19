@@ -1,7 +1,9 @@
 import { React } from "react";
 import { Box, Text, Flex, Image, Stack } from "@chakra-ui/react";
+import {  useHistory } from 'react-router-dom';
 
 const CatalogueCard = ({ name, iCount, cCount, img }) => {
+	const history = useHistory();
   return (
     <Flex
       width="full"
@@ -15,6 +17,8 @@ const CatalogueCard = ({ name, iCount, cCount, img }) => {
       p={3}
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
       borderRadius="22px"
+      cursor="pointer"
+      onClick = {() => {history.push("/catalogues")}}
     >
       <Box>
         <Flex justifyContent="space-around">
