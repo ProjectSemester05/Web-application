@@ -57,7 +57,7 @@ function InitialFocus(props) {
 
             <FormControl mt={4}>
               <FormLabel>Reminder</FormLabel>
-              <Input type="text" value={reminder} onChange={editReminder} />
+              <Input type="date" value={reminder} onChange={editReminder} />
             </FormControl>
 
           <FormControl mt={4}>
