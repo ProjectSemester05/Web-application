@@ -7,14 +7,13 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
   useDisclosure,
 } from "@chakra-ui/react";
 import { IoAddCircleOutline } from "react-icons/io5";
 import NewCatalogueForm from "../forms/new_catalogue_form";
+import "../../style/animation.css"
 
 const NewCatalogueCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,8 +24,8 @@ const NewCatalogueCard = () => {
         width="full"
         mt="0"
         backgroundColor="#E1DEF1"
-        width="400px"
-        height="200px"
+        width={["80%", "350px"]}
+        height={["160px", "200px"]}
         color="white"
         mb="0"
         flexDirection="column"
@@ -35,18 +34,19 @@ const NewCatalogueCard = () => {
         borderRadius="22px"
         onClick={onOpen}
         cursor="pointer"
+        className="inflate"
       >
         <Box>
           <Flex justifyContent="space-around">
             <Box>
-              <Text fontWeight="bold" fontSize="25px" color="black" mt={3}>
+              <Text fontWeight="bold" fontSize={["20px", "25px"]} color="black" mt={3}>
                 New Catalogue
               </Text>
             </Box>
             <Box mt={3}>
-              <IoAddCircleOutline fontSize="47px" color="#757171" />
+              <IoAddCircleOutline fontSize={["47px"]} color="#757171" />
             </Box>
-          </Flex>
+          </Flex> 
         </Box>
         <Box
           marginTop="8px"
@@ -58,7 +58,7 @@ const NewCatalogueCard = () => {
         <Box>
           <Flex justifyContent="space-around">
             <Box>
-              <Text color="#757171" marginTop="25px" fontSize="17px">
+              <Text color="#757171" marginTop={["10px","25px"]} fontSize="17px">
                 Create your own Catalogue!!!
               </Text>
             </Box>
@@ -69,10 +69,12 @@ const NewCatalogueCard = () => {
       <Modal isOpen={isOpen} onClose={onClose} size="3xl">
         <ModalOverlay />
         <ModalContent w="full">
-          <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">New Catalogue</ModalHeader>
-          <ModalCloseButton color="white"/>
+          <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">
+            New Catalogue
+          </ModalHeader>
+          <ModalCloseButton color="white" />
           <ModalBody>
-            <NewCatalogueForm onClose={onClose}/>
+            <NewCatalogueForm onClose={onClose} />
           </ModalBody>
         </ModalContent>
       </Modal>

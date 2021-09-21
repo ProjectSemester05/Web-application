@@ -8,12 +8,17 @@ import {
   ModalCloseButton,
   React,
   Button,
-  useDisclosure,FormControl,FormLabel, Input,Textarea, useRef
-} from "@chakra-ui/react"
-import { CheckCircleIcon, EditIcon, DeleteIcon } from '@chakra-ui/icons';
-import {useState} from 'react';
+  useDisclosure,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
+} from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+
 function InitialFocus(props) {
-  const { isOpen, onOpen, onClose} = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   // const initialRef = React.useRef()
   // const finalRef = React.useRef()
   // console.log(props.itemname)
@@ -21,25 +26,24 @@ function InitialFocus(props) {
   const [img, setImage] = useState(props.itemname.img);
   const [description, setDescription] = useState(props.itemname.description);
   const [reminder, setReminder] = useState(props.itemname.reminder);
-  function editName(){
-    setName(Input.value)
+  function editName() {
+    setName(Input.value);
   }
-  function editImage(){
-    setImage(Input.value)
+  function editImage() {
+    setImage(Input.value);
   }
-  function editDescription(){
-    setDescription(Input.value)
+  function editDescription() {
+    setDescription(Input.value);
   }
-  function editReminder(){
-    setReminder(Input.value)
+  function editReminder() {
+    setReminder(Input.value);
   }
   return (
     <>
-      <Button background="blackAlpha" onClick={onOpen}><EditIcon /> </Button>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Button background="blackAlpha" onClick={onOpen}>
+        <EditIcon />{" "}
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader textAlign="center">Edit the Item</ModalHeader>
@@ -47,7 +51,7 @@ function InitialFocus(props) {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Item name</FormLabel>
-              <Input type="text" value={name} onChange={editName}/>
+              <Input type="text" value={name} onChange={editName} />
             </FormControl>
 
             <FormControl mt={4}>
@@ -60,7 +64,7 @@ function InitialFocus(props) {
               <Input type="text" value={reminder} onChange={editReminder} />
             </FormControl>
 
-          <FormControl mt={4}>
+            <FormControl mt={4}>
               <Button>Upload Image</Button>
             </FormControl>
           </ModalBody>
@@ -74,7 +78,7 @@ function InitialFocus(props) {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
 
 export default InitialFocus;

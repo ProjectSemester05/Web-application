@@ -1,0 +1,7 @@
+.inflate {
+    transition: transform 450ms;
+}
+
+.inflate:hover {
+    transform: scale(1.04);
+}

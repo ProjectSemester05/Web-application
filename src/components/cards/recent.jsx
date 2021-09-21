@@ -1,5 +1,6 @@
 import { React } from "react";
 import { Box, Text, Flex, Image } from "@chakra-ui/react";
+import "../../style/animation.css";
 
 const RecentItem = ({ name, img, catalogue, date }) => {
   return (
@@ -15,6 +16,8 @@ const RecentItem = ({ name, img, catalogue, date }) => {
       border="2px solid #CCC9C9"
       boxSizing="border-box"
       p={4}
+      className="inflate"
+      cursor="pointer"
     >
       <Flex justifyContent="center" mb="3">
         <Image src={img}height="110px" width="auto"/>

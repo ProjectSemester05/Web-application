@@ -16,6 +16,7 @@ const UserProfile = () => {
       boxShadow="lg"
       justifyContent="center"
       p="4px"
+      display={["none","block"]}
     >
       <Box px="auto">
         <Image src={"/assets/images/user.png"} h="100px" mx="auto" boxShadow="lg" borderRadius="50%"/>
