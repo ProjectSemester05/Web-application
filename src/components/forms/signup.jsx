@@ -20,7 +20,7 @@ import * as Yup from "yup";
 import "@fontsource/montserrat";
 import "../../style/landing.css";
 import { registerUser } from "../../api/user";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const theme = extendTheme({
   fonts: {
@@ -30,7 +30,6 @@ const theme = extendTheme({
 });
 
 const SignUpArea = () => {
-
   return (
     <Flex
       //   minHeight="100vh"
@@ -56,7 +55,7 @@ const SignUpArea = () => {
 const SignUpForm = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
-	const history = useHistory();
+  const history = useHistory();
 
   return (
     <Box my={8} textAlign="center">
@@ -64,23 +63,26 @@ const SignUpForm = () => {
         initialValues={{
           firstName: "",
           lastName: "",
-          email: "",
-          password: "",
+          Email: "",
+          Password: "",
         }}
         validationSchema={Yup.object({
           firstName: Yup.string().max(50).required("First Name Required"),
           lastName: Yup.string().max(50).required("Last Name Required"),
-          email: Yup.string()
+          Email: Yup.string()
             .max(100)
             .email("Invalid email")
             .required("Required"),
-          password: Yup.string().required("Required"),
+          Password: Yup.string().required("Required"),
         })}
-        onSubmit={(values) => {
-          //					onAuth(values.email, values.password, onLogin);
-          //registerUser(data)
+        onSubmit={async (values) => {
+          values.Name = `${values.firstName} ${values.lastName}`
           console.log(values);
-          history.push("/home")
+          let result = await registerUser(values);
+          console.log(result);
+          if (result.success) {
+            history.push("/home");
+          }
         }}
       >
         {(props) => (
@@ -100,7 +102,6 @@ const SignUpForm = () => {
                   {...props.getFieldProps("firstName")}
                   borderColor="black"
                   borderBottomWidth="1px"
-
                 />
                 <FormErrorMessage>{props.errors.firstName}</FormErrorMessage>
               </FormControl>
@@ -124,33 +125,33 @@ const SignUpForm = () => {
             </Stack>
 
             <FormControl
-              isInvalid={props.errors.email && props.touched.email}
+              isInvalid={props.errors.Email && props.touched.Email}
               mt="3"
             >
               <FormLabel>Email</FormLabel>
               <Input
                 type="email"
-                name="email"
-                value={props.initialValues.email}
-                {...props.getFieldProps("email")}
+                name="Email"
+                value={props.initialValues.Email}
+                {...props.getFieldProps("Email")}
                 variant="flushed"
                 borderColor="black"
                 borderBottomWidth="1px"
               />
-              <FormErrorMessage>{props.errors.email}</FormErrorMessage>
+              <FormErrorMessage>{props.errors.Email}</FormErrorMessage>
             </FormControl>
 
             <FormControl
-              isInvalid={props.errors.password && props.touched.password}
+              isInvalid={props.errors.Password && props.touched.Password}
               mt="3"
             >
               <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input
                   type={passwordShow ? "text" : "password"}
-                  name="password"
-                  value={props.initialValues.password}
-                  {...props.getFieldProps("password")}
+                  name="Password"
+                  value={props.initialValues.Password}
+                  {...props.getFieldProps("Password")}
                   variant="flushed"
                   borderColor="black"
                   borderBottomWidth="1px"
@@ -168,7 +169,7 @@ const SignUpForm = () => {
                   />
                 </InputRightElement>
               </InputGroup>
-              <FormErrorMessage>{props.errors.password}</FormErrorMessage>
+              <FormErrorMessage>{props.errors.Password}</FormErrorMessage>
             </FormControl>
             <Box>
               <Text>

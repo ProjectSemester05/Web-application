@@ -16,25 +16,37 @@ const HomePage = () => {
       <Header />
       <Flex width="full" py={5}>
         <Flex width="full" px="3">
-          <UserProfile flex="1"/>
-          <Box flex="2" mx="2" ml="100px" px="2">
+          <UserProfile flex="1" />
+          <Box flex="2" mx="2" overflowX="hidden" ml={["0", "100px"]} px="2">
             <Box>
-              <SearchBar w="full" />
+              <SearchBar  w="full"/>
             </Box>
             <Text fontSize="24px" mt="4" mb="20px">
               Recent Deadlines
             </Text>
-            <Box>
+            <Box overflow="hidden">
               <Grid
                 w="100%"
                 templateColumns="repeat(auto-fill,200px)"
-                // gridAutoColumns="minmax(200px, 1fr))"
+                gridAutoColumns="minmax(200px, 1fr))"
                 gridAutoFlow="column"
-                padding="16px"
+                padding="5px"
                 gap={"16px"}
                 overflowX="scroll"
                 className="no-scrollbar"
               >
+                <RecentItem
+                  name="Paint Bucket"
+                  catalogue="Garage Items"
+                  date="Sept 18"
+                  img="/assets/images/paint.png"
+                />
+                <RecentItem
+                  name="Paint Bucket"
+                  catalogue="Garage Items"
+                  date="Sept 18"
+                  img="/assets/images/paint.png"
+                />
                 <RecentItem
                   name="Paint Bucket"
                   catalogue="Garage Items"
@@ -47,6 +59,7 @@ const HomePage = () => {
                   date="Sept 23"
                   img="/assets/images/motor_oil.jpg"
                 />
+
                 <RecentItem
                   name="Battery"
                   catalogue="Garage Items"
@@ -76,13 +89,19 @@ const HomePage = () => {
         </Text>
         <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
 
-        <Flex justifyContent="space-between">
+        <Flex justifyContent={["center","space-between"]} flexDirection={["column", "row"]}>
           <NewCatalogueCard />
           <CatalogueCard
             name="Kitchen Items"
             iCount="21"
             cCount="6"
             img="/assets/images/kitchen_items.png"
+          />
+          <CatalogueCard
+            name="Book Collection"
+            iCount="21"
+            cCount="6"
+            img="/assets/images/book_collection.png"
           />
           <CatalogueCard
             name="Book Collection"

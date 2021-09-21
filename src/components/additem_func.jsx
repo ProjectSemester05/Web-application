@@ -9,11 +9,10 @@ import {
   React,
   Button,
   Box,
-  useDisclosure,FormControl,FormLabel, Input,Textarea, useRef
+  useDisclosure,FormControl,FormLabel, Input,Textarea
 } from "@chakra-ui/react"
-import { CheckCircleIcon, AddIcon, DeleteIcon } from '@chakra-ui/icons';
-import ReactDOM from 'react-dom';
-import ItemBox from "../components/cards/itembox";
+import {  AddIcon } from '@chakra-ui/icons';
+
 function AddItemPopup() {
   const { isOpen, onOpen, onClose } = useDisclosure()
 

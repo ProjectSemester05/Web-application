@@ -1,22 +1,17 @@
 import { React } from "react";
-import ReactDOM from 'react-dom';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AddItemPopup from "../components/additem_func";
 import { Box, Text, Flex, Button,Image } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import { Heading } from "@chakra-ui/react"
-import { Divider } from "@chakra-ui/react"
 import Footer from "../components/footer";
 import Header from "../components/header";
-import InitialFocus from "../components/catalogue_func";
 import CatalogueCard from "../components/cards/catalogue";
 import ItemBox from "../components/cards/itembox";
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import "../style/catalogues.css";
 import {
-  Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,
+  Table,Thead,Tbody,Tr,Th,TableCaption,
 } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 
 const CataloguePage = () => {
 
