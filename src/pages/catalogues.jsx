@@ -87,19 +87,19 @@ const CataloguePage = () => {
               name="Kettle"
               description = "Newly bought electric kettle"
               img="/assets/images/paint.png"
-              reminder = "2021-09-21"
+              reminder = "2021-10-04"
             />
             <ItemBox
               name="Mug"
               description = "Mug with the red handle"
               img="/assets/images/paint.png"
-              reminder = "21/09/2021"
+              reminder = "2021-10-14"
             />
             <ItemBox
               name="Beater"
               description = "No description included"
               img="/assets/images/paint.png"
-              reminder = "none"
+              reminder = "2021-11-02"
             />
             <ItemBox
               name="Fork"

@@ -61,7 +61,7 @@ function InitialFocus(props) {
 
             <FormControl mt={4}>
               <FormLabel>Reminder</FormLabel>
-              <Input type="text" value={reminder} onChange={editReminder} />
+              <Input type="date" value={reminder} onChange={editReminder} />
             </FormControl>
 
             <FormControl mt={4}>
@@ -71,7 +71,7 @@ function InitialFocus(props) {
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3}>
-              Save
+              Update
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
