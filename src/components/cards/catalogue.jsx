@@ -7,10 +7,9 @@ const CatalogueCard = ({ name, iCount, cCount, img }) => {
   const history = useHistory();
   return (
     <Flex
-      width="full"
-      mt={["10px", "0"]}
+      mt={["20px", "0"]}
       backgroundColor="#E1DEF1"
-      width={["80%", "350px"]}
+      width={["100%", "350px"]}
       height={["160px", "200px"]}
       color="white"
       mb="0"

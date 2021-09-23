@@ -32,7 +32,6 @@ const theme = extendTheme({
 const SignUpArea = () => {
   return (
     <Flex
-      //   minHeight="100vh"
       width="full"
       align="center"
       justifyContent="center"
@@ -75,6 +74,7 @@ const SignUpForm = () => {
             .required("Required"),
           Password: Yup.string().required("Required"),
         })}
+        
         onSubmit={async (values) => {
           values.Name = `${values.firstName} ${values.lastName}`
           console.log(values);

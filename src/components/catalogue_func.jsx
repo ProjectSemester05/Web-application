@@ -23,15 +23,15 @@ function InitialFocus(props) {
   // const finalRef = React.useRef()
   // console.log(props.itemname)
   const [name, setName] = useState(props.itemname.name);
-  const [img, setImage] = useState(props.itemname.img);
+  // const [img, setImage] = useState(props.itemname.img);
   const [description, setDescription] = useState(props.itemname.description);
   const [reminder, setReminder] = useState(props.itemname.reminder);
   function editName() {
     setName(Input.value);
   }
-  function editImage() {
-    setImage(Input.value);
-  }
+  // function editImage() {
+  //   setImage(Input.value);
+  // }
   function editDescription() {
     setDescription(Input.value);
   }

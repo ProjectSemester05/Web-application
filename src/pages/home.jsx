@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
 import { Box, Text, Flex, Grid } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import Footer from "../components/footer";
@@ -9,8 +9,23 @@ import UserProfile from "../components/cards/profile";
 import SearchBar from "../components/forms/search";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 import "../style/slider.css";
+import { getCatalogues } from "../api/catalogue";
 
 const HomePage = () => {
+  const [catalogues, setCatalogues] = useState([]);
+
+  useEffect(() => {
+
+    let result = {};
+
+    async function fetchCatalogues() {
+      result = await getCatalogues();
+      console.log(result);
+    }
+    fetchCatalogues();
+    setCatalogues(result);
+  }, [catalogues]);
+
   return (
     <Flex flexDirection="column">
       <Header />
@@ -19,7 +34,7 @@ const HomePage = () => {
           <UserProfile flex="1" />
           <Box flex="2" mx="2" overflowX="hidden" ml={["0", "100px"]} px="2">
             <Box>
-              <SearchBar  w="full"/>
+              <SearchBar w="full" />
             </Box>
             <Text fontSize="24px" mt="4" mb="20px">
               Recent Deadlines
@@ -89,7 +104,10 @@ const HomePage = () => {
         </Text>
         <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
 
-        <Flex justifyContent={["center","space-between"]} flexDirection={["column", "row"]}>
+        <Flex
+          justifyContent={["center", "space-between"]}
+          flexDirection={["column", "row"]}
+        >
           <NewCatalogueCard />
           <CatalogueCard
             name="Kitchen Items"

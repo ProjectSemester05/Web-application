@@ -21,16 +21,18 @@ const NewCatalogueForm = ({ onClose }) => {
     <Box my={8} textAlign="center">
       <Formik
         initialValues={{
-          catalogueName: "",
+          CatalogueName: "",
         }}
         validationSchema={Yup.object({
-          catalogueName: Yup.string()
+          CatalogueName: Yup.string()
             .max(50)
             .required("Catalogue Name Required"),
         })}
         onSubmit={async (values) => {
           console.log(values);
+
           let result = await createCatalogue(values);
+          
           if (result.success) {
             toast({
               title: "Catalogue created",
@@ -54,7 +56,7 @@ const NewCatalogueForm = ({ onClose }) => {
             <Stack isInline justifyContent="space-between" mt={4} mb={6}>
               <FormControl
                 isInvalid={
-                  props.errors.catalogueName && props.touched.catalogueName
+                  props.errors.CatalogueName && props.touched.CatalogueName
                 }
                 mr={2}
               >
@@ -62,17 +64,17 @@ const NewCatalogueForm = ({ onClose }) => {
                 <Input
                   type="catalogueName"
                   variant="flushed"
-                  name="catalogueName"
-                  value={props.initialValues.catalogueName}
-                  {...props.getFieldProps("catalogueName")}
+                  name="CatalogueName"
+                  value={props.initialValues.CatalogueName}
+                  {...props.getFieldProps("CatalogueName")}
                 />
                 <FormErrorMessage>
-                  {props.errors.catalogueName}
+                  {props.errors.CatalogueName}
                 </FormErrorMessage>
               </FormControl>
             </Stack>
             <FormControl mr={2}>
-              <FormLabel for="upload-image">Upload Image</FormLabel>
+              <FormLabel >Upload Image</FormLabel>
               <Input
                 id="upload-image"
                 variant="flushed"

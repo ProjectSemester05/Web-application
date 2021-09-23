@@ -24,7 +24,7 @@ const LandingPage = () => {
   };
 
   return (
-    <Flex flexDirection="column" background="#EEEEEE">
+    <Flex flexDirection="column" background="#EEEEEE" id="amazon-root">
       <Flex>
         <Header />
       </Flex>

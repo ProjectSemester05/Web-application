@@ -1,6 +1,6 @@
 import { React } from "react";
 import AddItemPopup from "../components/additem_func";
-import { Box, Text, Flex, Button,Image } from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import { Heading } from "@chakra-ui/react"
 import Footer from "../components/footer";
@@ -59,7 +59,6 @@ const CataloguePage = () => {
       <AddItemPopup />
 
       <Table variant="simple"
-            mt="0"
             ml = {100}
             mt ={2}
             width="1350px"

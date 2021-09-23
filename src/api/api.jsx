@@ -14,6 +14,7 @@ export const getRequest = async (url, body) => {
 export const postRequest = async (url, data) => {
   try {
     let response = await axios.post(url, data);
+    console.log(response);
     return {...response.data, success: true};
   } catch (error) {
     return {...error, success: false};
