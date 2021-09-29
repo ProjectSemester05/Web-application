@@ -6,7 +6,30 @@ const instance = axios.create({
     baseURL: BASE_API
 });
 
-const token = localStorage.getItem('token');
+
+export const getAuthValues = (type) => {
+
+    let keys = Object.keys(localStorage)
+    let result = ""
+    keys.forEach((key) =>{
+      if(key.includes("idToken") && type=="idToken"){
+        result =localStorage.getItem(key)
+      }
+      else if(key.includes("LastAuthUser") && type=="userID"){
+        result =localStorage.getItem(key)
+      }
+    })
+    return result;
+} 
+
+
+const token = getAuthValues("idToken");
 if (token) instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+
+export const getHeaderToken = () => {
+    let token = getAuthValues("idToken");
+    return {headers: { Authorization: `Bearer ${token}` }}
+};
 
 export default instance;

@@ -1,8 +1,8 @@
 import {postRequest, getRequest} from "./api";
+import { getAuthValues } from "./axios";
 
 const URL = "catalogue"
 
-export const createCatalogue = (data) => postRequest(`${URL}/new`,{...data, UserID: "02647873-2583-44df-99b0-29d3ec736370"})
+export const createCatalogue = (data) => postRequest(`${URL}/new`,{...data, UserID:getAuthValues("userID") })
 
-export const getCatalogues = () => getRequest(`${URL}/02647873-2583-44df-99b0-29d3ec736370` )
-
+export const getCatalogues = () => getRequest(`${URL}-by-user/${getAuthValues("userID")}` )

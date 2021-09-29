@@ -1,8 +1,9 @@
 import axios from "./axios";
+import {getHeaderToken} from "./axios"
 
 export const getRequest = async (url, body) => {
   try {
-    let response = body ? await axios.get(url, body) : await axios.get(url);
+    let response = body ? await axios.get(url, body,getHeaderToken()) : await axios.get(url,{},getHeaderToken());
         return {...response.data, success: true};
 
   } catch (error) {
@@ -13,7 +14,7 @@ export const getRequest = async (url, body) => {
 
 export const postRequest = async (url, data) => {
   try {
-    let response = await axios.post(url, data);
+    let response = await axios.post(url, data,getHeaderToken());
     console.log(response);
     return {...response.data, success: true};
   } catch (error) {
@@ -23,7 +24,7 @@ export const postRequest = async (url, data) => {
 
 export const putRequest = async (url, data) => {
   try {
-    let response = await axios.put(url, data);
+    let response = await axios.put(url, data,getHeaderToken());
         return {...response.data, success: true};
 
   } catch (error) {
@@ -33,7 +34,7 @@ export const putRequest = async (url, data) => {
 
 export const deleteRequest = async (url) => {
   try {
-    let response = await axios.delete(url);
+    let response = await axios.delete(url,{},getHeaderToken());
         return {...response.data, success: true};
 
   } catch (error) {

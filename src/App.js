@@ -13,7 +13,7 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route component={CataloguePage} path="/catalogues" exact />
-            <Route component={HomePage} path="/home" exact />
+            <Route component={HomePage} path="/home/:params?"  />
             <Route component={LandingPage} path="/" />
           </Switch>
         </BrowserRouter>

@@ -1,3 +1,3 @@
-export const BASE_API = "https://heitt4m2fe.execute-api.us-east-1.amazonaws.com/dev/"
+export const BASE_API = "https://wuaatihexl.execute-api.us-east-1.amazonaws.com/dev/"
 
 

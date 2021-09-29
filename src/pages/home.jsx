@@ -1,5 +1,5 @@
-import { React, useEffect, useState } from "react";
-import { Box, Text, Flex, Grid } from "@chakra-ui/react";
+import { React, useState, useEffect } from "react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import Footer from "../components/footer";
 import Header from "../components/header";
@@ -8,30 +8,106 @@ import CatalogueCard from "../components/cards/catalogue";
 import UserProfile from "../components/cards/profile";
 import SearchBar from "../components/forms/search";
 import NewCatalogueCard from "../components/cards/new_catalogue";
-import "../style/slider.css";
 import { getCatalogues } from "../api/catalogue";
+import { getReminders } from "../api/reminders";
+import Slider from "../containers/slider";
+import { getUser } from "../utils/amplifyConf";
 
 const HomePage = () => {
+  const [reminders, setReminders] = useState([]);
   const [catalogues, setCatalogues] = useState([]);
+  const [user, setUser] = useState({});
+  const components = [
+    <RecentItem
+      name="Paint Bucket"
+      catalogue="Garage Items"
+      date="Sept 18"
+      img="/assets/images/paint.png"
+    />,
+    <RecentItem
+      name="Paint Bucket"
+      catalogue="Garage Items"
+      date="Sept 18"
+      img="/assets/images/paint.png"
+    />,
+    <RecentItem
+      name="Paint Bucket"
+      catalogue="Garage Items"
+      date="Sept 18"
+      img="/assets/images/paint.png"
+    />,
+    <RecentItem
+      name="Motor oil"
+      catalogue="Garage Items"
+      date="Sept 23"
+      img="/assets/images/motor_oil.jpg"
+    />,
+
+    <RecentItem
+      name="Battery"
+      catalogue="Garage Items"
+      date="Nov 18"
+      img="/assets/images/battery.png"
+    />,
+    <RecentItem
+      name="CS Assignment"
+      catalogue="Assignment"
+      date="Oct 21"
+      img="/assets/images/cs_assignment.png"
+    />,
+    <RecentItem
+      name="Da Vincis Daemons"
+      catalogue="Books"
+      date="June 06"
+      img="/assets/images/book.jpg"
+    />,
+  ];
 
   useEffect(() => {
-
     let result = {};
 
     async function fetchCatalogues() {
       result = await getCatalogues();
-      console.log(result);
+      if (result.success) {
+        setCatalogues(result.Items);
+        console.log(result.Items);
+      }
     }
     fetchCatalogues();
-    setCatalogues(result);
-  }, [catalogues]);
+  }, []);
+
+  useEffect(() => {
+    let result = {};
+
+    async function fetchUser() {
+      result = await getUser();
+
+      if (result.success && result.result) {
+        if (result.result.hasOwnProperty("attributes")) {
+          setUser(result.result.attributes);
+        }
+      }
+    }
+    fetchUser();
+  }, []);
+
+  // useEffect(() => {
+  //   let result = {};
+
+  //   async function fetchReminders() {
+  //     result = await getReminders();
+  //     console.log(result);
+  //     setReminders(result.Items);
+  //   }
+  //   fetchReminders();
+  // }, []);
 
   return (
     <Flex flexDirection="column">
-      <Header />
+      <Header signed={true}/>
       <Flex width="full" py={5}>
         <Flex width="full" px="3">
-          <UserProfile flex="1" />
+          <UserProfile flex="1" name={user.name} />
           <Box flex="2" mx="2" overflowX="hidden" ml={["0", "100px"]} px="2">
             <Box>
               <SearchBar w="full" />
@@ -39,62 +115,7 @@ const HomePage = () => {
             <Text fontSize="24px" mt="4" mb="20px">
               Recent Deadlines
             </Text>
-            <Box overflow="hidden">
-              <Grid
-                w="100%"
-                templateColumns="repeat(auto-fill,200px)"
-                gridAutoColumns="minmax(200px, 1fr))"
-                gridAutoFlow="column"
-                padding="5px"
-                gap={"16px"}
-                overflowX="scroll"
-                className="no-scrollbar"
-              >
-                <RecentItem
-                  name="Paint Bucket"
-                  catalogue="Garage Items"
-                  date="Sept 18"
-                  img="/assets/images/paint.png"
-                />
-                <RecentItem
-                  name="Paint Bucket"
-                  catalogue="Garage Items"
-                  date="Sept 18"
-                  img="/assets/images/paint.png"
-                />
-                <RecentItem
-                  name="Paint Bucket"
-                  catalogue="Garage Items"
-                  date="Sept 18"
-                  img="/assets/images/paint.png"
-                />
-                <RecentItem
-                  name="Motor oil"
-                  catalogue="Garage Items"
-                  date="Sept 23"
-                  img="/assets/images/motor_oil.jpg"
-                />
-
-                <RecentItem
-                  name="Battery"
-                  catalogue="Garage Items"
-                  date="Nov 18"
-                  img="/assets/images/battery.png"
-                />
-                <RecentItem
-                  name="CS Assignment"
-                  catalogue="Assignment"
-                  date="Oct 21"
-                  img="/assets/images/cs_assignment.png"
-                />
-                <RecentItem
-                  name="Da Vincis Daemons"
-                  catalogue="Books"
-                  date="June 06"
-                  img="/assets/images/book.jpg"
-                />
-              </Grid>
-            </Box>
+            <Slider components={components} cardGap={"200px"} />
           </Box>
         </Flex>
       </Flex>
@@ -105,28 +126,19 @@ const HomePage = () => {
         <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
 
         <Flex
-          justifyContent={["center", "space-between"]}
+          justifyContent={["center", "flex-start"]}
           flexDirection={["column", "row"]}
         >
           <NewCatalogueCard />
-          <CatalogueCard
-            name="Kitchen Items"
-            iCount="21"
-            cCount="6"
-            img="/assets/images/kitchen_items.png"
-          />
-          <CatalogueCard
-            name="Book Collection"
-            iCount="21"
-            cCount="6"
-            img="/assets/images/book_collection.png"
-          />
-          <CatalogueCard
-            name="Book Collection"
-            iCount="21"
-            cCount="6"
-            img="/assets/images/book_collection.png"
-          />
+          {catalogues.map((catalogue) => (
+            <CatalogueCard
+              name={catalogue.CatalogueName}
+              iCount="21"
+              cCount="6"
+              img="/assets/images/kitchen_items.png"
+              uuid={catalogue.UUID}
+            />
+          ))}
         </Flex>
       </Flex>
       <Footer />

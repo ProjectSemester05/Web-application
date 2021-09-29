@@ -3,7 +3,7 @@ import { Box, Text, Flex, Image, Stack } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import "../../style/animation.css"
 
-const CatalogueCard = ({ name, iCount, cCount, img }) => {
+const CatalogueCard = ({ name, iCount, cCount, img, uuid }) => {
   const history = useHistory();
   return (
     <Flex
@@ -13,6 +13,7 @@ const CatalogueCard = ({ name, iCount, cCount, img }) => {
       height={["160px", "200px"]}
       color="white"
       mb="0"
+      mx="20px"
       flexDirection="column"
       p={3}
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
@@ -20,7 +21,7 @@ const CatalogueCard = ({ name, iCount, cCount, img }) => {
       cursor="pointer"
       className = "inflate"
       onClick={() => {
-        history.push("/catalogues");
+        history.push("/catalogues",{uuid:uuid});
       }}
     >
       <Flex justifyContent="space-around">

@@ -8,7 +8,10 @@ import "../style/landing.css";
 import LoginArea from "../components/forms/login";
 
 const LandingPage = () => {
+  
+  
   const [signUpActive, setSignUpActive] = useState(true);
+  
   const toggleForm = (form) => {
     let active = true;
     let activeBtn = "signup-button";
@@ -26,7 +29,7 @@ const LandingPage = () => {
   return (
     <Flex flexDirection="column" background="#EEEEEE" id="amazon-root">
       <Flex>
-        <Header />
+        <Header signed={false} />
       </Flex>
       <Flex mb="3">
         <Box flex={["0", "0", "2"]} display={["none", "block"]}>
