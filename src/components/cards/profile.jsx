@@ -1,7 +1,7 @@
 import { React } from "react";
 import { Box, Text, Flex, Image, Stack } from "@chakra-ui/react";
 
-const UserProfile = ({name}) => {
+const UserProfile = () => {
   return (
     <Flex
       width="280px"
@@ -24,7 +24,7 @@ const UserProfile = ({name}) => {
       <Box>
         <Box textAlign="center" mt="3">
           <Text fontWeight="bold" fontSize="20px">
-            {name}
+            John Snow
           </Text>
           <Flex justifyContent="space-around" mt="4">
             <Stack>

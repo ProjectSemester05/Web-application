@@ -13,17 +13,18 @@ import {
 } from "@chakra-ui/react";
 import { IoAddCircleOutline } from "react-icons/io5";
 import NewCatalogueForm from "../forms/new_catalogue_form";
-import "../../style/animation.css";
+import "../../style/animation.css"
 
-const NewCatalogueCard = ({addCatalogue, pUUID}) => {
+const NewCatalogueCard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Flex
+        width="full"
         mt="0"
         backgroundColor="#E1DEF1"
-        width={["100%", "350px"]}
+        width={["80%", "350px"]}
         height={["160px", "200px"]}
         color="white"
         mb="0"
@@ -38,19 +39,14 @@ const NewCatalogueCard = ({addCatalogue, pUUID}) => {
         <Box>
           <Flex justifyContent="space-around">
             <Box>
-              <Text
-                fontWeight="bold"
-                fontSize={["20px", "25px"]}
-                color="black"
-                mt={3}
-              >
+              <Text fontWeight="bold" fontSize={["20px", "25px"]} color="black" mt={3}>
                 New Catalogue
               </Text>
             </Box>
             <Box mt={3}>
               <IoAddCircleOutline fontSize={["47px"]} color="#757171" />
             </Box>
-          </Flex>
+          </Flex> 
         </Box>
         <Box
           marginTop="8px"
@@ -62,11 +58,7 @@ const NewCatalogueCard = ({addCatalogue, pUUID}) => {
         <Box>
           <Flex justifyContent="space-around">
             <Box>
-              <Text
-                color="#757171"
-                marginTop={["10px", "25px"]}
-                fontSize="17px"
-              >
+              <Text color="#757171" marginTop={["10px","25px"]} fontSize="17px">
                 Create your own Catalogue!!!
               </Text>
             </Box>
@@ -74,15 +66,15 @@ const NewCatalogueCard = ({addCatalogue, pUUID}) => {
         </Box>
       </Flex>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="3xl" maxW="100vw">
+      <Modal isOpen={isOpen} onClose={onClose} size="3xl">
         <ModalOverlay />
-        <ModalContent mx="15px">
+        <ModalContent w="full">
           <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">
             New Catalogue
           </ModalHeader>
           <ModalCloseButton color="white" />
           <ModalBody>
-            <NewCatalogueForm onClose={onClose} add={true} func={addCatalogue} pUUID={pUUID}/>
+            <NewCatalogueForm onClose={onClose} />
           </ModalBody>
         </ModalContent>
       </Modal>

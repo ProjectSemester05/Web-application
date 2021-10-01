@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import {
   Box,
   Button,
@@ -10,94 +10,37 @@ import {
   FormErrorMessage,
   Flex,
   useToast,
-  Image,
-  IconButton
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { createCatalogue, deleteCatalogue, updateCatalogue } from "../../api/catalogue";
-import {uploadImage} from "../../utils/s3FileUpload"
-import { RiImageAddLine } from "react-icons/ri";
+import { createCatalogue } from "../../api/catalogue";
 
-const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parentCatalogue, pUUID, img }) => {
-  let initialValues = add ? {
-          CatalogueName: "",
-        }: catalogue
-
-  const [image, setImage] = useState(img ? img: "/assets/images/default-catalogue.jpg")
-  const [blobImg, setBlobImg] = useState({})
-  const onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
-      setBlobImg({"file": event.target.files[0]})
-    }
-  }
-
-  const deleteC = async () => {
-    let result = await deleteCatalogue(uuid) 
-    if (result.success) {
-      toast({
-        title: "Success",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-      deleteFunc(uuid)
-      onClose();
-
-    } else {
-      toast({
-        title: "Error during deletion.",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-    }
-  }
-
+const NewCatalogueForm = ({ onClose }) => {
   const toast = useToast();
   return (
     <Box my={8} textAlign="center">
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          catalogueName: "",
+        }}
         validationSchema={Yup.object({
-          CatalogueName: Yup.string()
+          catalogueName: Yup.string()
             .max(50)
             .required("Catalogue Name Required"),
         })}
         onSubmit={async (values) => {
-          let result = {success: false};
-          
-          if(blobImg.hasOwnProperty("file")){
-              result = await uploadImage(blobImg.file)
-              if(result.success){
-                values.ImageUrl = result.result.location
-              }
-          }
-
-          if(pUUID){
-              values.ParentCatalogueUUID = pUUID
-          }
-
-          if(add){
-            
-            result = await createCatalogue(values);
-          }
-          else{
-            result = await updateCatalogue(values);
-          }
+          console.log(values);
+          let result = await createCatalogue(values);
           if (result.success) {
             toast({
-              title: "Success",
+              title: "Catalogue created",
               status: "success",
               duration: 9000,
               isClosable: true,
             });
-            func(result.newCatalogue)
-            onClose();
           } else {
             toast({
-              title: "Error",
+              title: "Error during creation.",
               status: "error",
               duration: 9000,
               isClosable: true,
@@ -108,14 +51,10 @@ const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, par
         {(props) => (
           <Box>
             <Text fontSize="16px" color="tomato"></Text>
-            <Box position="relative">
-            <Image  src={image}  height={["120px", "150px"]} w={["120px", "150px"]} borderRadius="50%" mx="auto"/>
-            {/* <IconButton position="absolute" aria-label="Add Image" icon={<RiImageAddLine />} /> */}
-            </Box>
             <Stack isInline justifyContent="space-between" mt={4} mb={6}>
               <FormControl
                 isInvalid={
-                  props.errors.CatalogueName && props.touched.CatalogueName
+                  props.errors.catalogueName && props.touched.catalogueName
                 }
                 mr={2}
               >
@@ -123,25 +62,23 @@ const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, par
                 <Input
                   type="catalogueName"
                   variant="flushed"
-                  name="CatalogueName"
-                  value={props.initialValues.CatalogueName}
-                  {...props.getFieldProps("CatalogueName")}
+                  name="catalogueName"
+                  value={props.initialValues.catalogueName}
+                  {...props.getFieldProps("catalogueName")}
                 />
                 <FormErrorMessage>
-                  {props.errors.CatalogueName}
+                  {props.errors.catalogueName}
                 </FormErrorMessage>
               </FormControl>
             </Stack>
             <FormControl mr={2}>
-              <FormLabel >Upload Image</FormLabel>
+              <FormLabel for="upload-image">Upload Image</FormLabel>
               <Input
                 id="upload-image"
                 variant="flushed"
                 type="file"
                 name="img"
                 accept="image/png, image/gif, image/jpeg"
-                onChange={onImageChange}
-
               />
             </FormControl>
             <Flex justifyContent="flex-end">
@@ -154,11 +91,10 @@ const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, par
                 mt={4}
                 mr="2"
               >
-                Submit
+                Add
               </Button>
-              { !add && (
-                <Button
-                onClick={deleteC}
+              <Button
+                onClick={onClose}
                 backgroundColor="#C04040"
                 opacity="0.7"
                 width="100px"
@@ -167,10 +103,8 @@ const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, par
                 ml="2"
                 color="white"
               >
-                <Text>Delete</Text>
+                <Text>Cancel</Text>
               </Button>
-              )}
-              
             </Flex>
           </Box>
         )}

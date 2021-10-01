@@ -7,8 +7,6 @@
 
 # testing
 /coverage
-/cypress/videos
-/cypress/screenshots
 
 # production
 /build
@@ -45,5 +43,3 @@ amplifytools.xcconfig
 .secret-*
 **.sample
 #amplify-do-not-edit-end
-
-.env
