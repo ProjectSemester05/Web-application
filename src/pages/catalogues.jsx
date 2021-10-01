@@ -12,58 +12,73 @@ import Slider from "../containers/slider";
 import ItemContainer from "../containers/items_container";
 import { useLocation } from 'react-router-dom';
 import { getItems } from "../api/item";
+import { getChildrenCatalogues} from "../api/catalogue"
+import NewCatalogueCard from "../components/cards/new_catalogue";
 
-const CataloguePage = ({name}) => {
+const CataloguePage = () => {
   const location = useLocation();
-	const {uuid} = location.state;
+	const {uuid, catalogueName} = location.state;
   const [items, setItems] = useState([])
+  const [childrenCatalogue, setChildrenCatalogue] = useState([])
+  const addChildrenCatalogue = (catalogue) => {
+    setChildrenCatalogue([...childrenCatalogue,
+    <CatalogueCard
+           name={catalogue.CatalogueName}
+          iCount="21"
+          cCount="6"
+          img="/assets/images/kitchen_items.png"
+        />
+    ])
+  } 
+  
 
-  console.log(location.state);
-  console.log(uuid);
+  const addItem = (item) => {
+    setItems([...items,item])
+  } 
+  const deleteItem = (uuid) => {
+    let newItems = items.filter(item => item.UUID !== uuid)
+    setItems(newItems)
+  }
+
   const components = [
-    <CatalogueCard
-      name="Kitchen Items"
-      iCount="21"
-      cCount="6"
-      img="/assets/images/kitchen_items.png"
-    />,
-    <CatalogueCard
-      name="Kitchen Items"
-      iCount="21"
-      cCount="6"
-      img="/assets/images/kitchen_items.png"
-    />,
-    <CatalogueCard
-      name="Book Collection"
-      iCount="21"
-      cCount="6"
-      img="/assets/images/book_collection.png"
-    />,
-    <CatalogueCard
-      name="Necessary Tools"
-      iCount="21"
-      cCount="6"
-      img="/assets/images/book_collection.png"
-    />,
   ];
 
   useEffect(() => {
     let result = {};
-
     async function fetchItems() {
       result = await getItems(uuid);
+
       setItems(result.Items);
-      console.log(result.items)
     }
     fetchItems();
   }, []);
+
+  useEffect(() => {
+    let result = {};
+
+    async function fetchChildrenCatalogues() {
+      result = await getChildrenCatalogues(uuid);
+      console.log(result);
+      let newChildren = result.Items.map((cat) => (
+        <CatalogueCard
+           name={cat.CatalogueName}
+          iCount="21"
+          cCount="6"
+          img="/assets/images/kitchen_items.png"
+        />
+      ))
+      setChildrenCatalogue([newChildren]);
+    }
+    fetchChildrenCatalogues();
+  }, []);
+
   return (
     <Flex flexDirection="column" position="relative">
       <Flex>
         <Header signed={true}/>
       </Flex>
       <Heading m={5} isTruncated>
-        Kitchen Items
+        {catalogueName}
       </Heading>
       {/* <Divider /> */}
       <Box backgroundColor="#000000" mb="6" border="1px solid #000000" />
@@ -74,7 +89,8 @@ const CataloguePage = ({name}) => {
       </Text>
 
       <Flex width="full" flexDirection="column" p="20px">
-        <Slider components={components} cardGap={"350px"}/>
+            
+        <Slider components={[<NewCatalogueCard addCatalogue={addChildrenCatalogue} pUUID={uuid}/>, ...childrenCatalogue]} cardGap={"350px"}/>
       </Flex>
 
       <Box backgroundColor="#000000" mb="6" border="1px solid #000000" />
@@ -83,9 +99,9 @@ const CataloguePage = ({name}) => {
         <CheckCircleIcon w={5} h={5} mr={5} mb={1} />
         Items
       </Text>
-      <AddItemPopup uuid={uuid}/>
+      <AddItemPopup uuid={uuid} func={addItem}/>
 
-      <ItemContainer/>
+      <ItemContainer items={items} func={deleteItem}/>
       <Flex mt="auto">
         <Footer minHeight="20px" />
       </Flex>

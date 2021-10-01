@@ -11,3 +11,9 @@ export const config = {
 };
 
 
+export const s3Config = {
+    bucketName: process.env.REACT_APP_BUCKET_NAME,
+    region: process.env.REACT_APP_S3_REGION,
+    accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
+}

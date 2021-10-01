@@ -15,7 +15,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import NewCatalogueForm from "../forms/new_catalogue_form";
 import "../../style/animation.css";
 
-const NewCatalogueCard = () => {
+const NewCatalogueCard = ({addCatalogue, pUUID}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -82,7 +82,7 @@ const NewCatalogueCard = () => {
           </ModalHeader>
           <ModalCloseButton color="white" />
           <ModalBody>
-            <NewCatalogueForm onClose={onClose} />
+            <NewCatalogueForm onClose={onClose} add={true} func={addCatalogue} pUUID={pUUID}/>
           </ModalBody>
         </ModalContent>
       </Modal>

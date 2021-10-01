@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Box, Text, Flex } from "@chakra-ui/react";
-import "@fontsource/montserrat";
+import { Box, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import RecentItem from "../components/cards/recent";
@@ -24,18 +23,7 @@ const HomePage = () => {
       date="Sept 18"
       img="/assets/images/paint.png"
     />,
-    <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
-    <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
+   
     <RecentItem
       name="Motor oil"
       catalogue="Garage Items"
@@ -61,7 +49,27 @@ const HomePage = () => {
       date="June 06"
       img="/assets/images/book.jpg"
     />,
+     <RecentItem
+      name="Paint Bucket"
+      catalogue="Garage Items"
+      date="Sept 18"
+      img="/assets/images/paint.png"
+    />,
+    <RecentItem
+      name="Paint Bucket"
+      catalogue="Garage Items"
+      date="Sept 18"
+      img="/assets/images/paint.png"
+    />,
   ];
+
+  const addCatalogue = (catalogue) => {
+    setCatalogues([...catalogues,catalogue])
+  } 
+  const deleteCatalogue = (uuid) => {
+    let newCatalogues = catalogues.filter(item => item.UUID !== uuid)
+    setCatalogues(newCatalogues)
+  }
 
   useEffect(() => {
     let result = {};
@@ -81,7 +89,7 @@ const HomePage = () => {
 
     async function fetchUser() {
       result = await getUser();
-
+      console.log(result);
       if (result.success && result.result) {
         if (result.result.hasOwnProperty("attributes")) {
           setUser(result.result.attributes);
@@ -91,16 +99,26 @@ const HomePage = () => {
     fetchUser();
   }, []);
 
-  // useEffect(() => {
-  //   let result = {};
+  useEffect(() => {
+    let result = {};
 
-  //   async function fetchReminders() {
-  //     result = await getReminders();
-  //     console.log(result);
-  //     setReminders(result.Items);
-  //   }
-  //   fetchReminders();
-  // }, []);
+    async function fetchReminders() {
+      result = await getReminders();
+      console.log(result);
+      if(result.Reminders){
+      let components = result.Reminders.map(item =>
+          <RecentItem
+            name="Paint Bucket"
+            catalogue="Garage Items"
+            date="Sept 18"
+            img="/assets/images/paint.png"
+          /> 
+      )
+      setReminders(components);
+      }
+    }
+    fetchReminders();
+  }, []);
 
   return (
     <Flex flexDirection="column">
@@ -125,21 +143,24 @@ const HomePage = () => {
         </Text>
         <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
 
-        <Flex
-          justifyContent={["center", "flex-start"]}
-          flexDirection={["column", "row"]}
-        >
-          <NewCatalogueCard />
+      
+        <Grid templateColumns="repeat(4, 350px)" gap={4}>
+          <GridItem>
+            <NewCatalogueCard addCatalogue={addCatalogue}/>
+          </GridItem>
           {catalogues.map((catalogue) => (
+            <GridItem>
             <CatalogueCard
               name={catalogue.CatalogueName}
               iCount="21"
               cCount="6"
-              img="/assets/images/kitchen_items.png"
+              img={catalogue.ImageUrl}
               uuid={catalogue.UUID}
+              deleteCatalogue ={deleteCatalogue}
             />
+            </GridItem>
           ))}
-        </Flex>
+        </Grid>
       </Flex>
       <Footer />
     </Flex>

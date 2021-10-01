@@ -8,39 +8,32 @@ import {
   ModalCloseButton,
   React,
   Button,
-  Box,
   useDisclosure,
+  FormControl,
+  FormLabel,
+  Input,
+  Textarea,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import AddItemForm from "./forms/additem";
+import { EditIcon } from "@chakra-ui/icons";
+import { useState } from "react";
+import AddItemForm from "./additem"
 
-function AddItemPopup({uuid, func}) {
+function EditItem({item}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
-      <Box
-        as="button"
-        onClick={onOpen}
-        borderRadius="md"
-        bg="blue"
-        color="white"
-        mr={1200}
-        ml={100}
-        h={8}
-      >
-        <AddIcon w={3} h={3} mr={5} mb={1} />
-        Add New Item
-      </Box>
+      <Button background="blackAlpha" onClick={onOpen}>
+        <EditIcon />
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">
-              Add Item
+              Edit Item
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <AddItemForm onClose={onClose} uuid={uuid} add={true} func={func}/>
+            <AddItemForm add={false} item={item} onClose={onClose}/>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -48,4 +41,4 @@ function AddItemPopup({uuid, func}) {
   );
 }
 
-export default AddItemPopup;
+export default EditItem;

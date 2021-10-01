@@ -1,6 +1,5 @@
 import { React } from "react";
-import { Box, Text, Flex, Image, IconButton } from "@chakra-ui/react";
-import SearchBar from "./forms/search";
+import { Box, Flex, Image, IconButton } from "@chakra-ui/react";
 import { CgLogOut } from "react-icons/cg";
 import {signOut} from "../utils/amplifyConf";
 import { useHistory } from "react-router-dom";

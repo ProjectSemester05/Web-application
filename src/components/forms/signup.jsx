@@ -25,7 +25,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import "@fontsource/montserrat";
 import "../../style/landing.css";
-import { useHistory } from "react-router-dom";
 import { signUp, lwaSignUp } from "../../utils/amplifyConf";
 import ValidationForm from "./verification";
 

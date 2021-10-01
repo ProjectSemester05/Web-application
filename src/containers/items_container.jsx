@@ -2,7 +2,7 @@ import { React } from "react";
 import { Table, Thead, Tbody, Tr, Th, TableCaption } from "@chakra-ui/react";
 import ItemBox from "../components/cards/itembox";
 
-const ItemContainer = () => {
+const ItemContainer = ({items, func}) => {
   return (
     <Table
       variant="simple"
@@ -30,48 +30,18 @@ const ItemContainer = () => {
       </Thead>
 
       <Tbody>
+        {items.map(({UUID,ItemName, Description}) => 
         <ItemBox
-          name="Kettle"
-          description="Newly bought electric kettle"
+          UUID = {UUID}
+          ItemName= {ItemName}
+          Description={Description}
           img="/assets/images/paint.png"
           reminder="2021-09-21"
+          func  = {func}
         />
-        <ItemBox
-          name="Mug"
-          description="Mug with the red handle"
-          img="/assets/images/paint.png"
-          reminder="21/09/2021"
-        />
-        <ItemBox
-          name="Beater"
-          description="No description included"
-          img="/assets/images/paint.png"
-          reminder="none"
-        />
-        <ItemBox
-          name="Fork"
-          description="No description included"
-          img="/assets/images/paint.png"
-          reminder="none"
-        />
-        <ItemBox
-          name="Tea Bag"
-          description="No description included"
-          img="/assets/images/paint.png"
-          reminder="none"
-        />
-        <ItemBox
-          name="Grinder"
-          description="No description included"
-          img="/assets/images/paint.png"
-          reminder="none"
-        />
-        <ItemBox
-          name="Blender"
-          description="No description included"
-          img="/assets/images/paint.png"
-          reminder="none"
-        />
+        )}
+        
+       
       </Tbody>
     </Table>
   );
