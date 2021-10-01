@@ -14,13 +14,23 @@ import {
   InputGroup,
   InputRightElement,
   FormErrorMessage,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
 } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useHistory } from 'react-router-dom';
-
-const VARIANT_COLOR = "teal";
+import { useHistory } from "react-router-dom";
+import { auth } from "../../redux/actions/userActions";
+import { signIn, lwaSignUp } from "../../utils/amplifyConf";
+import ForgottenPasswordForm from "./forgotPassword";
 
 const LoginArea = () => {
   return (
@@ -41,6 +51,7 @@ const LoginArea = () => {
       >
         <LoginForm />
       </Box>
+      <script type="text/javascript"></script>
     </Flex>
   );
 };
@@ -48,18 +59,12 @@ const LoginArea = () => {
 const LoginForm = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
-	const history = useHistory();
-
-  // const loginAmazon = () => {
-  //     let options = {}
-  //     options.scope = 'profile';
-  //     options.scope_data = {
-  //         'profile' : {'essential': false}
-  //     };
-  //     amazon.Login.authorize(options,
-  //         'https://www.example.com/handle_login.php');
-  //     return false;
-  // }
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const AmazonSignIn = async () => {
+    let result = await lwaSignUp();
+  };
 
   return (
     <Box my={8} textAlign="center">
@@ -75,10 +80,13 @@ const LoginForm = () => {
             .required("Required"),
           password: Yup.string().required("Required"),
         })}
-        onSubmit={(values) => {
-          //					onAuth(values.email, values.password, onLogin);
-          console.log(values);
-          history.push("/home")
+        onSubmit={async (values) => {
+          let result = await signIn(values.email, values.password);
+          if (result.success) {
+            dispatch(auth());
+
+            history.push("/home");
+          }
         }}
       >
         {(props) => (
@@ -94,7 +102,6 @@ const LoginForm = () => {
                   type="email"
                   name="email"
                   variant="flushed"
-
                   value={props.initialValues.email}
                   {...props.getFieldProps("email")}
                   borderColor="black"
@@ -138,36 +145,43 @@ const LoginForm = () => {
                 <Checkbox>Remember Me</Checkbox>
               </Box>
               <Box>
-                <Link href="#">
-                  Forget Your Password?
-                </Link>
+                <Link onClick={onOpen}>Forget Your Password?</Link>
               </Box>
             </Stack>
             <Button
               onClick={props.submitForm}
               backgroundColor="#0F4C75"
+              _hover ={{bg:"#0F4CAE"}}
               width="full"
               color="white"
               mt={4}
-              loadingText="Signinig in"
+              variant="solid"
             >
               Login
-            </Button>
-            <Button
-              //onClick={loginAmazon}
-              backgroundColor="0F4C75"
-              width="full"
-              mt={4}
-              loadingText="Signing in"
-              border="1px"
-              id="LoginWithAmazon"
-
-            >
-              <Text>Log in with Amazon</Text>
             </Button>
           </Box>
         )}
       </Formik>
+      <Button
+        onClick={AmazonSignIn}
+        backgroundColor="0F4C75"
+        width="full"
+        mt={4}
+        border="1px"
+      >
+        <Text>Log In with Amazon</Text>
+      </Button>
+      
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Reset Password</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+                    <ForgottenPasswordForm onClose={onClose}/>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

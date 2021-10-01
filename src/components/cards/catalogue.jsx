@@ -1,16 +1,28 @@
 import { React } from "react";
-import { Box, Text, Flex, Image, Stack } from "@chakra-ui/react";
+import { Box, Text, Flex, Image, Stack, Button,  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,useDisclosure } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import "../../style/animation.css"
+import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import NewCatalogueForm from "../forms/new_catalogue_form"
 
-const CatalogueCard = ({ name, iCount, cCount, img }) => {
+
+const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
+  let catalogue={CatalogueName: name}
   return (
+    <>
+
     <Flex
-      width="full"
-      mt={["10px", "0"]}
+      mt={["20px", "0"]}
       backgroundColor="#E1DEF1"
-      width={["80%", "350px"]}
+      width={["100%", "350px"]}
       height={["160px", "200px"]}
       color="white"
       mb="0"
@@ -20,11 +32,12 @@ const CatalogueCard = ({ name, iCount, cCount, img }) => {
       borderRadius="22px"
       cursor="pointer"
       className = "inflate"
-      onClick={() => {
-        history.push("/catalogues");
-      }}
+      
     >
-      <Flex justifyContent="space-around">
+    <Flex flexDirection="column">
+      <Flex justifyContent="space-around" onClick={() => {
+        history.push("/catalogues",{uuid:uuid, catalogueName: name});
+      }}>
         <Box>
           <Text
             fontWeight="bold"
@@ -38,10 +51,10 @@ const CatalogueCard = ({ name, iCount, cCount, img }) => {
           <Box height="1.5px" background="black"></Box>
         </Box>
         <Box>
-          <Image src={img} height={["75px", "100px"]} w="auto" />
+          <Image src={img? img: "/assets/images/default-catalogue.jpg"} height={["75px", "100px"]} w="auto" borderRadius="full"/>
         </Box>
       </Flex>
-      <Flex justifyContent="space-around" mt={["5px", "0"]}>
+      <Flex justifyContent="space-around" mt={["5px", "5px"]}>
         <Stack isInline>
           <Text fontWeight="bold" color="black">
             {iCount}
@@ -55,7 +68,28 @@ const CatalogueCard = ({ name, iCount, cCount, img }) => {
           <Text color="#757171">Sub Catalogues</Text>
         </Stack>
       </Flex>
+      </Flex>
+      <Flex mt="3" justifyContent="flex-end">
+          <Button background="blackAlpha" fontSize="22px" onClick={onOpen} mr="2">
+            <EditIcon color="black"/>
+          </Button>
+      </Flex>
+
     </Flex>
+    
+    <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">
+              Edit Catalogue
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <NewCatalogueForm add={false} onClose={onClose} catalogue={catalogue} uuid={uuid} deleteFunc={deleteCatalogue} img={img}/>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </> 
   );
 };
 
