@@ -1,45 +1,22 @@
 /// <reference types="cypress"/>
 
-describe("Login tests", () => {
+describe("Create Catalogue tests", () => {
     
-    // beforeEach(()=>{
-    //     cy.visit("/home")
-    // })
-
     beforeEach(()=>{
         cy.visit("/")
     })
-    it("should login", () =>{
 
-        cy.get("input[name='CatalogueName']").type("Heavy Items")
+    
+    it("User should be able to login", () =>{
+        cy.contains('LogIn').click()
 
-        cy.contains("LogIn").click()
-        
-        // cy.get("input[name='email']").type("poorna2152@gmail.com")
+        cy.get("input[name='email']").type("lalanigunathilaka22@gmail.com")
+        cy.get("input[name='password']").type("hsiadiaY890jds_")
 
-        // cy.get("input[name='password']").type("")
-
-        cy.contain("Log In with Amazon").click()
-
-
-        cy.intercept("POST", "https://v86cz5q48g.execute-api.us-east-1.amazonaws.com/dev/catalogue/new",{
-            fixture: "catalogue.json"
-        })
-        cy
-        .contains("Heavy Items")
+        cy.get("#login-normal").click()
+        cy.wait(1)
+        .contains("New Catalogue")
         .should('be.visible')
     } )
     
-    it("should delete a catalogue with mock http", () =>{
-        
-        cy.contains('Heavy Items').click()
-
-        cy.get("button", "delete").click()
-
-        cy.intercept("DELETE", "https://v86cz5q48g.execute-api.us-east-1.amazonaws.com/dev/catalogue/",{
-        })
-        cy
-        .contains("Heavy Items")
-        .should('not be.visible')
-    } )
 })

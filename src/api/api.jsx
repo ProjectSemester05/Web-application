@@ -7,7 +7,6 @@ export const getRequest = async (url, body) => {
         return {...response.data, success: true};
 
   } catch (error) {
-    console.log("Inside the error");
     return {...error, success: false};
   }
 };
@@ -15,7 +14,6 @@ export const getRequest = async (url, body) => {
 export const postRequest = async (url, data) => {
   try {
     let response = await axios.post(url, data,getHeaderToken());
-    console.log(response);
     return {...response.data, success: true};
   } catch (error) {
     return {...error, success: false};
@@ -35,7 +33,6 @@ export const putRequest = async (url, data) => {
 export const deleteRequest = async (url) => {
   try {
     let response = await axios.delete(url,{},getHeaderToken());
-    console.log(response);
     return {...response.data, success: true};
 
   } catch (error) {

@@ -30,12 +30,12 @@ const ItemContainer = ({items, func}) => {
       </Thead>
 
       <Tbody>
-        {items.map(({UUID,ItemName, Description}) => 
+        {items.map(({UUID,ItemName, Description, ImageUrl}) => 
         <ItemBox
           UUID = {UUID}
           ItemName= {ItemName}
           Description={Description}
-          img="/assets/images/paint.png"
+          img={ImageUrl ? ImageUrl: "/assets/images/paint.png"}
           reminder="2021-09-21"
           func  = {func}
         />

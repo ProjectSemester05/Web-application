@@ -1,0 +1,10 @@
+{
+    "Knife":{
+    "ItemName":"Knife",
+    "CatalogueUUID":"{{catalogueUUID}}",
+    "Description":"Vegetable cutting knife",
+    "StoredLocation":"Kitchen Rack",
+    "ImageUrl":"https://www.seriouseats.com",
+    "UUID":"123"
+}
+}

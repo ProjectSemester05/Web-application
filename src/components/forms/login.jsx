@@ -156,6 +156,7 @@ const LoginForm = () => {
               color="white"
               mt={4}
               variant="solid"
+              id="login-normal"
             >
               Login
             </Button>

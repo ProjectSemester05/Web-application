@@ -10,6 +10,8 @@ import {
   Button,
   Box,
   useDisclosure,
+  Flex,
+  Text
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import AddItemForm from "./forms/additem";
@@ -19,7 +21,7 @@ function AddItemPopup({uuid, func}) {
 
   return (
     <>
-      <Box
+      <Flex
         as="button"
         onClick={onOpen}
         borderRadius="md"
@@ -28,10 +30,16 @@ function AddItemPopup({uuid, func}) {
         mr={1200}
         ml={100}
         h={8}
+        minWidth="200px"
+        justifyContent="center"
       >
-        <AddIcon w={3} h={3} mr={5} mb={1} />
-        Add New Item
-      </Box>
+      <Box ml="3" my="auto">
+        <AddIcon  h={3} mr= {0} my ={"auto"} minWidth="40px" display={["block","block"]} />
+        </Box>
+        <Box mr="3" my="auto">
+        <Text float="left" >Add New Item</Text>
+        </Box>
+      </Flex>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

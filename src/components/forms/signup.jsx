@@ -81,7 +81,6 @@ const SignUpForm = () => {
               values.Email,
               values.Password
             );
-            console.log(result);
             onOpen();
           }}
         >

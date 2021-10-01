@@ -10,7 +10,7 @@ import LoginArea from "../components/forms/login";
 const LandingPage = () => {
   
   
-  const [signUpActive, setSignUpActive] = useState(true);
+  const [signUpActive, setSignUpActive] = useState(false);
   
   const toggleForm = (form) => {
     let active = true;
@@ -50,7 +50,7 @@ const LandingPage = () => {
           <Flex flexDirection="column">
             <Flex justifyContent="center" mt="5" mb="5" position="relative">
               <Button
-                className="signup-button active"
+                className="signup-button"
                 onClick={() => {
                   toggleForm("signup");
                 }}
@@ -58,7 +58,7 @@ const LandingPage = () => {
                 SignUp
               </Button>
               <Button
-                className="login-button"
+                className="login-button active"
                 onClick={() => {
                   toggleForm("login");
                 }}

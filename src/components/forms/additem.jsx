@@ -16,13 +16,17 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { createItem } from "../../api/item";
+import {uploadImage} from "../../utils/s3FileUpload"
+
 
 const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
-  const [image, setImage] = useState(img ? img: "")
+  const [image, setImage] = useState(img ? img: "/assets/images/default-catalogue.jpg")
+  const [blobImg, setBlobImg] = useState({})
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
+      setBlobImg({"file": event.target.files[0]})
     }
   }
 
@@ -45,6 +49,13 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
 
         onSubmit={async (values) => {
           let result = {success: false}
+          if(blobImg.hasOwnProperty("file")){
+              result = await uploadImage(blobImg.file)
+              if(result.success){
+                values.ImageUrl = result.result.location
+              }
+          }
+          
           if(add){
             values.CatalogueUUID = uuid;
             result = await createItem(values);
@@ -79,7 +90,7 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
       >
         {(props) => (
           <Box>
-            {img && (<Image src={image}  height={["120px", "150px"]} w={["120px", "150px"]} borderRadius="50%" mx="auto"/>)}
+            <Image src={image}  height={["120px", "150px"]} w={["120px", "150px"]} borderRadius="50%" mx="auto"/>
             <FormControl
               isInvalid={props.errors.ItemName && props.touched.ItemName}
               mr={2}
