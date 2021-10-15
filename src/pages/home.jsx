@@ -144,7 +144,7 @@ const HomePage = () => {
         <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
 
       
-        <Grid templateColumns="repeat(4, 350px)" gap={4}>
+        <Grid templateColumns={["repeat(1, 350px)","repeat(4, 350px)"]} gap={4}>
           <GridItem>
             <NewCatalogueCard addCatalogue={addCatalogue}/>
           </GridItem>

@@ -77,6 +77,7 @@ const CataloguePage = () => {
       <Flex>
         <Header signed={true}/>
       </Flex>
+      <Flex flexDirection="column" p="5">
       <Heading m={5} isTruncated>
         {catalogueName}
       </Heading>
@@ -104,6 +105,7 @@ const CataloguePage = () => {
       <ItemContainer items={items} func={deleteItem}/>
       <Flex mt="auto">
         <Footer minHeight="20px" />
+      </Flex>
       </Flex>
     </Flex>
   );

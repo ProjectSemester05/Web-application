@@ -11,7 +11,7 @@ describe("Create Catalogue tests", () => {
 
         cy.get("#login-normal").click()
         cy.wait(200)
-        cy.contains("Semester 6 Work").click()
+        cy.contains("Semester 6 Work",{timeout:5000}).click()
         cy.wait(200)
     })
 
@@ -27,10 +27,10 @@ describe("Create Catalogue tests", () => {
             fixture: "item.json"
         })
 
-        cy.wait("100")
+        cy.wait(100)
 
         cy
-        .contains("Knife")
+        .contains("Knife",{timeout:5000})
         .should('be.visible')
     } )
     

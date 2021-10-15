@@ -27,7 +27,7 @@ const LandingPage = () => {
   };
 
   return (
-    <Flex flexDirection="column" background="#EEEEEE" id="amazon-root">
+    <Flex flexDirection="column" background="#EEEEEE" id="amazon-root" minHeight="100vh">
       <Flex>
         <Header signed={false} />
       </Flex>
@@ -51,6 +51,7 @@ const LandingPage = () => {
             <Flex justifyContent="center" mt="5" mb="5" position="relative">
               <Button
                 className="signup-button"
+                left={["14%","19%"]}
                 onClick={() => {
                   toggleForm("signup");
                 }}
@@ -59,6 +60,7 @@ const LandingPage = () => {
               </Button>
               <Button
                 className="login-button active"
+                left={["44%","45%"]}
                 onClick={() => {
                   toggleForm("login");
                 }}

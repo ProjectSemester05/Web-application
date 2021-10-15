@@ -29,9 +29,17 @@ describe("Create Catalogue tests", () => {
         .should('be.visible')
     } )
 
-    it("should delete the catalogue", () => {
-        
-    })
+    // it("should delete the catalogue", () => {
+    //     cy.get('.inflate').find(".chakra-button").click()
+
+    //     cy.contains("Delete").click()
+
+    //     cy.intercept("DELETE", "https://v86cz5q48g.execute-api.us-east-1.amazonaws.com/dev/catalogue/ee31941d-ca32-41f8-9494-94fcd70765fa",{
+    //     })
+    //     cy
+    //     .contains("Semester 6 Work")
+    //     .should('not be.visible')
+    // })
     
 })
 
