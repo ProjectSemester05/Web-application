@@ -1,6 +1,5 @@
 import { React } from "react";
-import { Table, Thead, Tbody, Tr, Th, TableCaption, Box, Image, useToast } from "@chakra-ui/react";
-import ItemBox from "../components/cards/itembox";
+import { Box, Image, useToast } from "@chakra-ui/react";
 import MaterialTable from 'material-table'
 import tableIcons from "../utils/tableIcons"
 import { deleteItem } from "../api/item";

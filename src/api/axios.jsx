@@ -12,11 +12,11 @@ export const getAuthValues = (type) => {
     let keys = Object.keys(localStorage)
     let result = ""
     keys.forEach((key) =>{
-      if(key.includes("idToken") && type=="idToken"){
+      if(key.includes("idToken") && type==="idToken"){
         result =localStorage.getItem(key)
 
       }
-      else if(key.includes("userData") && type=="userID"){
+      else if(key.includes("userData") && type==="userID"){
         result =JSON.parse(localStorage.getItem(key)).UserAttributes[0].Value
       }
     })

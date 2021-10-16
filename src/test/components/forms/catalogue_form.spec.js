@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import CatalogueForm from "../../../components/forms/catalogue_form.jsx";
-// import {createCatalogue} from"../../../api/catalogue.jsx"
+import {createCatalogue} from"../../../api/catalogue.jsx"
 
 
 describe("catalogue form tests", () =>{
@@ -26,14 +26,15 @@ describe("catalogue form tests", () =>{
         expect(name.value).toBe('Garage Items')
     })
 
-    // test("add new catalogue", () =>{
-    //     render(<CatalogueForm add={true}/>)
-    //     const name = screen.getByRole('textbox',{name:"Catalogue Name"})
-    //     const submit = screen.getByRole('button',{name:"Submit"})
-    //     fireEvent.change(name,{target:{value:"Kitchen Items"}})
-    //     fireEvent.click(submit);
-    //     expect(createCatalogue).toHaveBeenCalledWith({CatalogueName:"Kitchen Items"})
-    // })
+    test("add new catalogue", () =>{
+        render(<CatalogueForm add={true}/>)
+        const name = screen.getByRole('textbox',{name:"Catalogue Name"})
+        const submit = screen.getByRole('button',{name:"Submit"})
+        fireEvent.change(name,{target:{value:"Kitchen Items"}})
+        fireEvent.click(submit);
+        console.log(createCatalogue.mock.calls);
+        // expect(createCatalogue).toHaveBeenCalledWith({CatalogueName:"Kitchen Items"})
+    })
 
 
 })

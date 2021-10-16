@@ -3,12 +3,11 @@ import { Box, Text, Flex, Image, Stack, Button,  Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,useDisclosure } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import "../../style/animation.css"
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import { EditIcon } from "@chakra-ui/icons";
 import CatalogueForm from "../forms/catalogue_form"
 
 

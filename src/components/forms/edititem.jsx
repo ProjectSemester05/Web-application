@@ -3,19 +3,13 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   React,
   Button,
   useDisclosure,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
-import { useState } from "react";
 import AddItemForm from "./additem"
 
 function EditItem({item}) {

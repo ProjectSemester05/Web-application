@@ -14,7 +14,7 @@ import { getUser } from "../utils/amplifyConf";
 
 const HomePage = () => {
   const [reminders, setReminders] = useState([]);
-  const [catalogues, setCatalogues] = useState([]);
+  const [catalogues, setCatalogues] = useState([{CatalogueName :"Gate", ImageUrl:"", UUID:1}]);
   const [user, setUser] = useState({});
   const components = [
     <RecentItem
@@ -77,7 +77,7 @@ const HomePage = () => {
     async function fetchCatalogues() {
       result = await getCatalogues();
       if (result.success) {
-        setCatalogues(result.Items);
+        // setCatalogues(result.Items);
         console.log(result.Items);
       }
     }

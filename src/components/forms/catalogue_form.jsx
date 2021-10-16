@@ -11,13 +11,11 @@ import {
   Flex,
   useToast,
   Image,
-  IconButton
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { createCatalogue, deleteCatalogue, updateCatalogue } from "../../api/catalogue";
 import {uploadImage} from "../../utils/s3FileUpload"
-import { RiImageAddLine } from "react-icons/ri";
 
 const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parentCatalogue, pUUID, img }) => {
   let initialValues = add ? {
