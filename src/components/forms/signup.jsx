@@ -19,6 +19,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Formik } from "formik";
@@ -46,9 +47,10 @@ const SignUpArea = () => {
 };
 
 const SignUpForm = () => {
+  let toast = useToast();
   const [passwordShow, setPasswordShow] = useState(false);
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -69,11 +71,15 @@ const SignUpForm = () => {
               .max(100)
               .email("Invalid email")
               .required("Required"),
-            Password: Yup.string().required("Required"),
+            Password: Yup.string()
+              .required("Required")
+              .matches(
+                /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+                "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+              ),
           })}
-          
           onSubmit={async (values) => {
-            setEmail(values.Email)
+            setEmail(values.Email);
             setPassword(values.Password);
             values.Name = `${values.firstName} ${values.lastName}`;
             let result = await signUp(
@@ -81,7 +87,18 @@ const SignUpForm = () => {
               values.Email,
               values.Password
             );
-            onOpen();
+            if (result.success) {
+              onOpen();
+            } else {
+              console.log(result);
+              toast({
+                title: "error",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+                position: "top",
+              });
+            }
           }}
         >
           {(props) => (
@@ -183,7 +200,7 @@ const SignUpForm = () => {
                 color="white"
                 mt={4}
                 loadingText="Signinig in"
-                _hover ={{bg:"#0F4CAE"}}
+                _hover={{ bg: "#0F4CAE" }}
               >
                 Sign Up
               </Button>
@@ -203,11 +220,13 @@ const SignUpForm = () => {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Validation Code</ModalHeader>
+            <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">
+              Validation Code
+            </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
               <Text>Enter the validation code send to your email</Text>
-              <ValidationForm email={email} password={password}/>
+              <ValidationForm email={email} password={password} />
             </ModalBody>
           </ModalContent>
         </Modal>

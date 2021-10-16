@@ -20,7 +20,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
-  useDisclosure
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -30,17 +31,11 @@ import { useHistory } from "react-router-dom";
 import { auth } from "../../redux/actions/userActions";
 import { signIn, lwaSignUp } from "../../utils/amplifyConf";
 import ForgottenPasswordForm from "./forgotPassword";
-import Lottie from 'react-lottie';
-
+import Loader from "../loader";
 
 const LoginArea = () => {
   return (
-    <Flex
-      width="full"
-      align="center"
-      justifyContent="center"
-      mt="10px"
-    >
+    <Flex width="full" align="center" justifyContent="center" mt="10px">
       <Box
         px={8}
         py={4}
@@ -56,12 +51,14 @@ const LoginArea = () => {
 };
 
 const LoginForm = () => {
+  let toast = useToast();
   const [passwordShow, setPasswordShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
   const history = useHistory();
   const dispatch = useDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box my={8} textAlign="center">
       <Formik
@@ -77,16 +74,26 @@ const LoginForm = () => {
           password: Yup.string().required("Required"),
         })}
         onSubmit={async (values) => {
+          setLoading(true);
           let result = await signIn(values.email, values.password);
+          setLoading(false);
           if (result.success) {
             dispatch(auth());
             history.push("/home");
+          } else {
+            toast({
+              title: "Invalid email or password",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+              position: "top",
+            });
           }
         }}
       >
         {(props) => (
           <Box>
-            <Text fontSize="16px" color="tomato"></Text>
+            {loading && <Loader />}
             <Stack isInline justifyContent="space-between" mt={4}>
               <FormControl
                 isInvalid={props.errors.email && props.touched.email}
@@ -146,7 +153,7 @@ const LoginForm = () => {
             <Button
               onClick={props.submitForm}
               backgroundColor="#0F4C75"
-              _hover ={{bg:"#0F4CAE"}}
+              _hover={{ bg: "#0F4CAE" }}
               width="full"
               color="white"
               mt={4}
@@ -167,14 +174,16 @@ const LoginForm = () => {
       >
         <Text>Log In with Amazon</Text>
       </Button>
-      
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Reset Password</ModalHeader>
+          <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">
+            Reset Password
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-                    <ForgottenPasswordForm onClose={onClose}/>
+            <ForgottenPasswordForm onClose={onClose} />
           </ModalBody>
         </ModalContent>
       </Modal>

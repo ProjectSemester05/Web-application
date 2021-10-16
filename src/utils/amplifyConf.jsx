@@ -51,6 +51,7 @@ export const signIn = async (email, password) => {
     const user = await Auth.signIn(email, password);
     return { result: user, success: true };
   } catch (error) {
+    console.log("error");
     return { error: error, success: false };
   }
 };

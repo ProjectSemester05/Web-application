@@ -11,6 +11,7 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
+  useToast,
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -24,14 +25,14 @@ import {
 } from "../../utils/amplifyConf";
 
 const ForgottenPasswordForm = ({ onClose }) => {
+  let toast = useToast();
   const [emailSent, setEmailSent] = useState(false);
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
-  
-  const forgotSubmit = async ({values}) => {
+
+  const forgotSubmit = async ({ values }) => {
     let result = {};
     if (!emailSent) {
-
       result = await forgotPasswordEmail(values.email);
     } else {
       result = await forgotPasswordSubmit(
@@ -44,9 +45,16 @@ const ForgottenPasswordForm = ({ onClose }) => {
       onClose();
     } else if (result.success && !emailSent) {
       setEmailSent(true);
+    } else {
+      toast({
+        title: "Error",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "top",
+      });
     }
-  }
-
+  };
 
   return (
     <Box my={4} textAlign="center">
@@ -109,39 +117,38 @@ const ForgottenPasswordForm = ({ onClose }) => {
                 >
                   <FormLabel>New Password</FormLabel>
 
-                <InputGroup>
-                  <Input
-                    type={passwordShow ? "text" : "password"}
-                    name="password"
-                    value={_props.initialValues.password}
-                    {..._props.getFieldProps("password")}
-                    borderColor="black"
-                    borderBottomWidth="1px"
-                  />
-                  <InputRightElement width="4.5rem">
-                    <IconButton
-                      variant="unstyled"
-                      colorScheme="teal"
-                      size="md"
-                      aria-label={
-                        passwordShow ? "Hide Password" : "Show Password"
-                      }
-                      onClick={handlePasswordShow}
-                      icon={passwordShow ? <ViewOffIcon /> : <ViewIcon />}
+                  <InputGroup>
+                    <Input
+                      type={passwordShow ? "text" : "password"}
+                      name="password"
+                      value={_props.initialValues.password}
+                      {..._props.getFieldProps("password")}
+                      borderColor="black"
+                      borderBottomWidth="1px"
                     />
-                  </InputRightElement>
-                </InputGroup>
-                <FormErrorMessage>{_props.errors.password}</FormErrorMessage>
-
+                    <InputRightElement width="4.5rem">
+                      <IconButton
+                        variant="unstyled"
+                        colorScheme="teal"
+                        size="md"
+                        aria-label={
+                          passwordShow ? "Hide Password" : "Show Password"
+                        }
+                        onClick={handlePasswordShow}
+                        icon={passwordShow ? <ViewOffIcon /> : <ViewIcon />}
+                      />
+                    </InputRightElement>
+                  </InputGroup>
+                  <FormErrorMessage>{_props.errors.password}</FormErrorMessage>
                 </FormControl>
-
               </Box>
             )}
 
             <Stack inline>
               <Button
-                onClick={() =>forgotSubmit(_props)}
+                onClick={() => forgotSubmit(_props)}
                 backgroundColor="#0F4C75"
+                _hover={{ bg: "#0F4CAE" }}
                 color="white"
                 mt={4}
               >
