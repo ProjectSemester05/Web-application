@@ -30,11 +30,12 @@ import { useHistory } from "react-router-dom";
 import { auth } from "../../redux/actions/userActions";
 import { signIn, lwaSignUp } from "../../utils/amplifyConf";
 import ForgottenPasswordForm from "./forgotPassword";
+import Lottie from 'react-lottie';
+
 
 const LoginArea = () => {
   return (
     <Flex
-      //   minHeight="100vh"
       width="full"
       align="center"
       justifyContent="center"
@@ -50,7 +51,6 @@ const LoginArea = () => {
       >
         <LoginForm />
       </Box>
-      <script type="text/javascript"></script>
     </Flex>
   );
 };
@@ -61,10 +61,7 @@ const LoginForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const AmazonSignIn = async () => {
-    let result = await lwaSignUp();
-  };
-
+  
   return (
     <Box my={8} textAlign="center">
       <Formik
@@ -83,7 +80,6 @@ const LoginForm = () => {
           let result = await signIn(values.email, values.password);
           if (result.success) {
             dispatch(auth());
-
             history.push("/home");
           }
         }}
@@ -163,7 +159,7 @@ const LoginForm = () => {
         )}
       </Formik>
       <Button
-        onClick={AmazonSignIn}
+        onClick={lwaSignUp}
         backgroundColor="0F4C75"
         width="full"
         mt={4}

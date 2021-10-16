@@ -105,6 +105,30 @@ export const getUser = async () => {
   }
 }
 
+export const updateUser = async (data) => {
+  try{
+    let user = await Auth.currentAuthenticatedUser();
+
+    let result = await Auth.updateUserAttributes(user, data);
+    return {result:result, success: true}
+  }
+  catch(error){
+    return {error:error, success: false}
+  }
+}
+
+export const changePassword = async (oldPassword, newPassword) => {
+  try{
+    let user = await Auth.currentAuthenticatedUser();
+
+    let result = await Auth.changePassword(user, oldPassword, newPassword);
+    return {result:result, success: true}
+  }
+  catch(error){
+    return {error:error, success: false}
+  }
+}
+
 export const signOut = async () => {
   try {
     await Auth.signOut();
@@ -115,3 +139,4 @@ export const signOut = async () => {
     return {success: false}
   }
 }
+

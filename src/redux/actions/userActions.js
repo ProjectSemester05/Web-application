@@ -30,3 +30,11 @@ export const auth = () => {
   };
   //   });
 };
+
+export const setUserInfo = (data) => {
+  return {
+    type: actionTypes.USER_INFO,
+    payload: data
+  };
+  //   });
+};

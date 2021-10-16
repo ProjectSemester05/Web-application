@@ -1,15 +1,10 @@
-import { React } from "react";
-import { Box, Flex, Image, IconButton } from "@chakra-ui/react";
-import { CgLogOut } from "react-icons/cg";
-import {signOut} from "../utils/amplifyConf";
-import { useHistory } from "react-router-dom";
+import React, { useState} from "react";
+import { Box, Flex, Image } from "@chakra-ui/react";
+import Avatar from "@material-ui/core/avatar";
+import UserProfile from "./cards/profile"
 
-const Header = ({signed}) => {
-  const history = useHistory();
-  const logOut = () => {
-    signOut()
-    history.push("/")
-  }
+const Header = ({ signed }) => {
+  const [viewProfile, setViewProfile] = useState(false)
   return (
     <Flex
       width="full"
@@ -18,7 +13,7 @@ const Header = ({signed}) => {
       color="white"
       minHeight="90px"
       backgroundColor="#121540"
-
+      position="relative"
     >
       <Flex width="full" justifyContent="space-between">
         <Box flex="1" textAlign="center" py="auto" px="60px">
@@ -26,25 +21,18 @@ const Header = ({signed}) => {
           <Image src="/assets/images/logo.png" height="60px" />
         </Box>
         <Box flex="1">
-          {/* <SearchBar w="200px"  /> */}
-          {signed && (<Box float="right" mr="8" my="auto">
-          <IconButton
-            colorScheme="teal"
-            aria-label="Call Segun"
-            backgroundColor="transparent"
-            _hover ={{bg:"transparent"}}
-            size="lg"
-            onClick = {logOut}
-            icon={<CgLogOut mr="0" float="right" fontSize="35px"/>}
-          />
-          
-          </Box>)}
-          
+          {signed && (
+                <Box float="right" mr="8" my="auto" cursor="pointer">
+              <Avatar
+                alt="User"
+                src="/assets/images/user.png"
+                className="post__avatar"
+                onClick={() => setViewProfile(!viewProfile)}
+              />
+            </Box>
+          )}
         </Box>
-        <Box>
-
-        </Box>
-        {/* <Box flex={1} w={0} h={"100px"} borderBottom={"100px solid #141B57"} borderLeft={"40px solid transparent"}></Box> */}
+        {viewProfile && (<Box position="absolute" right="10px" zIndex="10" top="70px"><UserProfile /></Box>)}
       </Flex>
     </Flex>
   );

@@ -4,18 +4,24 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import RecentItem from "../components/cards/recent";
 import CatalogueCard from "../components/cards/catalogue";
-import UserProfile from "../components/cards/profile";
 import SearchBar from "../components/forms/search";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 import { getCatalogues } from "../api/catalogue";
 import { getReminders } from "../api/reminders";
 import Slider from "../containers/slider";
 import { getUser } from "../utils/amplifyConf";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../redux/actions/userActions";
+import { getName} from "../utils/helper";
+
+
 
 const HomePage = () => {
   const [reminders, setReminders] = useState([]);
   const [catalogues, setCatalogues] = useState([{CatalogueName :"Gate", ImageUrl:"", UUID:1}]);
-  const [user, setUser] = useState({});
+  const dispatch = useDispatch();
+
+
   const components = [
     <RecentItem
       name="Paint Bucket"
@@ -71,6 +77,24 @@ const HomePage = () => {
     setCatalogues(newCatalogues)
   }
 
+  
+  useEffect(() => {
+    let result = {};
+
+    async function fetchUser() {
+      result = await getUser();
+      if (result.success && result.result) {
+        if (result.result.hasOwnProperty("attributes")) {
+          let user  = result.result.attributes
+          let name = getName(user.name);
+          dispatch(setUserInfo({email:user.email,firstName:name.firstName,lastName:name.lastName, provider: user.hasOwnProperty("identities")}))    
+        }
+      }
+    }
+    fetchUser();
+  }, []);
+
+
   useEffect(() => {
     let result = {};
 
@@ -82,21 +106,6 @@ const HomePage = () => {
       }
     }
     fetchCatalogues();
-  }, []);
-
-  useEffect(() => {
-    let result = {};
-
-    async function fetchUser() {
-      result = await getUser();
-      console.log(result);
-      if (result.success && result.result) {
-        if (result.result.hasOwnProperty("attributes")) {
-          setUser(result.result.attributes);
-        }
-      }
-    }
-    fetchUser();
   }, []);
 
   useEffect(() => {
@@ -125,8 +134,7 @@ const HomePage = () => {
       <Header signed={true}/>
       <Flex width="full" py={5}>
         <Flex width="full" px="3">
-          <UserProfile flex="1" name={user.name} />
-          <Box flex="2" mx="2" overflowX="hidden" ml={["0", "100px"]} px="2">
+          <Box flex="2" mx="2" overflowX="hidden" px="2">
             <Box>
               <SearchBar w="full" />
             </Box>
