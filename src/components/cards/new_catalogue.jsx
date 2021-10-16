@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { IoAddCircleOutline } from "react-icons/io5";
-import NewCatalogueForm from "../forms/new_catalogue_form";
+import CatalogueForm from "../forms/catalogue_form";
 import "../../style/animation.css";
 
 const NewCatalogueCard = ({addCatalogue, pUUID}) => {
@@ -82,7 +82,7 @@ const NewCatalogueCard = ({addCatalogue, pUUID}) => {
           </ModalHeader>
           <ModalCloseButton color="white" />
           <ModalBody>
-            <NewCatalogueForm onClose={onClose} add={true} func={addCatalogue} pUUID={pUUID}/>
+            <CatalogueForm onClose={onClose} add={true} func={addCatalogue} pUUID={pUUID}/>
           </ModalBody>
         </ModalContent>
       </Modal>

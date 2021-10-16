@@ -9,7 +9,7 @@ import { Box, Text, Flex, Image, Stack, Button,  Modal,
 import { useHistory } from "react-router-dom";
 import "../../style/animation.css"
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
-import NewCatalogueForm from "../forms/new_catalogue_form"
+import CatalogueForm from "../forms/catalogue_form"
 
 
 const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue }) => {
@@ -85,7 +85,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue }) => 
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <NewCatalogueForm add={false} onClose={onClose} catalogue={catalogue} uuid={uuid} deleteFunc={deleteCatalogue} img={img}/>
+            <CatalogueForm add={false} onClose={onClose} catalogue={catalogue} uuid={uuid} deleteFunc={deleteCatalogue} img={img}/>
           </ModalBody>
         </ModalContent>
       </Modal>

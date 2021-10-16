@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React,{ useState } from "react";
 import {
   Box,
   Button,
@@ -19,7 +19,7 @@ import { createCatalogue, deleteCatalogue, updateCatalogue } from "../../api/cat
 import {uploadImage} from "../../utils/s3FileUpload"
 import { RiImageAddLine } from "react-icons/ri";
 
-const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parentCatalogue, pUUID, img }) => {
+const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parentCatalogue, pUUID, img }) => {
   let initialValues = add ? {
           CatalogueName: "",
         }: catalogue
@@ -121,7 +121,7 @@ const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, par
               >
                 <FormLabel>Catalogue Name</FormLabel>
                 <Input
-                  type="catalogueName"
+                  type="text"
                   variant="flushed"
                   name="CatalogueName"
                   value={props.initialValues.CatalogueName}
@@ -179,4 +179,4 @@ const NewCatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, par
   );
 };
 
-export default NewCatalogueForm;
+export default CatalogueForm;
