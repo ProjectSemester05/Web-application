@@ -17,3 +17,8 @@ export const s3Config = {
     accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
     secretAccessKey: process.env.REACT_APP_S3_SECRET_ACCESS_KEY
 }
+
+export const testConfig = {
+    TESTUSER: process.env.REACT_APP_TEST_USER,
+    TESTPASS: process.env.REACT_APP_TEST_PASSWORD
+}

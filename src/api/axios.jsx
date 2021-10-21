@@ -30,7 +30,10 @@ if (token) instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
 export const getHeaderToken = () => {
     let token = getAuthValues("idToken");
-    return {headers: { Authorization: `Bearer ${token}` }}
+    let userID = getAuthValues("userID");
+    return {headers: { Authorization: `Bearer ${token}`, UserID: userID}}
 };
 
+instance.defaults.headers.common['Access-Control-Allow-Origin'] = `*`
+instance.defaults.headers.common['Access-Control-Allow-Headers'] = "Origin, X-Requested-With, Content-Type, Accept"
 export default instance;

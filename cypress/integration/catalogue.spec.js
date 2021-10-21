@@ -1,4 +1,5 @@
 /// <reference types="cypress"/>
+import {BASE_API} from "../../src/utils/constants"
 
 describe("Create Catalogue tests", () => {
     
@@ -6,22 +7,21 @@ describe("Create Catalogue tests", () => {
         cy.visit("/")
         cy.contains('LogIn').click()
 
-        cy.get("input[name='email']").type("lalanigunathilaka22@gmail.com")
-        cy.get("input[name='password']").type("hsiadiaY890jds_")
+        cy.get("input[name='email']").type(Cypress.env("TESTUSER"))
+        cy.get("input[name='password']").type(Cypress.env("TESTPASS"))
 
         cy.get("#login-normal").click()
-        cy.wait(10)
     })
 
     
     it("should create a new catalogue with mock http", () =>{
-        cy.contains('New Catalogue').click()
+        cy.contains('New Catalogue',{timeout: 15000}).click()
 
         cy.get("input[name='CatalogueName']").type("Heavy Items")
 
         cy.contains("Submit").click()
 
-        cy.intercept("POST", "https://v86cz5q48g.execute-api.us-east-1.amazonaws.com/dev/catalogue/new",{
+        cy.intercept("POST", `${BASE_API}catalogue/new`,{
             fixture: "catalogue.json"
         })
         cy

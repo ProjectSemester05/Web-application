@@ -59,7 +59,8 @@ const CataloguePage = () => {
     async function fetchChildrenCatalogues() {
       result = await getChildrenCatalogues(uuid);
       console.log(result);
-      let newChildren = result.Items.map((cat) => (
+      if(result.hasOwnProperty("Items")){
+        let newChildren = result.Items.map((cat) => (
         <CatalogueCard
            name={cat.CatalogueName}
           iCount="21"
@@ -68,6 +69,8 @@ const CataloguePage = () => {
         />
       ))
       setChildrenCatalogue([newChildren]);
+      }
+      
     }
     fetchChildrenCatalogues();
   }, []);
