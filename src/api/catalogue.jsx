@@ -5,7 +5,7 @@ const URL = "catalogue"
 
 export const createCatalogue = (data) => postRequest(`${URL}/new`,{...data, UserID:getAuthValues("userID") })
 
-export const getCatalogues = () => getRequest(`${URL}-by-user-id/${getAuthValues("userID")}` )
+export const getCatalogues = () => getRequest(`${URL}-by-user` )
 
 export const getChildrenCatalogues = (uuid) => getRequest(`child-catalogue/${uuid}` )
 

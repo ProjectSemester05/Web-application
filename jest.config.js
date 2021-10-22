@@ -3,7 +3,7 @@ module.exports = {
     transform: {
       "^.+\\.(js|jsx)$": "babel-jest",
     },
-    moduleFileExtensions: ["js", "jsx"],
+    moduleFileExtensions: ["js", "jsx","css"],
     testPathIgnorePatterns: [
         "cypress"
     ],
@@ -14,5 +14,8 @@ module.exports = {
     transformIgnorePatterns: [
         "node_modules/(?!(react-s3)/)"
     ],
+    moduleNameMapper: {
+    '\\.(css|less)$': '<rootDir>/src/test/mocks/styleMock.js',
+    },
     setupFiles: ["dotenv/config"]
   };

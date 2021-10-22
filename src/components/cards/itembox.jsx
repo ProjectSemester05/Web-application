@@ -1,4 +1,4 @@
-import { React } from "react";
+import  React  from "react";
 import { Image, Button, useToast } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import EditItem from "../forms/edititem";

@@ -1,175 +1,44 @@
-import { React, useState, useEffect } from "react";
-import { Box, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { React,useEffect } from "react";
+import { Flex} from "@chakra-ui/react";
 import Footer from "../components/footer";
 import Header from "../components/header";
-import RecentItem from "../components/cards/recent";
-import CatalogueCard from "../components/cards/catalogue";
-import SearchBar from "../components/forms/search";
-import NewCatalogueCard from "../components/cards/new_catalogue";
-import { getCatalogues } from "../api/catalogue";
-import { getReminders } from "../api/reminders";
-import Slider from "../containers/slider";
 import { getUser } from "../utils/amplifyConf";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../redux/actions/userActions";
-import { getName} from "../utils/helper";
-
-
+import { getName } from "../utils/helper";
+import CatalogueContainer from "../containers/catalogue_container";
+import RecentDeadlines from "../containers/recent_deadlines";
 
 const HomePage = () => {
-  const [reminders, setReminders] = useState([]);
-  const [catalogues, setCatalogues] = useState([{CatalogueName :"Gate", ImageUrl:"", UUID:1}]);
   const dispatch = useDispatch();
 
-
-  const components = [
-    <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
-   
-    <RecentItem
-      name="Motor oil"
-      catalogue="Garage Items"
-      date="Sept 23"
-      img="/assets/images/motor_oil.jpg"
-    />,
-
-    <RecentItem
-      name="Battery"
-      catalogue="Garage Items"
-      date="Nov 18"
-      img="/assets/images/battery.png"
-    />,
-    <RecentItem
-      name="CS Assignment"
-      catalogue="Assignment"
-      date="Oct 21"
-      img="/assets/images/cs_assignment.png"
-    />,
-    <RecentItem
-      name="Da Vincis Daemons"
-      catalogue="Books"
-      date="June 06"
-      img="/assets/images/book.jpg"
-    />,
-     <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
-    <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
-  ];
-
-  const addCatalogue = (catalogue) => {
-    setCatalogues([...catalogues,catalogue])
-  } 
-  const deleteCatalogue = (uuid) => {
-    let newCatalogues = catalogues.filter(item => item.UUID !== uuid)
-    setCatalogues(newCatalogues)
-  }
-
-  
   useEffect(() => {
     let result = {};
-
     async function fetchUser() {
       result = await getUser();
       if (result.success && result.result) {
         if (result.result.hasOwnProperty("attributes")) {
-          let user  = result.result.attributes
+          let user = result.result.attributes;
           let name = getName(user.name);
-          dispatch(setUserInfo({email:user.email,firstName:name.firstName,lastName:name.lastName, provider: user.hasOwnProperty("identities")}))    
+          dispatch(
+            setUserInfo({
+              email: user.email,
+              firstName: name.firstName,
+              lastName: name.lastName,
+              provider: user.hasOwnProperty("identities"),
+            })
+          );
         }
       }
     }
     fetchUser();
   }, []);
 
-
-  useEffect(() => {
-    let result = {};
-
-    async function fetchCatalogues() {
-      result = await getCatalogues();
-      if (result.success) {
-        // setCatalogues(result.Items);
-        console.log(result.Items);
-      }
-    }
-    fetchCatalogues();
-  }, []);
-
-  useEffect(() => {
-    let result = {};
-
-    async function fetchReminders() {
-      result = await getReminders();
-      console.log(result);
-      if(result.Reminders){
-      let components = result.Reminders.map(item =>
-          <RecentItem
-            name="Paint Bucket"
-            catalogue="Garage Items"
-            date="Sept 18"
-            img="/assets/images/paint.png"
-          /> 
-      )
-      setReminders(components);
-      }
-    }
-    fetchReminders();
-  }, []);
-
   return (
     <Flex flexDirection="column">
-      <Header signed={true}/>
-      <Flex width="full" py={5}>
-        <Flex width="full" px="3">
-          <Box flex="2" mx="2" overflowX="hidden" px="2">
-            <Box>
-              <SearchBar w="full" />
-            </Box>
-            <Text fontSize="24px" mt="4" mb="20px">
-              Recent Deadlines
-            </Text>
-            <Slider components={components} cardGap={"200px"} />
-          </Box>
-        </Flex>
-      </Flex>
-      <Flex width="full" flexDirection="column" p="20px" pb="-20px">
-        <Text fontSize="22px" mb="2">
-          My Catalogues
-        </Text>
-        <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
-
-      
-        <Grid templateColumns={["repeat(1, 350px)","repeat(4, 350px)"]} gap={4}>
-          <GridItem>
-            <NewCatalogueCard addCatalogue={addCatalogue}/>
-          </GridItem>
-          {catalogues.map((catalogue) => (
-            <GridItem>
-            <CatalogueCard
-              name={catalogue.CatalogueName}
-              iCount="21"
-              cCount="6"
-              img={catalogue.ImageUrl}
-              uuid={catalogue.UUID}
-              deleteCatalogue ={deleteCatalogue}
-            />
-            </GridItem>
-          ))}
-        </Grid>
-      </Flex>
+      <Header signed={true} />
+      <RecentDeadlines/>
+      <CatalogueContainer/>
       <Footer />
     </Flex>
   );

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import  React, {useState } from "react";
 import {
   Box,
   Button,
@@ -58,6 +58,7 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
           
           if(add){
             values.CatalogueUUID = uuid;
+            console.log(values);
             result = await createItem(values);
 
           }

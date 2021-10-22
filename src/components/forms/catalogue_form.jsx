@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -14,25 +14,44 @@ import {
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { createCatalogue, deleteCatalogue, updateCatalogue } from "../../api/catalogue";
-import {uploadImage} from "../../utils/s3FileUpload"
+import {
+  createCatalogue,
+  deleteCatalogue,
+  updateCatalogue,
+} from "../../api/catalogue";
+import { uploadImage } from "../../utils/s3FileUpload";
 
-const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parentCatalogue, pUUID, img }) => {
-  let initialValues = add ? {
-          CatalogueName: "",
-        }: catalogue
+const CatalogueForm = ({
+  add,
+  catalogue,
+  onClose,
+  uuid,
+  func,
+  deleteFunc,
+  parentCatalogue,
+  pUUID,
+  img,
+  test,
+}) => {
+  let initialValues = add
+    ? {
+        CatalogueName: "",
+      }
+    : catalogue;
 
-  const [image, setImage] = useState(img ? img: "/assets/images/default-catalogue.jpg")
-  const [blobImg, setBlobImg] = useState({})
+  const [image, setImage] = useState(
+    img ? img : "/assets/images/default-catalogue.jpg"
+  );
+  const [blobImg, setBlobImg] = useState({});
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
-      setBlobImg({"file": event.target.files[0]})
+      setBlobImg({ file: event.target.files[0] });
     }
-  }
+  };
 
   const deleteC = async () => {
-    let result = await deleteCatalogue(uuid) 
+    let result = await deleteCatalogue(uuid);
     if (result.success) {
       toast({
         title: "Success",
@@ -40,9 +59,8 @@ const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parent
         duration: 9000,
         isClosable: true,
       });
-      deleteFunc(uuid)
       onClose();
-
+      deleteFunc(uuid);
     } else {
       toast({
         title: "Error during deletion.",
@@ -51,7 +69,7 @@ const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parent
         isClosable: true,
       });
     }
-  }
+  };
 
   const toast = useToast();
   return (
@@ -64,36 +82,44 @@ const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parent
             .required("Catalogue Name Required"),
         })}
         onSubmit={async (values) => {
-          let result = {success: false};
-          
-          if(blobImg.hasOwnProperty("file")){
-              result = await uploadImage(blobImg.file)
-              if(result.success){
-                values.ImageUrl = result.result.location
+          let result = { success: false };
+          try {
+            if (blobImg.hasOwnProperty("file")) {
+              result = await uploadImage(blobImg.file);
+              if (result.success) {
+                values.ImageUrl = result.result.location;
               }
-          }
+            }
+            if (pUUID) {
+              values.ParentCatalogueUUID = pUUID;
+            }
 
-          if(pUUID){
-              values.ParentCatalogueUUID = pUUID
-          }
+            if (add) {
+              result = await createCatalogue(values);
+            } else {
+              values.UUID = uuid;
+              result = await updateCatalogue(values);
+            }
+            if (result.success) {
+              toast({
+                title: "Success",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+              console.log(JSON.stringify(result));
+              func(result.newCatalogue);
 
-          if(add){
-            
-            result = await createCatalogue(values);
-          }
-          else{
-            result = await updateCatalogue(values);
-          }
-          if (result.success) {
-            toast({
-              title: "Success",
-              status: "success",
-              duration: 9000,
-              isClosable: true,
-            });
-            func(result.newCatalogue)
-            onClose();
-          } else {
+              onClose();
+            } else {
+              toast({
+                title: "Error",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+              });
+            }
+          } catch (error) {
             toast({
               title: "Error",
               status: "error",
@@ -107,8 +133,14 @@ const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parent
           <Box>
             <Text fontSize="16px" color="tomato"></Text>
             <Box position="relative">
-            <Image  src={image}  height={["120px", "150px"]} w={["120px", "150px"]} borderRadius="50%" mx="auto"/>
-            {/* <IconButton position="absolute" aria-label="Add Image" icon={<RiImageAddLine />} /> */}
+              <Image
+                src={image}
+                height={["120px", "150px"]}
+                w={["120px", "150px"]}
+                borderRadius="50%"
+                mx="auto"
+              />
+              {/* <IconButton position="absolute" aria-label="Add Image" icon={<RiImageAddLine />} /> */}
             </Box>
             <Stack isInline justifyContent="space-between" mt={4} mb={6}>
               <FormControl
@@ -131,7 +163,7 @@ const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parent
               </FormControl>
             </Stack>
             <FormControl mr={2}>
-              <FormLabel >Upload Image</FormLabel>
+              <FormLabel>Upload Image</FormLabel>
               <Input
                 id="upload-image"
                 variant="flushed"
@@ -139,12 +171,13 @@ const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parent
                 name="img"
                 accept="image/png, image/gif, image/jpeg"
                 onChange={onImageChange}
-
               />
             </FormControl>
             <Flex justifyContent="flex-end">
               <Button
+                // onClick={props.submitForm}
                 onClick={props.submitForm}
+                id="catalogue_form_submit"
                 backgroundColor="#0F4C75"
                 width="100px"
                 color="white"
@@ -154,21 +187,20 @@ const CatalogueForm = ({ add, catalogue, onClose, uuid, func, deleteFunc, parent
               >
                 Submit
               </Button>
-              { !add && (
+              {!add && (
                 <Button
-                onClick={deleteC}
-                backgroundColor="#C04040"
-                opacity="0.7"
-                width="100px"
-                mt={4}
-                border="1px"
-                ml="2"
-                color="white"
-              >
-                <Text>Delete</Text>
-              </Button>
+                  onClick={deleteC}
+                  backgroundColor="#C04040"
+                  opacity="0.7"
+                  width="100px"
+                  mt={4}
+                  border="1px"
+                  ml="2"
+                  color="white"
+                >
+                  <Text>Delete</Text>
+                </Button>
               )}
-              
             </Flex>
           </Box>
         )}

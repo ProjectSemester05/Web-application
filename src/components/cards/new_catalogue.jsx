@@ -1,4 +1,4 @@
-import { React } from "react";
+import  React  from "react";
 import {
   Box,
   Text,
@@ -43,6 +43,7 @@ const NewCatalogueCard = ({addCatalogue, pUUID}) => {
                 fontSize={["20px", "25px"]}
                 color="black"
                 mt={3}
+                data-testid= "new-catalogue-form"
               >
                 New Catalogue
               </Text>

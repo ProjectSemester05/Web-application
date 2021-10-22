@@ -3,8 +3,8 @@ import {getHeaderToken} from "./axios"
 
 export const getRequest = async (url, body) => {
   try {
-    let response = body ? await axios.get(url, body,getHeaderToken()) : await axios.get(url,{},getHeaderToken());
-        return {...response.data, success: true};
+    let response =  await axios.get(url, getHeaderToken()) 
+    return {...response.data, success: true};
 
   } catch (error) {
     return {...error, success: false};

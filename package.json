@@ -40,7 +40,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "jest",
-        "test:watch": "jest --watch",
+        "test:watch": "npm test -- --watch",
         "test:coverage": "jest --coverage",
         "eject": "react-scripts eject",
         "cypress:open": "cypress open"

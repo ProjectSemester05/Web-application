@@ -1,4 +1,4 @@
-import { React } from "react";
+import  React  from "react";
 import { Box, Text, Flex, Image, Stack, Button,  Modal,
   ModalOverlay,
   ModalContent,
@@ -11,7 +11,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import CatalogueForm from "../forms/catalogue_form"
 
 
-const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue }) => {
+const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updateCatalogue }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   let catalogue={CatalogueName: name}
@@ -69,7 +69,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue }) => 
       </Flex>
       </Flex>
       <Flex mt="3" justifyContent="flex-end">
-          <Button background="blackAlpha" fontSize="22px" onClick={onOpen} mr="2">
+          <Button data-testid ={`${uuid}_edit`} background="blackAlpha" fontSize="22px" onClick={onOpen} mr="2">
             <EditIcon color="black"/>
           </Button>
       </Flex>
@@ -84,7 +84,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue }) => 
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <CatalogueForm add={false} onClose={onClose} catalogue={catalogue} uuid={uuid} deleteFunc={deleteCatalogue} img={img}/>
+            <CatalogueForm add={false} onClose={onClose} catalogue={catalogue} uuid={uuid} deleteFunc={deleteCatalogue} img={img} func={updateCatalogue}/>
           </ModalBody>
         </ModalContent>
       </Modal>

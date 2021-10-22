@@ -1,4 +1,4 @@
-import { React } from "react";
+import  React  from "react";
 import { Box,Grid } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import "../style/slider.css";
