@@ -41,21 +41,21 @@ describe("catalogue container tests", () => {
     jest.clearAllMocks();
   });
 
-  test("children catalogue container render test", async () => {
+  test.skip("children catalogue container render test", async () => {
     expect(mockGetCatalogues).toHaveBeenCalledTimes(1);
-    getCatalogues.Catalogues.forEach((catalogue) => {
+    getChildrenCatalogues.Catalogues.forEach((catalogue) => {
       expect(cardContainer).toHaveTextContent(catalogue.CatalogueName);
     });
   });
 
   test.skip("catalogue container open edit catalogue", async () => {
     const catalogueCard = screen.getByTestId(
-      `${getCatalogues.Catalogues[0].UUID}_edit`
+      `${getChildrenCatalogues.Catalogues[0].UUID}_edit`
     );
     fireEvent.click(catalogueCard);
     expect(screen.getByText("Edit Catalogue")).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: "Catalogue Name" }).value).toBe(
-      getCatalogues.Catalogues[0].CatalogueName
+        getChildrenCatalogues.Catalogues[0].CatalogueName
     );
   });
 
@@ -70,7 +70,7 @@ describe("catalogue container tests", () => {
 
   test.skip("catalogue container delete catalogue", async () => {
     const catalogueCard = screen.getByTestId(
-      `${getCatalogues.Catalogues[0].UUID}_edit`
+      `${getChildrenCatalogues.Catalogues[0].UUID}_edit`
     );
     fireEvent.click(catalogueCard);
 
@@ -84,7 +84,7 @@ describe("catalogue container tests", () => {
 
   test.skip("catalogue container update catalogue", async () => {
     const catalogueCard = screen.getByTestId(
-      `${getCatalogues.Catalogues[0].UUID}_edit`
+      `${getChildrenCatalogues.Catalogues[0].UUID}_edit`
     );
     fireEvent.click(catalogueCard);
 
@@ -92,18 +92,18 @@ describe("catalogue container tests", () => {
     const submit = screen.getByText("Submit");
 
     fireEvent.change(name, {
-      target: { value: `${getCatalogues.Catalogues[0].CatalogueName}_0` },
+      target: { value: `${getChildrenCatalogues.Catalogues[0].CatalogueName}_0` },
     });
     fireEvent.click(submit);
 
     let cards = await waitFor(() => screen.getByTestId("child-cat-cont"));
     expect(mockUpdateCatalogue).toHaveBeenCalledTimes(1);
     expect(cards).toHaveTextContent(
-      `${getCatalogues.Catalogues[0].CatalogueName}_0`
+      `${getChildrenCatalogues.Catalogues[0].CatalogueName}_0`
     );
   });
 
-  test.skip("catalogue container create catalogue", async () => {
+  test("catalogue container create catalogue", async () => {
     const catalogueCard = screen.getByText("Create your own Catalogue!!!");
     fireEvent.click(catalogueCard);
 
@@ -117,6 +117,7 @@ describe("catalogue container tests", () => {
 
     let cards = await waitFor(() => screen.getByTestId("child-cat-cont"));
     expect(mockCreateCatalogue).toHaveBeenCalledTimes(1);
+    screen.debug();
     expect(cards).toHaveTextContent(createCatalogue.newCatalogue.CatalogueName);
   });
 });

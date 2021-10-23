@@ -61,6 +61,7 @@ const RecentDeadlines = () => {
     async function fetchReminders() {
       result = await getReminders();
       console.log(result);
+      console.log("here")
       if (result.Reminders) {
         let components = result.Reminders.map((item) => (
           <RecentItem

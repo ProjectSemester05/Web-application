@@ -1,4 +1,4 @@
-import  React, {useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -16,28 +16,31 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { createItem, updateItem } from "../../api/item";
-import {uploadImage} from "../../utils/s3FileUpload"
-
+import { uploadImage } from "../../utils/s3FileUpload";
 
 const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
-  const [image, setImage] = useState(img ? img: "/assets/images/default-catalogue.jpg")
-  const [blobImg, setBlobImg] = useState({})
+  const [image, setImage] = useState(
+    img ? img : "/assets/images/default-catalogue.jpg"
+  );
+  const [blobImg, setBlobImg] = useState({});
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
-      setBlobImg({"file": event.target.files[0]})
+      setBlobImg({ file: event.target.files[0] });
     }
-  }
+  };
 
   const toast = useToast();
-  let initialValues = add ? {
-          ItemName: "",
-          Description: "",
-          StoredLocation: "",
-        }: item
+  let initialValues = add
+    ? {
+        ItemName: "",
+        Description: "",
+        StoredLocation: "",
+      }
+    : item;
   return (
-    <Box my={8} textAlign="center">
+    <Box my={8} textAlign="center" data-testid="additem-form">
       <Formik
         initialValues={initialValues}
         validationSchema={Yup.object({
@@ -46,32 +49,30 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
           StoredLocation: Yup.string(),
           Date: Yup.date(),
         })}
-
         onSubmit={async (values) => {
-          let result = {success: false}
-          if(blobImg.hasOwnProperty("file")){
-              result = await uploadImage(blobImg.file)
-              if(result.success){
-                values.ImageUrl = result.result.location
-              }
+          let result = { success: false };
+          if (blobImg.hasOwnProperty("file")) {
+            result = await uploadImage(blobImg.file);
+            if (result.success) {
+              values.ImageUrl = result.result.location;
+            }
           }
-          
+
           values.CatalogueUUID = uuid;
-          
-          if(add){
+
+          if (add) {
             console.log(values);
             result = await createItem(values);
-
-          }
-          else{
+          } else {
             result = await updateItem(values);
             console.log("Updating the item");
           }
 
           console.log(result);
-          func(result.newItem)
 
           if (result.success) {
+            func(result.newItem);
+            onClose();
             toast({
               title: "Success",
               status: "success",
@@ -79,8 +80,6 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
               isClosable: true,
             });
             console.log(result);
-            func(result.newItem)
-            onClose();
           } else {
             toast({
               title: "Error",
@@ -89,12 +88,17 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
               isClosable: true,
             });
           }
-          onClose();
         }}
       >
         {(props) => (
           <Box>
-            <Image src={image}  height={["120px", "150px"]} w={["120px", "150px"]} borderRadius="50%" mx="auto"/>
+            <Image
+              src={image}
+              height={["120px", "150px"]}
+              w={["120px", "150px"]}
+              borderRadius="50%"
+              mx="auto"
+            />
             <FormControl
               isInvalid={props.errors.ItemName && props.touched.ItemName}
               mr={2}
@@ -167,7 +171,7 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
               <FormErrorMessage>{props.errors.Date}</FormErrorMessage>
             </FormControl>
             <FormControl mr={2} mt="5">
-              <FormLabel >Upload Image</FormLabel>
+              <FormLabel>Upload Image</FormLabel>
               <Input
                 id="upload-image"
                 variant="flushed"
@@ -177,7 +181,6 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
                 onChange={onImageChange}
               />
             </FormControl>
-
 
             <Flex justifyContent="flex-end">
               <Button

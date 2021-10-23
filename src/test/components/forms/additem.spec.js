@@ -1,56 +1,114 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import  AddItemForm from "../../../components/forms/additem.jsx";
-import * as catalogueAPI from "../../../api/catalogue.jsx";
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+import AddItemForm from "../../../components/forms/additem.jsx";
+import * as itemAPI from "../../../api/item.jsx";
+import { updateItem, createItem } from "../../mocks/item.js";
 
+describe("item form tests", () => {
+  let mockUpdateItem;
+  let mockCreateItem;
 
-describe("item form tests", () =>{
-    let mockCreateCatalogue;
-    beforeAll(() => {
+  beforeAll(() => {
+    mockUpdateItem = jest
+      .spyOn(itemAPI, "updateItem")
+      .mockResolvedValue({ ...updateItem, success: true });
+    mockCreateItem = jest
+      .spyOn(itemAPI, "createItem")
+      .mockResolvedValue({ ...createItem, success: true });
+  });
 
-    })
+  test("add new item render test", () => {
+    render(<AddItemForm add={true} />);
+    const name = screen.getByRole("textbox", { name: "Item name" });
+    expect(name.value).toBe("");
+  });
+
+  test("update catalogue render test", () => {
+    render(<AddItemForm add={false} item={{ ItemName: "Garage Items" }} />);
+    const name = screen.getByRole("textbox", { name: "Item name" });
+    expect(name.value).toBe("Garage Items");
+  });
+
+  test("add new item", async () => {
+    let func = jest.fn();
+    let onClose = jest.fn();
+   
+    let {getByText} = render(<AddItemForm add={true} func={func} onClose={onClose} />);
+    const name = screen.getByRole("textbox", { name: "Item name" });
+    const submit = screen.getByRole("button", { name: "Submit" });
+    fireEvent.change(name, { target: { value: "Kitchen Items" } });
+    fireEvent.click(submit);
+    await waitFor(() => screen.getByTestId("additem-form"));
+
+    expect(mockCreateItem).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(getByText("Success")).toBeTruthy()
+  });
+  
+  test("edit item", async () => {
+    let func = jest.fn();
+    let onClose = jest.fn();
+   
+    let {getAllByText} = render(<AddItemForm add={false} item={updateItem.newItem} func={func} onClose={onClose} />);
+    const name = screen.getByRole("textbox", { name: "Item name" });
+    const submit = screen.getByRole("button", { name: "Submit" });
+    fireEvent.change(name, { target: { value: `${updateItem.newItem.ItemName}_0` } });
     
-    test("add new catalogue render test", () => {
-        render(<CatalogueForm add={true}/>)
-        const name = screen.getByRole('textbox',{name:"Catalogue Name"})
-        fireEvent.change(name,{target:{value:"Kitchen Items"}})
-        expect(name.value).toBe('Kitchen Items')
-    })
+    fireEvent.click(submit);
+    await waitFor(() => screen.getByTestId("additem-form"));
 
-    test("update catalogue render test", () => {
-        render(<CatalogueForm add={false} catalogue={{CatalogueName :"Garage Items"}}/>)
-        const name = screen.getByRole('textbox',{name:"Catalogue Name"})
-        expect(name.value).toBe('Garage Items')
-    })
+    expect(mockUpdateItem).toHaveBeenCalledTimes(1);
+    expect(getAllByText("Success")).toHaveLength(2);
+  });
+  
+});
 
-    test("add new catalogue", () =>{
-        let mockCreateCatalogue = jest.spyOn(catalogueAPI, "createCatalogue").mockImplementation((obj) => obj);
-        let spy = jest.fn().mockImplementation((obj) => obj);
+describe("item form error tests", () => {
+  let mockUpdateItem;
+  let mockCreateItem;
 
-        render(<CatalogueForm add={true} test={spy}/>)
-        const name = screen.getByRole('textbox',{name:"Catalogue Name"})
-        const submit = screen.getByRole('button',{id:"catalogue_form_submit"})
-        // console.log(submit);
-        fireEvent.change(name,{target:{value:"Kitchen Items"}})
-        fireEvent.click(submit);
-        // expect(mockCreateCatalogue).toHaveBeenCalledWith({CatalogueName:"Kitchen Items"})
-        await waitFor(() => expect(spy).toHaveBeenCalled())
-    })
+  beforeAll(() => {
+    mockUpdateItem = jest
+      .spyOn(itemAPI, "updateItem")
+      .mockResolvedValue({ success: false });
+    mockCreateItem = jest
+      .spyOn(itemAPI, "createItem")
+      .mockResolvedValue({ success: false });
+  });
 
-    test('components/Button', () => {
-            const mockOnClick = jest.fn();
-            const { getByRole } = render(
-                <button onClick={mockOnClick}>
-                    My Button
-                </button>,
-            );
-            fireEvent.click(getByRole('button'));
-            expect(mockOnClick).toHaveBeenCalledTimes(1);
-    });
+  
+  test("add new item error", async () => {
+    let func = jest.fn();
+    let onClose = jest.fn();
+   
+    let {getByText} = render(<AddItemForm add={true} func={func} onClose={onClose} />);
+    const name = screen.getByRole("textbox", { name: "Item name" });
+    const submit = screen.getByRole("button", { name: "Submit" });
+    fireEvent.change(name, { target: { value: "Kitchen Items" } });
+    fireEvent.click(submit);
+    await waitFor(() => screen.getByTestId("additem-form"));
 
+    expect(mockCreateItem).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(0);
+    expect(getByText("Error")).toBeTruthy()
+  });
+  
+  test("edit item error", async () => {
+    let func = jest.fn();
+    let onClose = jest.fn();
+   
+    let {getAllByText} = render(<AddItemForm add={false} item={updateItem.newItem} func={func} onClose={onClose} />);
+    const name = screen.getByRole("textbox", { name: "Item name" });
+    const submit = screen.getByRole("button", { name: "Submit" });
+    fireEvent.change(name, { target: { value: `${updateItem.newItem.ItemName}_0` } });
+    
+    fireEvent.click(submit);
+    await waitFor(() => screen.getByTestId("additem-form"));
 
-})
-
-
-
-
+    expect(mockUpdateItem).toHaveBeenCalledTimes(2);
+    expect(onClose).toHaveBeenCalledTimes(0);
+    expect(getAllByText("Error")).toHaveLength(2);
+  });
+  
+});

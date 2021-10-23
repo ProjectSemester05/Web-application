@@ -11,10 +11,11 @@ import { EditIcon } from "@chakra-ui/icons";
 import CatalogueForm from "../forms/catalogue_form"
 
 
-const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updateCatalogue }) => {
+const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updateCatalogue , pUUID }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   let catalogue={CatalogueName: name}
+  console.log(pUUID)
   return (
     <>
 
@@ -84,7 +85,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <CatalogueForm add={false} onClose={onClose} catalogue={catalogue} uuid={uuid} deleteFunc={deleteCatalogue} img={img} func={updateCatalogue}/>
+            <CatalogueForm add={false} onClose={onClose} catalogue={catalogue} uuid={uuid} deleteFunc={deleteCatalogue} img={img} func={updateCatalogue} pUUID={pUUID}/>
           </ModalBody>
         </ModalContent>
       </Modal>

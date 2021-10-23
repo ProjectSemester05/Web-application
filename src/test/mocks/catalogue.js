@@ -15,7 +15,7 @@ export const getCatalogues = {
 };
 
 export const getChildrenCatalogues = {
-  Items: [
+  Catalogues: [
     {
       CatalogueName: "Demo Catalogue6",
       UserID: "ad397421-c7df-4244-874e-816f1e650c68",
@@ -42,7 +42,7 @@ export const updateCatalogue = {
 export const createCatalogue = {
   newCatalogue: {
     CatalogueName: "Kitchen Items",
-    UUID: "123",
+    UUID: "123456",
     UserID: "ad397421-c7df-4244-874e-816f1e650c68",
   },
   success: true,

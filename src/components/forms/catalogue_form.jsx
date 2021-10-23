@@ -31,7 +31,6 @@ const CatalogueForm = ({
   parentCatalogue,
   pUUID,
   img,
-  test,
 }) => {
   let initialValues = add
     ? {
@@ -93,8 +92,9 @@ const CatalogueForm = ({
             if (pUUID) {
               values.ParentCatalogueUUID = pUUID;
             }
-
+            
             if (add) {
+              console.log("add");
               result = await createCatalogue(values);
             } else {
               values.UUID = uuid;
