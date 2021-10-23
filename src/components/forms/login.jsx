@@ -35,7 +35,7 @@ import Loader from "../loader";
 
 const LoginArea = () => {
   return (
-    <Flex width="full" align="center" justifyContent="center" mt="10px">
+    <Flex width="full" align="center" justifyContent="center" mt="10px" data-testid="login-form">
       <Box
         px={8}
         py={4}
@@ -101,6 +101,7 @@ const LoginForm = () => {
               >
                 <FormLabel>Email</FormLabel>
                 <Input
+                  data-testid="email-login"
                   type="email"
                   name="email"
                   variant="flushed"
@@ -121,6 +122,7 @@ const LoginForm = () => {
                 <Input
                   type={passwordShow ? "text" : "password"}
                   name="password"
+                  data-testid="pass-login"
                   variant="flushed"
                   value={props.initialValues.password}
                   {...props.getFieldProps("password")}

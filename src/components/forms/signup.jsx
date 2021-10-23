@@ -24,7 +24,6 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import "@fontsource/montserrat";
 import "../../style/landing.css";
 import { signUp, lwaSignUp } from "../../utils/amplifyConf";
 import ValidationForm from "./verification";

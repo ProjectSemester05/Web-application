@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import "@fontsource/montserrat";
 import "../../style/landing.css";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -63,7 +62,7 @@ const VerificationForm = ({ email, password }) => {
         }}
       >
         {(props) => (
-          <Box>
+          <Box data-testid="verification-form">
             <Text fontSize="16px" color="tomato"></Text>
             <FormControl
               isInvalid={props.errors.code && props.touched.code}
@@ -71,6 +70,7 @@ const VerificationForm = ({ email, password }) => {
             >
               <FormLabel>Code</FormLabel>
               <Input
+                data-testid="verification-code"
                 type="text"
                 name="code"
                 value={props.initialValues.code}
