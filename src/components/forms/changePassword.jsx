@@ -11,15 +11,18 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
+  useToast
+  
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import "@fontsource/montserrat";
 import "../../style/landing.css";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { changePassword } from "../../utils/amplifyConf";
 
 const ChangePasswordForm = ({ onClose }) => {
+  const toast = useToast();
+
   const [cpasswordShow, setCPasswordShow] = useState(false);
   const [npasswordShow, setNPasswordShow] = useState(false);
 
@@ -41,11 +44,24 @@ const ChangePasswordForm = ({ onClose }) => {
           );
           if (result.success) {
             onClose();
+            toast({
+              title: "Success",
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            });
+          } else {
+            toast({
+              title: "Error",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+            });
           }
         }}
       >
         {(props) => (
-          <Box>
+          <Box data-testid="change-pass">
             <Text fontSize="16px" color="tomato"></Text>
             <FormControl
               isInvalid={
@@ -56,6 +72,7 @@ const ChangePasswordForm = ({ onClose }) => {
               <FormLabel>Current Password</FormLabel>
               <InputGroup>
                 <Input
+                  data-testid="cpasswd"
                   type={cpasswordShow ? "text" : "password"}
                   name="Password"
                   value={props.initialValues.currentPassword}
@@ -90,8 +107,9 @@ const ChangePasswordForm = ({ onClose }) => {
               <FormLabel>New Password</FormLabel>
               <InputGroup>
                 <Input
+                  data-testid="npasswd"
                   type={npasswordShow ? "text" : "password"}
-                  name="Password"
+                  name="NewPassword"
                   value={props.initialValues.newPassword}
                   {...props.getFieldProps("newPassword")}
                   variant="flushed"

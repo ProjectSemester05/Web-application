@@ -15,7 +15,6 @@ import {
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import "@fontsource/montserrat";
 import "../../style/landing.css";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
