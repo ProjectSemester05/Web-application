@@ -1,11 +1,12 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import ChangePasswordForm from "../../../components/forms/changePassword.jsx";
+import ForgottenPasswordForm from "../../../components/forms/forgotPassword";
 import * as amplify from "../../../utils/amplifyConf.jsx";
 
-describe("item form tests", () => {
-  let mockChangePassword;
+describe("forgot password form tests", () => {
+  let mockForgotPasswordEmail;
+  let mockForgotPasswordSubmit;
 
   beforeAll(() => {
     mockForgotPasswordEmail = jest
@@ -16,57 +17,124 @@ describe("item form tests", () => {
       .mockResolvedValue({ success: true });
   });
 
-  test("render test change Password Form", () => {
-    let onClose = jest.fn();
-    render(<ChangePasswordForm  onClose={onClose}/>);
-    const password = screen.getByTestId("cpasswd");
-    const newPassword = screen.getByTestId("npasswd");
-    expect(password).toHaveTextContent("");
-    expect(newPassword).toHaveTextContent("");
+  afterAll(() => {
+    jest.clearAllMocks();
   });
 
-  test("change password test",async () => {
+  test("render test forgot Password Form", () => {
     let onClose = jest.fn();
-    let {getByText} = render(<ChangePasswordForm  onClose={onClose}/>);   
-    const password = screen.getByTestId("cpasswd");
-    const newPassword = screen.getByTestId("npasswd");
-    const submit = screen.getByRole("button", {name:"Submit"});
-    fireEvent.change(password, { target: { value: "asaag78@BH_" } });
-    fireEvent.change(newPassword, { target: { value: "asaag78@BH_" } });
+    render(<ForgottenPasswordForm onClose={onClose} />);
+    const email = screen.getByTestId("email-forgot");
+    expect(email).toHaveTextContent("");
+    expect(screen.queryByText('Code')).not.toBeInTheDocument()
+  });
+
+  test("forgot password test confirm submit", async () => {
+    let onClose = jest.fn();
+    render(<ForgottenPasswordForm onClose={onClose} />);
+    const email = screen.getByTestId("email-forgot");
+
+    const submit = screen.getByRole("button", { name: "Submit" });
+
+    fireEvent.change(email, { target: { value: "poorna2152@gmail.com" } });
     fireEvent.click(submit);
 
-    await waitFor(() => screen.getByTestId("change-pass"));
+    await waitFor(() => screen.getByTestId("forgot-pass"));
 
-    expect(mockChangePassword).toHaveBeenCalledTimes(1);
-    expect(onClose).toHaveBeenCalledTimes(1);
-    expect(getByText("Success")).toBeTruthy()
-  });  
+    const code = screen.getByTestId("code-forgot");
+    const password = screen.getByTestId("password-forgot");
+    fireEvent.change(code, { target: { value: "1234" } });
+    fireEvent.change(password, { target: { value: "ashJjgjhk_09" } });
+
+    fireEvent.click(submit);
+
+    expect(mockForgotPasswordEmail).toHaveBeenCalled();
+    expect(mockForgotPasswordSubmit).toHaveBeenCalled();
+  });
+
+  test("forgot password test email submit", async () => {
+    let onClose = jest.fn();
+    let { getByText } = render(<ForgottenPasswordForm onClose={onClose} />);
+    const email = screen.getByTestId("email-forgot");
+    const submit = screen.getByRole("button", { name: "Submit" });
+
+    fireEvent.change(email, { target: { value: "poorna2152@gmail.com" } });
+    fireEvent.click(submit);
+    await waitFor(() => screen.getByTestId("forgot-pass"));
+
+    expect(mockForgotPasswordEmail).toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalledTimes(0);
+    expect(getByText("Code")).toBeInTheDocument();
+  });
 });
 
-describe("change password form error test", () => {
-    let mockChangePassword;
-  
-    beforeAll(() => {
-      mockChangePassword = jest
-        .spyOn(amplify, "changePassword")
-        .mockResolvedValue({ success: false });
-    });
-  
-    test("change password error test",async () => {
-      let onClose = jest.fn();
-      let {getByText} = render(<ChangePasswordForm  onClose={onClose}/>);   
-      const password = screen.getByTestId("cpasswd");
-      const newPassword = screen.getByTestId("npasswd");
-      const submit = screen.getByRole("button", {name:"Submit"});
-      fireEvent.change(password, { target: { value: "asaag78@BH_" } });
-      fireEvent.change(newPassword, { target: { value: "asaag78@BH_" } });
-      fireEvent.click(submit);
-  
-      await waitFor(() => screen.getByTestId("change-pass"));
-  
-      expect(mockChangePassword).toHaveBeenCalledTimes(2);
-      expect(onClose).toHaveBeenCalledTimes(0);
-      expect(getByText("Error")).toBeTruthy()
-    });  
+describe("forgot password form error tests", () => {
+  let mockForgotPasswordEmail;
+
+  beforeAll(() => {
+    mockForgotPasswordEmail = jest
+      .spyOn(amplify, "forgotPasswordEmail")
+      .mockResolvedValue({ success: false });
   });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
+  test("forgot password test email submit error", async () => {
+    let onClose = jest.fn();
+    let { getByText } = render(<ForgottenPasswordForm onClose={onClose} />);
+    const email = screen.getByTestId("email-forgot");
+    const submit = screen.getByRole("button", { name: "Submit" });
+
+    fireEvent.change(email, { target: { value: "poorna2152@gmail.com" } });
+    fireEvent.click(submit);
+    await waitFor(() => screen.getByTestId("forgot-pass"));
+
+    expect(mockForgotPasswordEmail).toHaveBeenCalled();
+    expect(onClose).toHaveBeenCalledTimes(0);
+    expect(getByText("Error")).toBeInTheDocument();
+    expect(screen.queryByText('Code')).not.toBeInTheDocument()
+
+  });
+});
+
+describe("forgot password form error tests", () => {
+  let mockForgotPasswordEmail;
+  let mockForgotPasswordSubmit;
+
+  beforeAll(() => {
+    mockForgotPasswordEmail = jest
+      .spyOn(amplify, "forgotPasswordEmail")
+      .mockResolvedValue({ success: true });
+    mockForgotPasswordSubmit = jest
+      .spyOn(amplify, "forgotPasswordSubmit")
+      .mockResolvedValue({ success: false });
+  });
+
   
+  test("forgot password test confirm submit error", async () => {
+    let onClose = jest.fn();
+    let {getByText} = render(<ForgottenPasswordForm onClose={onClose} />);
+    const email = screen.getByTestId("email-forgot");
+
+    const submit = screen.getByRole("button", { name: "Submit" });
+
+    fireEvent.change(email, { target: { value: "poorna2152@gmail.com" } });
+    fireEvent.click(submit);
+
+    await waitFor(() => screen.getByTestId("forgot-pass"));
+
+    const code = screen.getByTestId("code-forgot");
+    const password = screen.getByTestId("password-forgot");
+    fireEvent.change(code, { target: { value: "1234" } });
+    fireEvent.change(password, { target: { value: "ashJjgjhk_09" } });
+
+    fireEvent.click(submit);
+
+    expect(mockForgotPasswordEmail).toHaveBeenCalled();
+    expect(mockForgotPasswordSubmit).toHaveBeenCalled();
+    expect(getByText("Error")).toBeInTheDocument();
+
+  });
+});

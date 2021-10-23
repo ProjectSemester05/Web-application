@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -40,6 +40,7 @@ const ForgottenPasswordForm = ({ onClose }) => {
         values.password
       );
     }
+    console.log(emailSent);
     if (result.success && emailSent) {
       onClose();
     } else if (result.success && !emailSent) {
@@ -73,7 +74,7 @@ const ForgottenPasswordForm = ({ onClose }) => {
         })}
       >
         {(_props) => (
-          <Box>
+          <Box data-testid="forgot-pass">
             <Text fontSize="16px" color="tomato"></Text>
             <FormControl
               isInvalid={_props.errors.email && _props.touched.email}
@@ -81,8 +82,9 @@ const ForgottenPasswordForm = ({ onClose }) => {
             >
               <FormLabel>Email</FormLabel>
               <Input
+                data-testid="email-forgot"
                 type="text"
-                name="code"
+                name="email"
                 value={_props.initialValues.email}
                 {..._props.getFieldProps("email")}
                 borderColor="black"
@@ -100,6 +102,7 @@ const ForgottenPasswordForm = ({ onClose }) => {
                 >
                   <FormLabel>Code</FormLabel>
                   <Input
+                    data-testid="code-forgot"
                     type="text"
                     name="code"
                     value={_props.initialValues.code}
@@ -118,6 +121,7 @@ const ForgottenPasswordForm = ({ onClose }) => {
 
                   <InputGroup>
                     <Input
+                      data-testid="password-forgot"
                       type={passwordShow ? "text" : "password"}
                       name="password"
                       value={_props.initialValues.password}
