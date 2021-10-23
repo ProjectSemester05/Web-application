@@ -9,4 +9,4 @@ export const getItems = (uuid) => getRequest(`${URL}-by-catalogue-uuid/${uuid}` 
 
 export const deleteItem = (uuid) => deleteRequest(`${URL}/${uuid}` )
 
-export const updateItem = (uuid) => putRequest(`${URL}/${uuid}` )
+export const updateItem = (data) => putRequest(`${URL}/edit`,data )

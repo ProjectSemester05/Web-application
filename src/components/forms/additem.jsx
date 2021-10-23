@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { createItem } from "../../api/item";
+import { createItem, updateItem } from "../../api/item";
 import {uploadImage} from "../../utils/s3FileUpload"
 
 
@@ -56,17 +56,20 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
               }
           }
           
+          values.CatalogueUUID = uuid;
+          
           if(add){
-            values.CatalogueUUID = uuid;
             console.log(values);
             result = await createItem(values);
 
           }
           else{
+            result = await updateItem(values);
             console.log("Updating the item");
           }
 
           console.log(result);
+          func(result.newItem)
 
           if (result.success) {
             toast({

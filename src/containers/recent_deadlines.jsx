@@ -4,6 +4,7 @@ import SearchBar from "../components/forms/search";
 import Slider from "../components/slider";
 import RecentItem from "../components/cards/recent";
 import { getReminders } from "../api/reminders";
+import ItemContainer from "./items_container";
 
 
 const RecentDeadlines = () => {
@@ -63,10 +64,10 @@ const RecentDeadlines = () => {
       if (result.Reminders) {
         let components = result.Reminders.map((item) => (
           <RecentItem
-            name="Paint Bucket"
-            catalogue="Garage Items"
-            date="Sept 18"
-            img="/assets/images/paint.png"
+            name= {item.ItemName}
+            catalogue={item.CatalogueName}
+            date={item.Date}
+            img={item.ImageURL}
           />
         ));
         setReminders(components);

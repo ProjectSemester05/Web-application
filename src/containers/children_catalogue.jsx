@@ -1,6 +1,5 @@
-import { React, useEffect, useState } from "react";
+import  React, {useEffect, useState } from "react";
 import { Text, Flex, Box } from "@chakra-ui/react";
-import "@fontsource/montserrat";
 import CatalogueCard from "../components/cards/catalogue";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import "../style/catalogues.css";
@@ -51,7 +50,7 @@ const ChildrenCatalogueContainer = ({ uuid }) => {
         Sub Categories
       </Text>
 
-      <Flex width="full" flexDirection="column" p="20px">
+      <Flex width="full" flexDirection="column" p="20px" data-testid="child-cat-cont">
         <Slider
           components={[
             <NewCatalogueCard
