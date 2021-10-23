@@ -41,14 +41,14 @@ describe("catalogue container tests", () => {
     jest.clearAllMocks();
   });
 
-  test.skip("children catalogue container render test", async () => {
+  test("children catalogue container render test", async () => {
     expect(mockGetCatalogues).toHaveBeenCalledTimes(1);
     getChildrenCatalogues.Catalogues.forEach((catalogue) => {
       expect(cardContainer).toHaveTextContent(catalogue.CatalogueName);
     });
   });
 
-  test.skip("catalogue container open edit catalogue", async () => {
+  test("catalogue container open edit catalogue", async () => {
     const catalogueCard = screen.getByTestId(
       `${getChildrenCatalogues.Catalogues[0].UUID}_edit`
     );
@@ -59,7 +59,7 @@ describe("catalogue container tests", () => {
     );
   });
 
-  test.skip("catalogue container open add catalogue", async () => {
+  test("catalogue container open add catalogue", async () => {
     const catalogueCard = screen.getByText("Create your own Catalogue!!!");
     fireEvent.click(catalogueCard);
     expect(screen.getByTestId("new-catalogue-form")).toBeInTheDocument();
@@ -68,7 +68,7 @@ describe("catalogue container tests", () => {
     );
   });
 
-  test.skip("catalogue container delete catalogue", async () => {
+  test("catalogue container delete catalogue", async () => {
     const catalogueCard = screen.getByTestId(
       `${getChildrenCatalogues.Catalogues[0].UUID}_edit`
     );
@@ -82,7 +82,7 @@ describe("catalogue container tests", () => {
     expect(catalogueCard).not.toBeInTheDocument();
   });
 
-  test.skip("catalogue container update catalogue", async () => {
+  test("catalogue container update catalogue", async () => {
     const catalogueCard = screen.getByTestId(
       `${getChildrenCatalogues.Catalogues[0].UUID}_edit`
     );

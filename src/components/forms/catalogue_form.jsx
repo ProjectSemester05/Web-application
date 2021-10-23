@@ -72,7 +72,7 @@ const CatalogueForm = ({
 
   const toast = useToast();
   return (
-    <Box my={8} textAlign="center">
+    <Box my={8} textAlign="center" data-testid="addcatalogue-form">
       <Formik
         initialValues={initialValues}
         validationSchema={Yup.object({
