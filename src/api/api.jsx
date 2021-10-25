@@ -32,7 +32,7 @@ export const putRequest = async (url, data) => {
 
 export const deleteRequest = async (url) => {
   try {
-    let response = await axios.delete(url,{},getHeaderToken());
+    let response = await axios.delete(url,getHeaderToken());
     return {...response.data, success: true};
 
   } catch (error) {

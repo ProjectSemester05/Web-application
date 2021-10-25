@@ -1,4 +1,3 @@
-const dotenvPlugin = require('cypress-dotenv');
 /// <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -18,7 +17,6 @@ const dotenvPlugin = require('cypress-dotenv');
  */
 // eslint-disable-next-line no-unused-vars
 module.exports = (on, config) => {
-  config = dotenvPlugin(config)
   return config
 
   // `on` is used to hook into various events Cypress emits

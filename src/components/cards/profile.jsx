@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Box,
   Text,
@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { signOut } from "../../utils/amplifyConf";
 import { useHistory } from "react-router-dom";
-import { getUser } from "../../utils/amplifyConf";
 import UserForm from "../forms/userform"
 import { useSelector } from 'react-redux';
 

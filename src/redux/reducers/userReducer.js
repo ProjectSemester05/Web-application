@@ -10,7 +10,14 @@ const initialState = {
 };
 
 const logout = (state) => {
-  return { ...state, token: null, userID: null };
+  return {
+    token: null,
+    userID: null,
+    email: null,
+    firstName:null,
+    lastName:null,
+    provider: false
+  };
 };
 
 const auth = (state, action) =>{

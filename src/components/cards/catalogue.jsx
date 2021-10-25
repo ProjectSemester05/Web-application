@@ -35,7 +35,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
       
     >
     <Flex flexDirection="column">
-      <Flex justifyContent="space-around" onClick={() => {
+      <Flex justifyContent="space-around" data-testname ={`up_card`} onClick={() => {
         history.push("/catalogues",{uuid:uuid, catalogueName: name});
       }}>
         <Box>

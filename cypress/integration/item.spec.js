@@ -1,38 +1,94 @@
 /// <reference types="cypress"/>
+import { BASE_API } from "../../src/utils/constants";
 
-describe("Create Catalogue tests", () => {
-    
-    beforeEach(()=>{
-        cy.visit("/")
-        cy.contains('LogIn').click()
+describe("item tests", () => {
+  let uuid;
 
-        cy.get("input[name='email']").type("lalanigunathilaka22@gmail.com")
-        cy.get("input[name='password']").type("hsiadiaY890jds_")
+  before(() => {
+    cy.server().route("POST", `${BASE_API}**`).as("getSiteInfo");
+    cy.server().route("DELETE", `${BASE_API}**`).as("deleteSiteInfo");
+    cy.server().route("PUT", `${BASE_API}**`).as("updateSiteInfo");
+    cy.visit("/");
+    cy.contains("LogIn").click();
 
-        cy.get("#login-normal").click()
-        cy.wait(200)
-        cy.contains("Semester 6 Work",{timeout:5000}).click()
-        cy.wait(200)
-    })
+    cy.get("input[name='email']").type(Cypress.env("TESTUSER"));
+    cy.get("input[name='password']").type(Cypress.env("TESTPASS"));
 
-    
-    it("should create a new item with mock http", () =>{
-        cy.contains('Add New Item').click()
+    cy.get("#login-normal").click();
 
-        cy.get("input[name='ItemName']").type("SEP MID")
+    cy.wait(6000);
+    cy.contains("New Catalogue", { timeout: 15000 }).click();
+    cy.wait(3000);
 
-        cy.contains("Submit").click()
+    cy.get("input[name='CatalogueName']").type("Heavy Items");
+    cy.contains("Submit")
+      .click()
+      .wait("@getSiteInfo", { timeout: 20000 })
+      .then((xhr) => {
+        cy.log(JSON.stringify(xhr.response));
+        cy.log(JSON.stringify(xhr.response.statusMessage));
+        cy.log(JSON.stringify(xhr.response.body));
+        cy.log(xhr.response.body.newCatalogue);
+        cy.log(xhr.response.body.newCatalogue.UUID);
+        uuid = xhr.response.body.newCatalogue.UUID;
+      });
+    cy.wait(3000);
+    cy.get(`[data-testname=up_card]`, { timeout: 10000 }).click();
+  });
 
-        cy.intercept("POST", "https://v86cz5q48g.execute-api.us-east-1.amazonaws.com/dev/item/new",{
-            fixture: "item.json"
-        })
+  after(() => {
+    cy.visit("/home");
+    cy.wait(3000);
 
-        cy.wait(100)
+    cy.get(`[data-testid=${uuid}_edit]`).click();
+    cy.waitFor(2000);
+    cy.contains("Delete")
+      .click();
+    cy.wait(2000);
+    cy.contains("Success", { timeout: 2000 }).should("be.visible");
+  });
 
-        cy
-        .contains("Knife",{timeout:5000})
-        .should('be.visible')
-    } )
-    
-})
+  it("should create a new item", () => {
+    cy.wait(3000);
+    cy.contains("Add New Item", { timeout: 15000 }).click();
+    cy.wait(3000);
 
+    cy.get("input[name='ItemName']").type("Box");
+    cy.contains("Submit")
+      .click()
+      .wait("@getSiteInfo", { timeout: 20000 })
+      .then((xhr) => {
+        cy.log(JSON.stringify(xhr.response));
+        cy.log(JSON.stringify(xhr.response.statusMessage));
+        cy.log(JSON.stringify(xhr.response.body));
+      });
+
+    cy.contains("Box").should("be.visible");
+  });
+
+  it("should update the item", () => {
+    cy.wait(3000);
+
+      cy.get(`[data-testid=edit-material]`).click();
+  cy.wait(3000);
+    cy.get("input[name='ItemName']").clear();
+    cy.get("input[name='ItemName']").type("Box_0");
+
+    cy.contains("Submit")
+      .click();
+
+    cy.contains("Box_0").should("be.visible");
+  });
+  
+  it("should delete the item", () => {
+    cy.wait(3000);
+
+    cy.get(`[data-testid=delete-material]`).click();
+    cy.wait(3000);
+
+   
+    cy.contains("Are you sure").should("be.visible");
+  });
+
+  
+});

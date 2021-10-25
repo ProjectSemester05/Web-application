@@ -1,7 +1,7 @@
 /// <reference types="cypress"/>
 let testConfig = require("../../src/config/config")
 
-describe("Create Catalogue tests", () => {
+describe("Login tests", () => {
     
     beforeEach(()=>{
         cy.visit("/",)

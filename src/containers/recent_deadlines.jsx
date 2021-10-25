@@ -74,7 +74,7 @@ const RecentDeadlines = () => {
         setReminders(components);
       }
     }
-    fetchReminders();
+    // fetchReminders();
   }, []);
   return (
     <Flex width="full" py={5}>

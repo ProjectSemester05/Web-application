@@ -10,13 +10,13 @@ export const logout = () => {
   };
 };
 
-export const checkAuthTimeout = (expirationTime) => {
-  return (dispatch) => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime * 1000);
-  };
-};
+// export const checkAuthTimeout = (expirationTime) => {
+//   return (dispatch) => {
+//     setTimeout(() => {
+//       dispatch(logout());
+//     }, expirationTime * 1000);
+//   };
+// };
 
 export const auth = () => {
   let token = getAuthValues("idToken");
