@@ -8,7 +8,7 @@ describe("Create Catalogue tests", () => {
 
     })
 
-    it.skip("User should be able to login", () =>{
+    it("User should be able to login", () =>{
         cy.contains('LogIn').click()
         cy.get("input[name='email']").type(Cypress.env("TESTUSER"))
         cy.get("input[name='password']").type(Cypress.env("TESTPASS"))

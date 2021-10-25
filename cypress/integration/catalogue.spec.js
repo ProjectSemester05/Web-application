@@ -21,11 +21,11 @@ describe("Create Catalogue tests", () => {
 
         cy.contains("Submit").click()
 
-        cy.intercept("POST", `${BASE_API}catalogue/new`,{
-            fixture: "catalogue.json"
-        })
+        // cy.intercept("POST", `${BASE_API}catalogue/new`,{
+        //     fixture: "catalogue.json"
+        // })
         cy
-        .contains("Heavy Items")
+        .contains("Heavy Items",{timeout: 15000})
         .should('be.visible')
     } )
 
