@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Image, useToast, Text, Button } from "@chakra-ui/react";
+import { Box,  } from "@chakra-ui/react";
 import MaterialTable from "material-table";
 import tableIcons from "../../utils/tableIcons";
-import { CheckCircleIcon } from "@chakra-ui/icons";
 import {
   createReminder,
   getItemReminders,

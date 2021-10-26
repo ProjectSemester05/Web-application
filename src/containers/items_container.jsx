@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Image,
-  useToast,
   Text,
   useDisclosure,
   Button,
@@ -19,7 +18,6 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 import { deleteItem, getItems } from "../api/item";
 import AddItemForm from "../components/forms/additem";
 import Reminder from "../components/forms/reminder";
-import Edit from '@material-ui/icons/Edit';
 
 
 const ItemContainer = ({ uuid }) => {
@@ -41,7 +39,7 @@ const ItemContainer = ({ uuid }) => {
 
   const updateItem = (data) => {
     let newItems = items.map((item) => {
-      if (item.UUID == data.UUID) {
+      if (item.UUID === data.UUID) {
         item = { ...item, ...data };
       }
       return item;

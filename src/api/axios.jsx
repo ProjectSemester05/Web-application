@@ -24,7 +24,7 @@ export const getAuthValues = (type) => {
 } 
 
 
-const token = getAuthValues("idToken");
+// const token = getAuthValues("idToken");
 // if (token) instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
 

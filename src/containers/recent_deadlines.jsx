@@ -4,7 +4,6 @@ import SearchBar from "../components/forms/search";
 import Slider from "../components/slider";
 import RecentItem from "../components/cards/recent";
 import { getReminders } from "../api/reminders";
-import ItemContainer from "./items_container";
 
 
 const RecentDeadlines = () => {

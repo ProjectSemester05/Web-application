@@ -4,7 +4,7 @@ import CatalogueCard from "../components/cards/catalogue";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import "../style/catalogues.css";
 import Slider from "../components/slider";
-import { getChildrenCatalogues, updateCatalogue } from "../api/catalogue";
+import { getChildrenCatalogues } from "../api/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 
 const ChildrenCatalogueContainer = ({ uuid }) => {

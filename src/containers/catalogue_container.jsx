@@ -2,7 +2,7 @@ import  React, {useEffect, useState}  from "react";
 import { Box, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
 import CatalogueCard from "../components/cards/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
-import { getCatalogues, updateCatalogue } from "../api/catalogue";
+import { getCatalogues } from "../api/catalogue";
 
 const CatalogueContainer = () => {
 
@@ -19,7 +19,7 @@ const CatalogueContainer = () => {
   
   const updateCatalogue = (data) => {
     let newCatalogues = catalogues.map((item) => {
-      if(item.UUID == data.UUID){
+      if(item.UUID === data.UUID){
         item = {...item, ...data}
       }
       return item  

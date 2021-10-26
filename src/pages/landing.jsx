@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Box, Text, Flex, Button, Image, extendTheme } from "@chakra-ui/react";
+import { Box, Text, Flex, Button, Image } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import SignUpArea from "../components/forms/signup";
 import Footer from "../components/footer";

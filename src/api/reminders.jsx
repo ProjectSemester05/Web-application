@@ -1,5 +1,4 @@
 import {postRequest, getRequest, deleteRequest} from "./api";
-import { getAuthValues } from "./axios";
 
 const URL = "reminder"
 
