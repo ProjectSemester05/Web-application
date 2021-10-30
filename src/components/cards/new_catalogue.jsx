@@ -107,7 +107,7 @@ const ExistingNewCatalogueCard = ({ onOpen }) => {
 const EmptyNewCatalogueCard = ({ onOpen, pUUID }) => {
   return (
     <Flex bg="#eeeeee" flexDir="column" justifyContent="center" position="relative">
-      <Image mt="6" src={pUUID ? "/assets/images/SUB.svg":"/assets/images/empty.svg" } mx="auto" />
+      <Image mt="6" src={pUUID ? "/assets/images/sub.svg":"/assets/images/empty.svg" } mx="auto" />
       <Flex w="100%" justifyContent="center">
         <Button onClick={onOpen} my="5" mt="3" width="200px"  color="white" bg="#407BFF" _hover={{bg:"#4475e3"}}>
           Add New
