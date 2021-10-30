@@ -10,11 +10,11 @@ function Main() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/catalogues">
+        <Route path="/catalogues/:name">
           {user.token == null ? (
             <Redirect to={{ pathname: "/" }} />
           ) : (
-            <CataloguePage />
+            <CataloguePage/>
           )}
         </Route>
         <Route path="/home/">

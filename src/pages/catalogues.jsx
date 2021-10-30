@@ -28,7 +28,7 @@ const CataloguePage = () => {
   }
 
   return (
-    <Flex flexDirection="column" position="relative"  overflow={loadingCounter1+loadingCounter2 ===2 ? "auto":"hidden"} maxH={loadingCounter1+loadingCounter2 ===2 ? "auto":"100vh"}>
+    <Flex flexDirection="column" position="relative"  overflow={loadingCounter1+loadingCounter2 >=2 ? "auto":"hidden"} maxH={loadingCounter1+loadingCounter2 >=2 ? "auto":"100vh"}>
       {loadingCounter1 + loadingCounter2< 2 && <Loader />}
       
       <Header signed={true} />
@@ -37,8 +37,8 @@ const CataloguePage = () => {
           {catalogueName}
         </Heading>
         <Box backgroundColor="#000000" mb="6" border="1px solid #000000" />
-        <ChildrenCatalogueContainer uuid={uuid} increment={incrementLoading1} catalogues={[]}/>
-        <ItemContainer uuid={uuid} increment={incrementLoading2} initialItems={[]}/>
+        <ChildrenCatalogueContainer uuid={uuid} increment={incrementLoading1}/>
+        <ItemContainer uuid={uuid} increment={incrementLoading2}/>
         <Footer minHeight="20px" />
       </Flex>
     </Flex>

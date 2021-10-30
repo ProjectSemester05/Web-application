@@ -19,11 +19,11 @@ import { deleteItem, getItems } from "../api/item";
 import AddItemForm from "../components/forms/additem";
 import Reminder from "../components/forms/reminder";
 
-const ItemContainer = ({ uuid, increment, initialItems }) => {
+const ItemContainer = ({ uuid, increment }) => {
   const reminderPopup = useDisclosure();
   const itemPopup = useDisclosure();
 
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState([]);
   const [currentItem, setCurrentItem] = useState({});
   const [isAdd, setIsAdd] = useState(true);
 
@@ -88,7 +88,7 @@ const ItemContainer = ({ uuid, increment, initialItems }) => {
       increment();
     }
     fetchItems();
-  }, []);
+  }, [uuid,increment]);
 
   return (
     <Box>

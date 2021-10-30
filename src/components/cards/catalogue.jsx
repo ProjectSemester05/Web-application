@@ -18,7 +18,6 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
   let catalogue={CatalogueName: name}
   return (
     <>
-
     <Flex
       mt={["20px", "0"]}
       backgroundColor="#E1DEF1"

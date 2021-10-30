@@ -7,8 +7,8 @@ import Slider from "../components/slider";
 import { getChildrenCatalogues } from "../api/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 
-const ChildrenCatalogueContainer = ({increment, uuid, catalogues }) => {
-  const [childrenCatalogue, setChildrenCatalogue] = useState(catalogues);
+const ChildrenCatalogueContainer = ({increment, uuid }) => {
+  const [childrenCatalogue, setChildrenCatalogue] = useState([]);
   const addChildrenCatalogue = (catalogue) => {
     setChildrenCatalogue([
       ...childrenCatalogue,
@@ -56,6 +56,7 @@ const ChildrenCatalogueContainer = ({increment, uuid, catalogues }) => {
     let result = {};
     async function fetchChildrenCatalogues() {
       result = await getChildrenCatalogues(uuid);
+      
       console.log(result);
       if (result.hasOwnProperty("Catalogues")) {
         let newChildren = result.Catalogues.map((cat) => (
@@ -78,7 +79,7 @@ const ChildrenCatalogueContainer = ({increment, uuid, catalogues }) => {
     }
 
     fetchChildrenCatalogues();
-  }, []);
+  }, [uuid,increment]);
 
   return (
     <Flex flexDirection="column">
