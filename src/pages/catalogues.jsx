@@ -20,25 +20,25 @@ const CataloguePage = () => {
     console.log("called1 ")
     let newVal = loadingCounter1 + 1;
     setLoadingCounter1(newVal);
-    if(newVal + loadingCounter2==2){
-     setOver("auto")
-    }
+    if(newVal + loadingCounter2===2){
+      setOver("auto")
+     }
     console.log(newVal);
     console.log(loadingCounter1);
   }
   const incrementLoading2 = () => {
     console.log("called2 ")
     let newVal = loadingCounter2 + 1;
-    if(newVal + loadingCounter1==2){
+    setLoadingCounter2(newVal);
+    if(newVal + loadingCounter1===2){
       setOver("auto")
      }
-    setLoadingCounter2(newVal);
     console.log(newVal);
     console.log(loadingCounter2);
   }
 
   return (
-    <Flex flexDirection="column" position="relative" overflow={over}>
+    <Flex flexDirection="column" position="relative"  overflow={loadingCounter1+loadingCounter2 ===2 ? "auto":"hidden"} maxH={loadingCounter1+loadingCounter2 ===2 ? "auto":"100vh"}>
       {loadingCounter1 + loadingCounter2< 2 && <Loader />}
       
       <Header signed={true} />

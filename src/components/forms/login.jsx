@@ -158,6 +158,7 @@ const LoginForm = ({setLoading}) => {
               mt={4}
               variant="solid"
               id="login-normal"
+              type="submit"
             >
               Login
             </Button>

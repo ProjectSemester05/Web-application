@@ -20,7 +20,7 @@ const HomePage = () => {
     console.log("called1 ")
     let newVal = loadingCounter1 + 1;
     setLoadingCounter1(newVal);
-    if(newVal + loadingCounter2==2){
+    if(newVal + loadingCounter2 >= 2){
      setOver("auto")
     }
     console.log(newVal);
@@ -29,7 +29,7 @@ const HomePage = () => {
   const incrementLoading2 = () => {
     console.log("called2 ")
     let newVal = loadingCounter2 + 1;
-    if(newVal + loadingCounter1==2){
+    if(newVal + loadingCounter1 >= 2){
       setOver("auto")
      }
     setLoadingCounter2(newVal);
@@ -60,7 +60,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Flex flexDirection="column" overflow={over} maxH={over ==="auto"? "auto":"100vh"}>
+    <Flex flexDirection="column" overflow={loadingCounter1+loadingCounter2 ===2 ? "auto":"hidden"} maxH={loadingCounter1+loadingCounter2 ===2 ? "auto":"100vh"}>
       {loadingCounter1 + loadingCounter2 < 2 && <Loader/>}
       <Header signed={true} />
       <RecentDeadlines increment = {incrementLoading1}/>

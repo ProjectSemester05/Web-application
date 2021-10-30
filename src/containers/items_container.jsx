@@ -19,7 +19,6 @@ import { deleteItem, getItems } from "../api/item";
 import AddItemForm from "../components/forms/additem";
 import Reminder from "../components/forms/reminder";
 
-
 const ItemContainer = ({ uuid, increment }) => {
   const reminderPopup = useDisclosure();
   const itemPopup = useDisclosure();
@@ -86,9 +85,9 @@ const ItemContainer = ({ uuid, increment }) => {
     async function fetchItems() {
       result = await getItems(uuid);
       setItems(result.Items);
+      increment();
     }
     fetchItems();
-    increment();
   }, []);
 
   return (
@@ -101,14 +100,14 @@ const ItemContainer = ({ uuid, increment }) => {
         ml="20px"
         minW="200px"
         bg="blue"
-        mb ={2}
+        mb={2}
         color="white"
         _hover={{ bg: "lightblue" }}
         onClick={addItemOnClick}
       >
         Add New Item
       </Button>
-      <Box p={[1,6]} data-testid="item-cont">
+      <Box p={[1, 6]} data-testid="item-cont">
         <MaterialTable
           title=""
           columns={tableColumns}
