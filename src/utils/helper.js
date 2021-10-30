@@ -4,7 +4,10 @@ export const getName = (name) => {
 }
 
 export const formatDate = (text) => {
-    let index = text.indexOf("T");
-    return text.substring(0,index);
-
+    if(text){
+        let index = text.indexOf("T");
+        return text.substring(0,index);
+    }
+    return "none";
+    
 }

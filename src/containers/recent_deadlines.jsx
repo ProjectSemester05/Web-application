@@ -6,7 +6,7 @@ import RecentItem from "../components/cards/recent";
 import { getReminders } from "../api/reminders";
 import { formatDate } from "../utils/helper";
 
-const RecentDeadlines = ({increment}) => {
+const RecentDeadlines = ({ increment }) => {
   const [reminders, setReminders] = useState([]);
 
   useEffect(() => {
@@ -26,11 +26,12 @@ const RecentDeadlines = ({increment}) => {
           />
         ));
         setReminders(components);
+        increment();
+
         console.log(components);
       }
     }
     fetchReminders();
-    increment();
   }, []);
   return (
     <Flex width="full" py={5}>

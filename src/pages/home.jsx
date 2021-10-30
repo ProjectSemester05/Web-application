@@ -60,7 +60,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" overflow={over} maxH={over ==="auto"? "auto":"100vh"}>
       {loadingCounter1 + loadingCounter2 < 2 && <Loader/>}
       <Header signed={true} />
       <RecentDeadlines increment = {incrementLoading1}/>
