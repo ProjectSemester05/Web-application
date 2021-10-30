@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import { Box, Flex, Image } from "@chakra-ui/react";
-import Avatar from "@material-ui/core/avatar";
+import {Avatar} from "@material-ui/core";
 import UserProfile from "./cards/profile"
 
 const Header = ({ signed }) => {
