@@ -64,7 +64,6 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
             result = await createItem(values);
           } else {
             result = await updateItem(values);
-            console.log("Updating the item");
           }
 
           console.log(result);

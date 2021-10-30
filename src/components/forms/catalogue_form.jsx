@@ -20,6 +20,7 @@ import {
   updateCatalogue,
 } from "../../api/catalogue";
 import { uploadImage } from "../../utils/s3FileUpload";
+import FormLoader from "../FormLoader";
 
 const CatalogueForm = ({
   add,
@@ -28,7 +29,6 @@ const CatalogueForm = ({
   uuid,
   func,
   deleteFunc,
-  parentCatalogue,
   pUUID,
   img,
 }) => {
@@ -42,6 +42,7 @@ const CatalogueForm = ({
     img ? img : "/assets/images/default-catalogue.jpg"
   );
   const [blobImg, setBlobImg] = useState({});
+  const [loading, setLoading] = useState(false);
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
@@ -82,34 +83,41 @@ const CatalogueForm = ({
         })}
         onSubmit={async (values) => {
           let result = { success: false };
+          let imgError = "";
           try {
+            setLoading(true);
             if (blobImg.hasOwnProperty("file")) {
               result = await uploadImage(blobImg.file);
               if (result.success) {
                 values.ImageUrl = result.result.location;
+              } else {
+                imgError = "Could not upload image";
               }
             }
+
             if (pUUID) {
               values.ParentCatalogueUUID = pUUID;
             }
 
             if (add) {
-              console.log("add");
               result = await createCatalogue(values);
             } else {
               values.UUID = uuid;
               result = await updateCatalogue(values);
             }
+            setLoading(false);
+
             if (result.success) {
+              let title =
+                imgError.length > 0 ? "Image not uploaded" : "Success";
+              let status = imgError.length > 0 ? "warning" : "success";
               toast({
-                title: "Success",
-                status: "success",
+                title: title,
+                status: status,
                 duration: 9000,
                 isClosable: true,
               });
-              console.log(JSON.stringify(result));
               func(result.newCatalogue);
-
               onClose();
             } else {
               toast({
@@ -131,7 +139,7 @@ const CatalogueForm = ({
       >
         {(props) => (
           <Box>
-            <Text fontSize="16px" color="tomato"></Text>
+            {loading && <FormLoader />}
             <Box position="relative">
               <Image
                 src={image}

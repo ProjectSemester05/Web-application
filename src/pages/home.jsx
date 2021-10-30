@@ -14,27 +14,14 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const [loadingCounter1, setLoadingCounter1] = useState(0);
   const [loadingCounter2, setLoadingCounter2] = useState(0);
-  const [over, setOver] = useState("hidden");
 
   const incrementLoading1 = () => {
-    console.log("called1 ")
     let newVal = loadingCounter1 + 1;
     setLoadingCounter1(newVal);
-    if(newVal + loadingCounter2 >= 2){
-     setOver("auto")
-    }
-    console.log(newVal);
-    console.log(loadingCounter1);
   }
   const incrementLoading2 = () => {
-    console.log("called2 ")
     let newVal = loadingCounter2 + 1;
-    if(newVal + loadingCounter1 >= 2){
-      setOver("auto")
-     }
     setLoadingCounter2(newVal);
-    console.log(newVal);
-    console.log(loadingCounter2);
   }
 
   useEffect(() => {
