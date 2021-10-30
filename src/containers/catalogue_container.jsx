@@ -36,7 +36,7 @@ const CatalogueContainer = ({increment}) => {
 
     }
     fetchCatalogues();
-  }, []);
+  }, [increment]);
 
   return (
     <Flex width="full" flexDirection="column" p="20px" pb="-20px">

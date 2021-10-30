@@ -31,7 +31,7 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
       let newCatalogues = childrenCatalogue.filter((item) => item.key !== uuid);
       setChildrenCatalogue(newCatalogues);
     },
-    [childrenCatalogue]
+    []
   );
 
   const updateCatalogue = useCallback(
@@ -55,7 +55,7 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
       ];
       setChildrenCatalogue(newCatalogues);
     },
-    [childrenCatalogue, deleteCatalogue, uuid]
+    [ deleteCatalogue, uuid]
   );
 
   useEffect(() => {

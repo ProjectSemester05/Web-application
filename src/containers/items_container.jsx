@@ -88,7 +88,7 @@ const ItemContainer = ({ uuid, increment }) => {
       increment();
     }
     fetchItems();
-  }, [uuid]);
+  }, [increment,uuid]);
 
   return (
     <Box>
