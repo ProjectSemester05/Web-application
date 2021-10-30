@@ -16,6 +16,7 @@ const Loader = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+  
   return (
     <Box position="absolute" top="0" bottom="0" left="0" right="0" backgroundColor="rgb(178, 190, 166)" zIndex="100" height="100vh" overflow="hidden">
     {/* <Box zIndex="100" minH="80vh" alignItems="center" my="auto" position="relative"> */}
