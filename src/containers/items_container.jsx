@@ -20,7 +20,7 @@ import AddItemForm from "../components/forms/additem";
 import Reminder from "../components/forms/reminder";
 
 
-const ItemContainer = ({ uuid }) => {
+const ItemContainer = ({ uuid, increment }) => {
   const reminderPopup = useDisclosure();
   const itemPopup = useDisclosure();
 
@@ -88,6 +88,7 @@ const ItemContainer = ({ uuid }) => {
       setItems(result.Items);
     }
     fetchItems();
+    increment();
   }, []);
 
   return (
@@ -100,13 +101,14 @@ const ItemContainer = ({ uuid }) => {
         ml="20px"
         minW="200px"
         bg="blue"
+        mb ={2}
         color="white"
         _hover={{ bg: "lightblue" }}
         onClick={addItemOnClick}
       >
         Add New Item
       </Button>
-      <Box p={6} data-testid="item-cont">
+      <Box p={[1,6]} data-testid="item-cont">
         <MaterialTable
           title=""
           columns={tableColumns}

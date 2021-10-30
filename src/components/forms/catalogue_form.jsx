@@ -92,7 +92,7 @@ const CatalogueForm = ({
             if (pUUID) {
               values.ParentCatalogueUUID = pUUID;
             }
-            
+
             if (add) {
               console.log("add");
               result = await createCatalogue(values);
@@ -140,7 +140,6 @@ const CatalogueForm = ({
                 borderRadius="50%"
                 mx="auto"
               />
-              {/* <IconButton position="absolute" aria-label="Add Image" icon={<RiImageAddLine />} /> */}
             </Box>
             <Stack isInline justifyContent="space-between" mt={4} mb={6}>
               <FormControl
@@ -175,10 +174,10 @@ const CatalogueForm = ({
             </FormControl>
             <Flex justifyContent="flex-end">
               <Button
-                // onClick={props.submitForm}
                 onClick={props.submitForm}
                 id="catalogue_form_submit"
                 backgroundColor="#0F4C75"
+                _hover={{ bg: "#0F4CAE" }}
                 width="100px"
                 color="white"
                 opacity="0.7"
@@ -191,6 +190,7 @@ const CatalogueForm = ({
                 <Button
                   onClick={deleteC}
                   backgroundColor="#C04040"
+                  _hover={{ bg: "#c75a7c" }}
                   opacity="0.7"
                   width="100px"
                   mt={4}

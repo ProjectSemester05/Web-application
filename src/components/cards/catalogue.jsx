@@ -15,15 +15,15 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   let catalogue={CatalogueName: name}
-  console.log(pUUID)
   return (
     <>
 
     <Flex
       mt={["20px", "0"]}
       backgroundColor="#E1DEF1"
-      width={["100%", "350px"]}
+      width={["100%", "100%","100%","350px"]}
       height={["160px", "200px"]}
+      maxW="350px"
       color="white"
       mb="0"
       flexDirection="column"
@@ -41,9 +41,11 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
         <Box>
           <Text
             fontWeight="bold"
-            fontSize={["20px", "25px"]}
+            fontSize={["18px","18px","18px", "20px"]}
             lineHeight="37px"
             color="black"
+            // maxW ="100px"
+            // whiteSpace = "nowrap"
             mt={3}
           >
             {name}
@@ -51,7 +53,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
           <Box height="1.5px" background="black"></Box>
         </Box>
         <Box>
-          <Image src={img? img: "/assets/images/default-catalogue.jpg"} height={["75px", "100px"]} w="auto" borderRadius="full"/>
+          <Image src={img? img: "/assets/images/default-catalogue.jpg"} height={["75px", "90px"]} w="auto" borderRadius="full"/>
         </Box>
       </Flex>
       <Flex justifyContent="space-around" mt={["5px", "5px"]}>
@@ -69,7 +71,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
         </Stack>
       </Flex>
       </Flex>
-      <Flex mt="3" justifyContent="flex-end">
+      <Flex mt={[0,3]} mb={[3,0]} justifyContent="flex-end">
           <Button data-testid ={`${uuid}_edit`} background="blackAlpha" fontSize="22px" onClick={onOpen} mr="2">
             <EditIcon color="black"/>
           </Button>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, Flex, Box } from "@chakra-ui/react";
+import { Text, Flex, Box, Image } from "@chakra-ui/react";
 import CatalogueCard from "../components/cards/catalogue";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import "../style/catalogues.css";
@@ -7,13 +7,9 @@ import Slider from "../components/slider";
 import { getChildrenCatalogues } from "../api/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 
-const ChildrenCatalogueContainer = ({ uuid }) => {
+const ChildrenCatalogueContainer = ({increment, uuid }) => {
   const [childrenCatalogue, setChildrenCatalogue] = useState([]);
-  console.log("Text")
-  console.log(uuid)
   const addChildrenCatalogue = (catalogue) => {
-    console.log("add func called");
-    console.log(catalogue);
     setChildrenCatalogue([
       ...childrenCatalogue,
       <CatalogueCard
@@ -21,11 +17,11 @@ const ChildrenCatalogueContainer = ({ uuid }) => {
         uuid={catalogue.UUID}
         iCount="21"
         cCount="6"
-        pUUID = {uuid}
+        pUUID={uuid}
         img="/assets/images/kitchen_items.png"
         deleteCatalogue={deleteCatalogue}
         key={catalogue.UUID}
-        updateCatalogue = {updateCatalogue}
+        updateCatalogue={updateCatalogue}
       />,
     ]);
   };
@@ -44,13 +40,13 @@ const ChildrenCatalogueContainer = ({ uuid }) => {
       <CatalogueCard
         uuid={data.UUID}
         name={data.CatalogueName}
-        pUUID = {uuid}
+        pUUID={uuid}
         iCount="21"
         cCount="6"
         img="/assets/images/kitchen_items.png"
         deleteCatalogue={deleteCatalogue}
         key={data.UUID}
-        updateCatalogue = {updateCatalogue}
+        updateCatalogue={updateCatalogue}
       />,
     ];
     setChildrenCatalogue(newCatalogues);
@@ -71,11 +67,12 @@ const ChildrenCatalogueContainer = ({ uuid }) => {
             img="/assets/images/kitchen_items.png"
             deleteCatalogue={deleteCatalogue}
             key={cat.UUID}
-            updateCatalogue = {updateCatalogue}
-            pUUID ={uuid}
+            updateCatalogue={updateCatalogue}
+            pUUID={uuid}
           />
         ));
         setChildrenCatalogue(newChildren);
+        increment();
         console.log(newChildren);
       }
     }
@@ -96,16 +93,25 @@ const ChildrenCatalogueContainer = ({ uuid }) => {
         p="20px"
         data-testid="child-cat-cont"
       >
-        <Slider
-          components={[
-            <NewCatalogueCard
-              addCatalogue={addChildrenCatalogue}
-              pUUID={uuid}
-            />,
-            ...childrenCatalogue,
-          ]}
-          cardGap={"350px"}
-        />
+        {childrenCatalogue.length > 0 ? (
+          <Slider
+            components={[
+              <NewCatalogueCard
+                empty={false}
+                addCatalogue={addChildrenCatalogue}
+                pUUID={uuid}
+              />,
+              ...childrenCatalogue,
+            ]}
+            cardGap={"350px"}
+          />
+        ) : (
+          <NewCatalogueCard
+            empty={true}
+            addCatalogue={addChildrenCatalogue}
+            pUUID={uuid}
+          />
+        )}
       </Flex>
       <Box backgroundColor="#000000" mb="6" border="1px solid #000000" />
     </Flex>

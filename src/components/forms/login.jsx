@@ -31,9 +31,8 @@ import { useHistory } from "react-router-dom";
 import { auth } from "../../redux/actions/userActions";
 import { signIn, lwaSignUp } from "../../utils/amplifyConf";
 import ForgottenPasswordForm from "./forgotPassword";
-import Loader from "../loader";
 
-const LoginArea = () => {
+const LoginArea = ({setLoading}) => {
   return (
     <Flex width="full" align="center" justifyContent="center" mt="10px" data-testid="login-form">
       <Box
@@ -44,16 +43,15 @@ const LoginArea = () => {
         width="full"
         bg="transparent"
       >
-        <LoginForm />
+        <LoginForm setLoading={setLoading}/>
       </Box>
     </Flex>
   );
 };
 
-const LoginForm = () => {
+const LoginForm = ({setLoading}) => {
   let toast = useToast();
   const [passwordShow, setPasswordShow] = useState(false);
-  const [loading, setLoading] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -93,7 +91,6 @@ const LoginForm = () => {
       >
         {(props) => (
           <Box>
-            {loading && <Loader />}
             <Stack isInline justifyContent="space-between" mt={4}>
               <FormControl
                 isInvalid={props.errors.email && props.touched.email}
@@ -144,12 +141,12 @@ const LoginForm = () => {
               </InputGroup>
               <FormErrorMessage>{props.errors.password}</FormErrorMessage>
             </FormControl>
-            <Stack isInline justifyContent="space-between" mt={4}>
-              <Box>
-                <Checkbox>Remember Me</Checkbox>
+            <Stack isInline={[false,true]} justifyContent="space-between" mt={4}>
+              <Box fontSize="15px">
+                <Checkbox >Remember Me</Checkbox>
               </Box>
               <Box>
-                <Link onClick={onOpen}>Forget Your Password?</Link>
+                <Link onClick={onOpen} fontSize="15px">Forget Your Password?</Link>
               </Box>
             </Stack>
             <Button

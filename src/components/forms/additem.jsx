@@ -47,7 +47,6 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
           ItemName: Yup.string().max(100).required("Required"),
           Description: Yup.string(),
           StoredLocation: Yup.string(),
-          Date: Yup.date(),
         })}
         onSubmit={async (values) => {
           let result = { success: false };
@@ -151,25 +150,7 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
               </InputGroup>
               <FormErrorMessage>{props.errors.StoredLocation}</FormErrorMessage>
             </FormControl>
-            <FormControl
-              isInvalid={
-                props.errors.StoredLocation && props.touched.StoredLocation
-              }
-              mt="5"
-            >
-              <FormLabel>Reminder</FormLabel>
-              <InputGroup>
-                <Input
-                  type="date"
-                  name="Date"
-                  value={props.initialValues.Date}
-                  {...props.getFieldProps("Date")}
-                  borderColor="black"
-                  borderBottomWidth="1px"
-                />
-              </InputGroup>
-              <FormErrorMessage>{props.errors.Date}</FormErrorMessage>
-            </FormControl>
+            
             <FormControl mr={2} mt="5">
               <FormLabel>Upload Image</FormLabel>
               <Input

@@ -8,13 +8,11 @@
     font-size: 14px !important;
     line-height: 29px !important;
     letter-spacing: -0.04em !important;
-    width: 160px !important;
     position: absolute !important;
     top: 0 !important;
     z-index: 0 !important;
     height: 45px !important;
     /* justify-content: flex-start!important; */
-    /* left: 23% !important; */
 }
 
 .login-button {
@@ -26,10 +24,8 @@
     font-size: 14px !important;
     line-height: 29px !important;
     letter-spacing: -0.04em !important;
-    width: 160px !important;
     position: absolute !important;
     top: 0 !important;
-    /* left: 48% !important; */
     height: 45px !important;
     z-index: 0 !important;
 }

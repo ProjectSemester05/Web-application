@@ -20,11 +20,11 @@ const RecentItem = ({ name, img, catalogue, date }) => {
       cursor="pointer"
     >
       <Flex justifyContent="center" mb="3">
-        <Image src={img}height="110px" width="auto"/>
+        <Image src={img? img : "/assets/images/paint.png"}height="110px" width="auto"/>
       </Flex>
       <Box textAlign="center">
         <Text fontSize="18px" fontWeight="500">{name}</Text>
-        <Text fontSize="14px" fontWeight="400">Catalogue: {catalogue}</Text>
+        {/* <Text fontSize="14px" fontWeight="400">Catalogue: {catalogue}</Text> */}
         <Text fontSize="14px" fontWeight="400">Reminder: {date} </Text>
       </Box>
     </Flex>

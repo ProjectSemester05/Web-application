@@ -6,6 +6,7 @@ import {
   createReminder,
   getItemReminders,
   deleteReminder,
+  updateReminder
 } from "../../api/reminders";
 import "../../style/material.css";
 
@@ -25,6 +26,15 @@ const Reminder = ({ uuid }) => {
     if (result.success) {
       let newReminders = reminders.filter((reminder) => reminder.UUID !== UUID);
       setReminders(newReminders);
+    }
+  };
+
+  const updateReminderClick = async (newData,oldData) => {
+    let result = await updateReminder(newData);
+    console.log(result);
+    if (result.success) {
+      let newReminders = reminders.filter((reminder) => reminder.UUID !== oldData.UUID);
+      setReminders([...newReminders, result.newReminder]);
     }
   };
 
@@ -66,7 +76,7 @@ const Reminder = ({ uuid }) => {
         options={tableOptions}
         icons={tableIcons}
         editable={{
-          onRowUpdate: (newData, oldData) => deleteReminder("1"),
+          onRowUpdate: (newData, oldData) => updateReminderClick(newData,oldData),
           onRowDelete: (data) => deleteReminderClick(data.UUID),
           onRowAdd: (data) => addReminder({ ...data, ItemUUID: uuid }),
         }}

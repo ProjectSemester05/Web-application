@@ -1,79 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Box, Text, Flex, Image } from "@chakra-ui/react";
 import SearchBar from "../components/forms/search";
 import Slider from "../components/slider";
 import RecentItem from "../components/cards/recent";
 import { getReminders } from "../api/reminders";
+import { formatDate } from "../utils/helper";
 
-
-const RecentDeadlines = () => {
+const RecentDeadlines = ({increment}) => {
   const [reminders, setReminders] = useState([]);
-  const components = [
-    <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
-
-    <RecentItem
-      name="Motor oil"
-      catalogue="Garage Items"
-      date="Sept 23"
-      img="/assets/images/motor_oil.jpg"
-    />,
-
-    <RecentItem
-      name="Battery"
-      catalogue="Garage Items"
-      date="Nov 18"
-      img="/assets/images/battery.png"
-    />,
-    <RecentItem
-      name="CS Assignment"
-      catalogue="Assignment"
-      date="Oct 21"
-      img="/assets/images/cs_assignment.png"
-    />,
-    <RecentItem
-      name="Da Vincis Daemons"
-      catalogue="Books"
-      date="June 06"
-      img="/assets/images/book.jpg"
-    />,
-    <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
-    <RecentItem
-      name="Paint Bucket"
-      catalogue="Garage Items"
-      date="Sept 18"
-      img="/assets/images/paint.png"
-    />,
-  ];
 
   useEffect(() => {
     let result = {};
     async function fetchReminders() {
       result = await getReminders();
       console.log(result);
-      console.log("here")
+
+      console.log(JSON.stringify(result.Reminders));
       if (result.Reminders) {
         let components = result.Reminders.map((item) => (
           <RecentItem
-            name= {item.ItemName}
-            catalogue={item.CatalogueName}
-            date={item.Date}
+            name={item.ItemName}
+            catalogue={"test"}
+            date={formatDate(item.Date)}
             img={item.ImageURL}
           />
         ));
         setReminders(components);
+        console.log(components);
       }
     }
-    // fetchReminders();
+    fetchReminders();
+    increment();
   }, []);
   return (
     <Flex width="full" py={5}>
@@ -85,7 +42,20 @@ const RecentDeadlines = () => {
           <Text fontSize="24px" mt="4" mb="20px">
             Recent Deadlines
           </Text>
-          <Slider components={components} cardGap={"200px"} />
+          <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
+
+          {reminders.length > 0 ? (
+            <Slider components={reminders} cardGap={"200px"} />
+          ) : (
+            <Flex
+              bg="#eeeeee"
+              flexDir="column"
+              justifyContent="center"
+              position="relative"
+            >
+              <Image src={"/assets/images/reminder.svg"} mx="auto" />
+            </Flex>
+          )}
         </Box>
       </Flex>
     </Flex>

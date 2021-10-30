@@ -1,4 +1,4 @@
-import {postRequest, getRequest, deleteRequest} from "./api";
+import {postRequest, getRequest, deleteRequest,putRequest} from "./api";
 
 const URL = "reminder"
 
@@ -10,6 +10,6 @@ export const getItemReminders = (ItemUUID) => getRequest(`reminder-by-item/${Ite
 
 export const deleteReminder = (UUID) => deleteRequest(`reminder/${UUID}`)
 
-// export const updateReminder = (UUID) => deleteReminder(`reminder/${UUID}`)
+export const updateReminder = (data) => putRequest(`reminder/edit`, data)
 
 
