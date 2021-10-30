@@ -65,7 +65,7 @@ const Reminder = ({ uuid }) => {
       setReminders(result.Reminders);
     }
     fetchReminders();
-  }, []);
+  }, [uuid]);
 
   return (
     <Box data-testid="reminder-cont" zIndex="2000">

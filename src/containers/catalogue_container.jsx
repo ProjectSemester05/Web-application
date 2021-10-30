@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Flex, Grid, GridItem, Image } from "@chakra-ui/react";
+import { Box, Text, Flex, Grid, GridItem } from "@chakra-ui/react";
 import CatalogueCard from "../components/cards/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 import { getCatalogues } from "../api/catalogue";
@@ -36,7 +36,7 @@ const CatalogueContainer = ({increment}) => {
 
     }
     fetchCatalogues();
-  }, []);
+  }, [increment]);
 
   return (
     <Flex width="full" flexDirection="column" p="20px" pb="-20px">

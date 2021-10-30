@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Text, Flex, Box, Image } from "@chakra-ui/react";
+import React, { useEffect, useState, useCallback } from "react";
+import { Text, Flex, Box } from "@chakra-ui/react";
 import CatalogueCard from "../components/cards/catalogue";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import "../style/catalogues.css";
@@ -7,7 +7,7 @@ import Slider from "../components/slider";
 import { getChildrenCatalogues } from "../api/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 
-const ChildrenCatalogueContainer = ({increment, uuid }) => {
+const ChildrenCatalogueContainer = ({ increment, uuid }) => {
   const [childrenCatalogue, setChildrenCatalogue] = useState([]);
   const addChildrenCatalogue = (catalogue) => {
     setChildrenCatalogue([
@@ -26,37 +26,43 @@ const ChildrenCatalogueContainer = ({increment, uuid }) => {
     ]);
   };
 
-  const deleteCatalogue = (uuid) => {
-    let newCatalogues = childrenCatalogue.filter((item) => item.key !== uuid);
-    setChildrenCatalogue(newCatalogues);
-  };
+  const deleteCatalogue = useCallback(
+    (uuid) => {
+      let newCatalogues = childrenCatalogue.filter((item) => item.key !== uuid);
+      setChildrenCatalogue(newCatalogues);
+    },
+    [childrenCatalogue]
+  );
 
-  const updateCatalogue = (data) => {
-    let newCatalogues = childrenCatalogue.filter(
-      (item) => item.key !== data.uuid
-    );
-    newCatalogues = [
-      ...childrenCatalogue,
-      <CatalogueCard
-        uuid={data.UUID}
-        name={data.CatalogueName}
-        pUUID={uuid}
-        iCount="21"
-        cCount="6"
-        img="/assets/images/kitchen_items.png"
-        deleteCatalogue={deleteCatalogue}
-        key={data.UUID}
-        updateCatalogue={updateCatalogue}
-      />,
-    ];
-    setChildrenCatalogue(newCatalogues);
-  };
+  const updateCatalogue = useCallback(
+    (data) => {
+      let newCatalogues = childrenCatalogue.filter(
+        (item) => item.key !== data.uuid
+      );
+      newCatalogues = [
+        ...childrenCatalogue,
+        <CatalogueCard
+          uuid={data.UUID}
+          name={data.CatalogueName}
+          pUUID={uuid}
+          iCount="21"
+          cCount="6"
+          img="/assets/images/kitchen_items.png"
+          deleteCatalogue={deleteCatalogue}
+          key={data.UUID}
+          updateCatalogue={updateCatalogue}
+        />,
+      ];
+      setChildrenCatalogue(newCatalogues);
+    },
+    [childrenCatalogue, deleteCatalogue, uuid]
+  );
 
   useEffect(() => {
     let result = {};
     async function fetchChildrenCatalogues() {
       result = await getChildrenCatalogues(uuid);
-      
+
       console.log(result);
       if (result.hasOwnProperty("Catalogues")) {
         let newChildren = result.Catalogues.map((cat) => (
@@ -79,7 +85,7 @@ const ChildrenCatalogueContainer = ({increment, uuid }) => {
     }
 
     fetchChildrenCatalogues();
-  }, [uuid,increment]);
+  }, [uuid, increment, updateCatalogue, deleteCatalogue]);
 
   return (
     <Flex flexDirection="column">

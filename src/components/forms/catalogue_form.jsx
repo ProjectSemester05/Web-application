@@ -23,7 +23,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import {
   createCatalogue,
-  deleteCatalogue,
   updateCatalogue,
 } from "../../api/catalogue";
 import { uploadImage } from "../../utils/s3FileUpload";
@@ -62,26 +61,6 @@ const CatalogueForm = ({
     }
   };
 
-  const deleteC = async () => {
-    let result = await deleteCatalogue(uuid);
-    if (result.success) {
-      toast({
-        title: "Success",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-      onClose();
-      deleteFunc(uuid);
-    } else {
-      toast({
-        title: "Error during deletion.",
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-    }
-  };
 
   return (
     <Box my={8} textAlign="center" data-testid="addcatalogue-form">

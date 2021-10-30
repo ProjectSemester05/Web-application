@@ -44,7 +44,7 @@ const HomePage = () => {
       }
     }
     fetchUser();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Flex flexDirection="column" overflow={loadingCounter1+loadingCounter2 ===2 ? "auto":"hidden"} maxH={loadingCounter1+loadingCounter2 ===2 ? "auto":"100vh"}>
