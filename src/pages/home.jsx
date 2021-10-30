@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect, useCallback } from "react";
 import { Flex } from "@chakra-ui/react";
 import Footer from "../components/footer";
 import Header from "../components/header";
@@ -23,6 +23,19 @@ const HomePage = () => {
     let newVal = loadingCounter2 + 1;
     setLoadingCounter2(newVal);
   }
+  const setUser = useCallback(
+    (user,name) => {
+      dispatch(
+        setUserInfo({
+          email: user.email,
+          firstName: name.firstName,
+          lastName: name.lastName,
+          provider: user.hasOwnProperty("identities"),
+        })
+      );
+    },
+    [],
+  )
 
   useEffect(() => {
     let result = {};
@@ -32,19 +45,12 @@ const HomePage = () => {
         if (result.result.hasOwnProperty("attributes")) {
           let user = result.result.attributes;
           let name = getName(user.name);
-          dispatch(
-            setUserInfo({
-              email: user.email,
-              firstName: name.firstName,
-              lastName: name.lastName,
-              provider: user.hasOwnProperty("identities"),
-            })
-          );
+          setUser(user,name);
         }
       }
     }
     fetchUser();
-  }, [dispatch]);
+  }, [setUser]);
 
   return (
     <Flex flexDirection="column" overflow={loadingCounter1+loadingCounter2 ===2 ? "auto":"hidden"} maxH={loadingCounter1+loadingCounter2 ===2 ? "auto":"100vh"}>

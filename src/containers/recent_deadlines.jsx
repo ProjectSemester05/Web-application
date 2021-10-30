@@ -32,7 +32,7 @@ const RecentDeadlines = ({ increment }) => {
       }
     }
     fetchReminders();
-  }, [increment]);
+  }, []);
   return (
     <Flex width="full" py={5}>
       <Flex width="full" px="3">

@@ -11,3 +11,20 @@ export const formatDate = (text) => {
     return "none";
     
 }
+
+export const isAuthenticated = () => {
+    let keys = Object.keys(localStorage)
+    let result = false;
+    keys.forEach((key) =>{
+      if(key ==="authenticated" && localStorage.getItem(key)){
+        result =true
+      }
+      else if(key ==="lwa" && localStorage.getItem(key)){
+        result =true
+      }
+    })
+    console.log("result")
+    console.log(result)
+    return result;
+    
+}

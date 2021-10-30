@@ -30,6 +30,8 @@ export const signUp = async (name, email, password) => {
         email,
       },
     });
+    localStorage.setItem("authenticated",true);
+
     return { result: user, success: true };
   } catch (error) {
     return { success: false, error: error };
@@ -40,8 +42,11 @@ export const lwaSignUp = async () => {
   try {
     let result = await Auth.federatedSignIn({ provider: "LoginWithAmazon" });
     console.log(result);
+    localStorage.setItem("authenticated",true);
     return { result: result, success: true };
   } catch (error) {
+    localStorage.setItem("lwa",false);
+    localStorage.setItem("authenticated",false);
     return { success: false, error: error };
   }
 };
@@ -49,6 +54,7 @@ export const lwaSignUp = async () => {
 export const signIn = async (email, password) => {
   try {
     const user = await Auth.signIn(email, password);
+    localStorage.setItem("authenticated",true);
     return { result: user, success: true };
   } catch (error) {
     console.log("error");
@@ -133,6 +139,7 @@ export const changePassword = async (oldPassword, newPassword) => {
 export const signOut = async () => {
   try {
     await Auth.signOut();
+    localStorage.clear();
     return {success: true}
 
   } catch (error) {
@@ -140,4 +147,3 @@ export const signOut = async () => {
     return {success: false}
   }
 }
-

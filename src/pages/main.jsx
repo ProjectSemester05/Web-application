@@ -3,25 +3,24 @@ import LandingPage from "./landing";
 import HomePage from "./home";
 import CataloguePage from "./catalogues";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { isAuthenticated } from "../utils/helper";
 
 function Main() {
-  let user = useSelector((state) => state.user);
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/catalogues/:name">
-          {user.token == null ? (
-            <Redirect to={{ pathname: "/" }} />
+          {isAuthenticated() ? (
+            <CataloguePage />
           ) : (
-            <CataloguePage/>
+            <Redirect to={{ pathname: "/" }} />
           )}
         </Route>
         <Route path="/home/">
-          {user.token == null ? (
-            <Redirect to={{ pathname: "/" }} />
-          ) : (
+          {isAuthenticated() ? (
             <HomePage />
+          ) : (
+            <Redirect to={{ pathname: "/" }} />
           )}
         </Route>
         <Route component={LandingPage} path="/" />

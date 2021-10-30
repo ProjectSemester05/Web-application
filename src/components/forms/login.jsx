@@ -56,6 +56,10 @@ const LoginForm = ({setLoading}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const lwa = async () =>{
+    localStorage.setItem("lwa",true);
+    await lwaSignUp();
+  }
 
   return (
     <Box my={8} textAlign="center">
@@ -166,7 +170,7 @@ const LoginForm = ({setLoading}) => {
         )}
       </Formik>
       <Button
-        onClick={lwaSignUp}
+        onClick={lwa}
         backgroundColor="0F4C75"
         width="full"
         mt={4}
