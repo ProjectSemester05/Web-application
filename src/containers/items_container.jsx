@@ -92,7 +92,7 @@ const ItemContainer = ({ uuid, increment }) => {
 
   return (
     <Box>
-      <Text fontSize="22px" as="" ml={20} mb={5}>
+      <Text fontSize="22px" as="" ml={5} mb={5}>
         <CheckCircleIcon w={5} h={5} mr={5} mb={1} />
         Items
       </Text>
@@ -102,7 +102,7 @@ const ItemContainer = ({ uuid, increment }) => {
         bg="blue"
         mb={2}
         color="white"
-        _hover={{ bg: "lightblue" }}
+        _hover={{ bg: "#0F4CAE" }}
         onClick={addItemOnClick}
       >
         Add New Item

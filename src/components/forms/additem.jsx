@@ -17,12 +17,14 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { createItem, updateItem } from "../../api/item";
 import { uploadImage } from "../../utils/s3FileUpload";
+import FormLoader from "../FormLoader";
 
 const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
   const [image, setImage] = useState(
     img ? img : "/assets/images/default-catalogue.jpg"
   );
   const [blobImg, setBlobImg] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -50,10 +52,16 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
         })}
         onSubmit={async (values) => {
           let result = { success: false };
+          let imgError = "";
+
+          setLoading(true);
+
           if (blobImg.hasOwnProperty("file")) {
             result = await uploadImage(blobImg.file);
             if (result.success) {
               values.ImageUrl = result.result.location;
+            } else {
+              imgError = "Could not upload image";
             }
           }
 
@@ -66,18 +74,19 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
             result = await updateItem(values);
           }
 
-          console.log(result);
+          setLoading(false);
 
           if (result.success) {
+            let title = imgError.length > 0 ? "Image not uploaded" : "Success";
+            let status = imgError.length > 0 ? "warning" : "success";
             func(result.newItem);
             onClose();
             toast({
-              title: "Success",
-              status: "success",
+              title: title,
+              status: status,
               duration: 9000,
               isClosable: true,
             });
-            console.log(result);
           } else {
             toast({
               title: "Error",
@@ -90,6 +99,8 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
       >
         {(props) => (
           <Box>
+            {loading && <FormLoader />}
+
             <Image
               src={image}
               height={["120px", "150px"]}
@@ -149,7 +160,7 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
               </InputGroup>
               <FormErrorMessage>{props.errors.StoredLocation}</FormErrorMessage>
             </FormControl>
-            
+
             <FormControl mr={2} mt="5">
               <FormLabel>Upload Image</FormLabel>
               <Input
@@ -168,6 +179,7 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
                 backgroundColor="#0F4C75"
                 width="100px"
                 color="white"
+                _hover={{ bg: "#0F4CAE" }}
                 opacity="0.7"
                 mt={4}
                 mr="2"
@@ -178,6 +190,7 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
                 onClick={onClose}
                 backgroundColor="#C04040"
                 opacity="0.7"
+                _hover={{ bg: "#c75a7c" }}
                 width="100px"
                 mt={4}
                 border="1px"

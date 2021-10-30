@@ -19,12 +19,14 @@ import * as Yup from "yup";
 import "../../style/landing.css";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { changePassword } from "../../utils/amplifyConf";
+import FormLoader from "../FormLoader";
+
 
 const ChangePasswordForm = ({ onClose }) => {
   const toast = useToast();
-
   const [cpasswordShow, setCPasswordShow] = useState(false);
   const [npasswordShow, setNPasswordShow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <Box my={4} textAlign="center">
@@ -35,13 +37,20 @@ const ChangePasswordForm = ({ onClose }) => {
         }}
         validationSchema={Yup.object({
           currentPassword: Yup.string().max(50),
-          newPassword: Yup.string().max(50),
+          newPassword: Yup.string()
+          .required("Required")
+          .matches(
+            /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+            "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+          ).max(50),
         })}
         onSubmit={async (values) => {
+          setLoading(true);
           let result = await changePassword(
             values.currentPassword,
             values.newPassword
           );
+          setLoading(false);
           if (result.success) {
             onClose();
             toast({
@@ -62,6 +71,7 @@ const ChangePasswordForm = ({ onClose }) => {
       >
         {(props) => (
           <Box data-testid="change-pass">
+            {loading && <FormLoader />}
             <Text fontSize="16px" color="tomato"></Text>
             <FormControl
               isInvalid={
@@ -92,7 +102,7 @@ const ChangePasswordForm = ({ onClose }) => {
                     onClick={() => {
                       setCPasswordShow(!cpasswordShow);
                     }}
-                    icon={cpasswordShow ? <ViewOffIcon /> : <ViewIcon />}
+                    icon={cpasswordShow ? <ViewIcon />: <ViewOffIcon /> }
                   />
                 </InputRightElement>
               </InputGroup>
@@ -127,7 +137,7 @@ const ChangePasswordForm = ({ onClose }) => {
                     onClick={() => {
                       setNPasswordShow(!npasswordShow);
                     }}
-                    icon={npasswordShow ? <ViewOffIcon /> : <ViewIcon />}
+                    icon={npasswordShow ?  <ViewIcon />: <ViewOffIcon />}
                   />
                 </InputRightElement>
               </InputGroup>
@@ -137,6 +147,7 @@ const ChangePasswordForm = ({ onClose }) => {
             <Stack inline>
               <Button
                 onClick={props.submitForm}
+                _hover={{ bg: "#0F4CAE" }}
                 backgroundColor="#0F4C75"
                 color="white"
                 mt={4}

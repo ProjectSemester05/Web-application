@@ -82,7 +82,7 @@ const ChildrenCatalogueContainer = ({increment, uuid }) => {
 
   return (
     <Flex flexDirection="column">
-      <Text fontSize="22px" as="" ml={20}>
+      <Text fontSize="22px" as="" ml={5}>
         <CheckCircleIcon w={5} h={5} mr={5} mb={1} />
         Sub Categories
       </Text>

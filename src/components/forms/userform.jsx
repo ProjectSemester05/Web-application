@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  useToast
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -23,10 +24,13 @@ import { updateUser } from "../../utils/amplifyConf";
 import ChangePasswordForm from "./changePassword";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../../redux/actions/userActions";
+import FormLoader from "../FormLoader";
 
-const UserForm = ({user,closePopup}) => {
+const UserForm = ({ user, closePopup }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
+  const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
   return (
     <Box my={8} textAlign="center">
@@ -35,20 +39,41 @@ const UserForm = ({user,closePopup}) => {
           initialValues={user}
           validationSchema={Yup.object({
             firstName: Yup.string().max(50).required("First Name Required"),
-            lastName: Yup.string().max(50).required("Last Name Required")
+            lastName: Yup.string().max(50).required("Last Name Required"),
           })}
           onSubmit={async (values) => {
+            setLoading(true);
             let name = `${values.firstName} ${values.lastName}`;
-            let result = await updateUser({name: name});
-            if(result.success){
-                  dispatch(setUserInfo({firstName:values.firstName,lastName:values.lastName}))    
+            let result = await updateUser({ name: name });
+            setLoading(false);
+            if (result.success) {
+              dispatch(
+                setUserInfo({
+                  firstName: values.firstName,
+                  lastName: values.lastName,
+                })
+              );
+              toast({
+                title: "Success",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+              });
+            } else {
+              toast({
+                title: "Error",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+              });
             }
-            console.log(result);
             closePopup();
           }}
         >
           {(props) => (
             <Box>
+            {loading && <FormLoader />}
+
               <Text fontSize="16px" color="tomato"></Text>
               <Stack isInline justifyContent="space-between" mt={4} mb={6}>
                 <FormControl
@@ -62,7 +87,6 @@ const UserForm = ({user,closePopup}) => {
                     variant="flushed"
                     value={props.initialValues.firstName}
                     {...props.getFieldProps("firstName")}
-                    
                     borderColor="black"
                     borderBottomWidth="1px"
                   />
@@ -95,7 +119,7 @@ const UserForm = ({user,closePopup}) => {
                 <Input
                   type="email"
                   name="email"
-                  cursor ="not-allowed"
+                  cursor="not-allowed"
                   isDisabled={true}
                   value={props.initialValues.email}
                   {...props.getFieldProps("email")}
@@ -137,7 +161,7 @@ const UserForm = ({user,closePopup}) => {
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <ChangePasswordForm onClose={onClose}/>
+              <ChangePasswordForm onClose={onClose} />
             </ModalBody>
           </ModalContent>
         </Modal>
