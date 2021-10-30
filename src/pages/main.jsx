@@ -14,6 +14,9 @@ function Main() {
         <Route path="/home/">
           <HomePage />
         </Route>
+        <Route path="/home/#access_token">
+          <HomePage />
+        </Route>
         <Route component={LandingPage} path="/" />
       </Switch>
     </BrowserRouter>
