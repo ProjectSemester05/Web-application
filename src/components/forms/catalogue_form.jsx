@@ -11,6 +11,13 @@ import {
   Flex,
   useToast,
   Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
 } from "@chakra-ui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -21,6 +28,7 @@ import {
 } from "../../api/catalogue";
 import { uploadImage } from "../../utils/s3FileUpload";
 import FormLoader from "../FormLoader";
+import DeleteCatalogueForm from "./catalogue_delete";
 
 const CatalogueForm = ({
   add,
@@ -43,6 +51,10 @@ const CatalogueForm = ({
   );
   const [blobImg, setBlobImg] = useState({});
   const [loading, setLoading] = useState(false);
+  const deleteConfirmation = useDisclosure();
+  const toast = useToast();
+  
+
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
@@ -71,7 +83,6 @@ const CatalogueForm = ({
     }
   };
 
-  const toast = useToast();
   return (
     <Box my={8} textAlign="center" data-testid="addcatalogue-form">
       <Formik
@@ -196,7 +207,7 @@ const CatalogueForm = ({
               </Button>
               {!add && (
                 <Button
-                  onClick={deleteC}
+                  onClick={deleteConfirmation.onOpen}
                   backgroundColor="#C04040"
                   _hover={{ bg: "#c75a7c" }}
                   opacity="0.7"
@@ -213,6 +224,18 @@ const CatalogueForm = ({
           </Box>
         )}
       </Formik>
+      <Modal isOpen={deleteConfirmation.isOpen} onClose={deleteConfirmation.onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader backgroundColor="#141B57" opacity="0.7" color="white">
+            Delete Confirmation
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <DeleteCatalogueForm onClose={deleteConfirmation.onClose}uuid={uuid}  deleteFunc={deleteFunc} onCloseMain={onClose}/>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
