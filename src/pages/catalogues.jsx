@@ -9,6 +9,7 @@ import ItemContainer from "../containers/items_container";
 import { useLocation, useHistory } from "react-router-dom";
 import ChildrenCatalogueContainer from "../containers/children_catalogue";
 import Loader from "../components/loader";
+import { withAuthenticator } from 'aws-amplify-react'
 
 const CataloguePage = () => {
   const location = useLocation();
@@ -53,4 +54,4 @@ const CataloguePage = () => {
   );
 };
 
-export default CataloguePage;
+export default withAuthenticator(CataloguePage);

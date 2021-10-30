@@ -2,26 +2,17 @@ import * as React from "react";
 import LandingPage from "./landing";
 import HomePage from "./home";
 import CataloguePage from "./catalogues";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "../utils/helper";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function Main() {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/catalogues/:name">
-          {isAuthenticated() ? (
-            <CataloguePage />
-          ) : (
-            <Redirect to={{ pathname: "/" }} />
-          )}
+          <CataloguePage />
         </Route>
         <Route path="/home/">
-          {isAuthenticated() ? (
-            <HomePage />
-          ) : (
-            <Redirect to={{ pathname: "/" }} />
-          )}
+          <HomePage />
         </Route>
         <Route component={LandingPage} path="/" />
       </Switch>

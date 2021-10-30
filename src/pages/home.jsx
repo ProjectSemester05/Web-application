@@ -9,6 +9,8 @@ import { getName } from "../utils/helper";
 import CatalogueContainer from "../containers/catalogue_container";
 import RecentDeadlines from "../containers/recent_deadlines";
 import Loader from "../components/loader";
+import { withAuthenticator } from 'aws-amplify-react'
+
 const HomePage = () => {
   const dispatch = useDispatch();
   const [loadingCounter1, setLoadingCounter1] = useState(0);
@@ -56,5 +58,4 @@ const HomePage = () => {
     </Flex>
   );
 };
-
-export default HomePage;
+export default withAuthenticator(HomePage);
