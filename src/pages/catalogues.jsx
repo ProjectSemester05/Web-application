@@ -13,8 +13,11 @@ import Loader from "../components/loader";
 const CataloguePage = () => {
   const location = useLocation();
   const { uuid, catalogueName } = location.state;
+  console.log(uuid);
+  console.log(catalogueName);
   const [loadingCounter1, setLoadingCounter1] = useState(0);
   const [loadingCounter2, setLoadingCounter2] = useState(0);
+  console.log("new page loaded");
   const incrementLoading1 = () => {
     let newVal = loadingCounter1 + 1;
     setLoadingCounter1(newVal);
@@ -34,8 +37,8 @@ const CataloguePage = () => {
           {catalogueName}
         </Heading>
         <Box backgroundColor="#000000" mb="6" border="1px solid #000000" />
-        <ChildrenCatalogueContainer uuid={uuid} increment={incrementLoading1}/>
-        <ItemContainer uuid={uuid} increment={incrementLoading2}/>
+        <ChildrenCatalogueContainer uuid={uuid} increment={incrementLoading1} catalogues={[]}/>
+        <ItemContainer uuid={uuid} increment={incrementLoading2} initialItems={[]}/>
         <Footer minHeight="20px" />
       </Flex>
     </Flex>

@@ -7,8 +7,8 @@ import Slider from "../components/slider";
 import { getChildrenCatalogues } from "../api/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 
-const ChildrenCatalogueContainer = ({increment, uuid }) => {
-  const [childrenCatalogue, setChildrenCatalogue] = useState([]);
+const ChildrenCatalogueContainer = ({increment, uuid, catalogues }) => {
+  const [childrenCatalogue, setChildrenCatalogue] = useState(catalogues);
   const addChildrenCatalogue = (catalogue) => {
     setChildrenCatalogue([
       ...childrenCatalogue,

@@ -19,11 +19,11 @@ import { deleteItem, getItems } from "../api/item";
 import AddItemForm from "../components/forms/additem";
 import Reminder from "../components/forms/reminder";
 
-const ItemContainer = ({ uuid, increment }) => {
+const ItemContainer = ({ uuid, increment, initialItems }) => {
   const reminderPopup = useDisclosure();
   const itemPopup = useDisclosure();
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(initialItems);
   const [currentItem, setCurrentItem] = useState({});
   const [isAdd, setIsAdd] = useState(true);
 

@@ -135,7 +135,7 @@ const LoginForm = ({setLoading}) => {
                       passwordShow ? "Hide Password" : "Show Password"
                     }
                     onClick={handlePasswordShow}
-                    icon={passwordShow ? <ViewOffIcon /> : <ViewIcon />}
+                    icon={passwordShow ?  <ViewIcon />: <ViewOffIcon />}
                   />
                 </InputRightElement>
               </InputGroup>

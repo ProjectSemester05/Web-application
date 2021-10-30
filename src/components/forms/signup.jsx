@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -75,7 +75,8 @@ const SignUpForm = () => {
               .matches(
                 /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
                 "Password must contain at least 8 characters, one uppercase, one number and one special case character"
-              ).max(50),
+              )
+              .max(50),
           })}
           onSubmit={async (values) => {
             setEmail(values.Email);
@@ -180,7 +181,7 @@ const SignUpForm = () => {
                         passwordShow ? "Hide Password" : "Show Password"
                       }
                       onClick={handlePasswordShow}
-                      icon={passwordShow ? <ViewOffIcon /> : <ViewIcon />}
+                      icon={passwordShow ? <ViewIcon /> : <ViewOffIcon />}
                     />
                   </InputRightElement>
                 </InputGroup>

@@ -14,6 +14,7 @@ import CatalogueForm from "../forms/catalogue_form"
 const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updateCatalogue , pUUID }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
+  console.log(name);
   let catalogue={CatalogueName: name}
   return (
     <>
@@ -36,7 +37,7 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
     >
     <Flex flexDirection="column">
       <Flex justifyContent="space-around" data-testname ={`up_card`} onClick={() => {
-        history.push("/catalogues",{uuid:uuid, catalogueName: name});
+        history.push(`/catalogues/${name}`,{uuid:uuid, catalogueName: name});
       }}>
         <Box>
           <Text
