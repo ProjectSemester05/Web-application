@@ -48,8 +48,8 @@ const CataloguePage = () => {
           increment={setLoadingCounter1}
         />
         <ItemContainer uuid={uuid} increment={setLoadingCounter2} />
-        <Footer minHeight="20px" />
       </Flex>
+      <Footer minHeight="20px" />
     </Flex>
   );
 };
