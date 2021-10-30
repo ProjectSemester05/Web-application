@@ -32,7 +32,7 @@ const CatalogueContainer = ({increment}) => {
       if (result.success) {
         setCatalogues(result.Catalogues);
       }
-      increment();
+      increment(1);
 
     }
     fetchCatalogues();

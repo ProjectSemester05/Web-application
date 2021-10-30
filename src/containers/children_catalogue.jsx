@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Flex, Box } from "@chakra-ui/react";
 import CatalogueCard from "../components/cards/catalogue";
 import { CheckCircleIcon } from "@chakra-ui/icons";
@@ -26,37 +26,20 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
     ]);
   };
 
-  const deleteCatalogue = useCallback(
-    (uuid) => {
-      let newCatalogues = childrenCatalogue.filter((item) => item.key !== uuid);
-      setChildrenCatalogue(newCatalogues);
-    },
-    []
-  );
+  const deleteCatalogue = (uuid) => {
+    let newCatalogues = childrenCatalogue.filter((item) => item.UUID !== uuid);
+    setChildrenCatalogue(newCatalogues);
+  };
 
-  const updateCatalogue = useCallback(
-    (data) => {
-      let newCatalogues = childrenCatalogue.filter(
-        (item) => item.key !== data.uuid
-      );
-      newCatalogues = [
-        ...childrenCatalogue,
-        <CatalogueCard
-          uuid={data.UUID}
-          name={data.CatalogueName}
-          pUUID={uuid}
-          iCount="21"
-          cCount="6"
-          img="/assets/images/kitchen_items.png"
-          deleteCatalogue={deleteCatalogue}
-          key={data.UUID}
-          updateCatalogue={updateCatalogue}
-        />,
-      ];
-      setChildrenCatalogue(newCatalogues);
-    },
-    [ deleteCatalogue, uuid]
-  );
+  const updateCatalogue = (data) => {
+    let newCatalogues = childrenCatalogue.map((item) => {
+      if (item.UUID === data.UUID) {
+        item = { ...item, ...data };
+      }
+      return item;
+    });
+    setChildrenCatalogue(newCatalogues);
+  };
 
   useEffect(() => {
     let result = {};
@@ -65,27 +48,15 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
 
       console.log(result);
       if (result.hasOwnProperty("Catalogues")) {
-        let newChildren = result.Catalogues.map((cat) => (
-          <CatalogueCard
-            uuid={cat.UUID}
-            name={cat.CatalogueName}
-            iCount="21"
-            cCount="6"
-            img="/assets/images/kitchen_items.png"
-            deleteCatalogue={deleteCatalogue}
-            key={cat.UUID}
-            updateCatalogue={updateCatalogue}
-            pUUID={uuid}
-          />
-        ));
+        let newChildren = result.Catalogues;
         setChildrenCatalogue(newChildren);
-        increment();
+        increment(1);
         console.log(newChildren);
       }
     }
 
     fetchChildrenCatalogues();
-  }, [uuid, increment, updateCatalogue, deleteCatalogue]);
+  }, [uuid, increment]);
 
   return (
     <Flex flexDirection="column">
@@ -108,7 +79,19 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
                 addCatalogue={addChildrenCatalogue}
                 pUUID={uuid}
               />,
-              ...childrenCatalogue,
+              ...childrenCatalogue.map((cat) => (
+                <CatalogueCard
+                  uuid={cat.UUID}
+                  name={cat.CatalogueName}
+                  iCount="21"
+                  cCount="6"
+                  img="/assets/images/kitchen_items.png"
+                  deleteCatalogue={deleteCatalogue}
+                  key={cat.UUID}
+                  updateCatalogue={updateCatalogue}
+                  pUUID={uuid}
+                />
+              ))
             ]}
             cardGap={"350px"}
           />

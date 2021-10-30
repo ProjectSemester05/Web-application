@@ -14,14 +14,7 @@ const HomePage = () => {
   const [loadingCounter1, setLoadingCounter1] = useState(0);
   const [loadingCounter2, setLoadingCounter2] = useState(0);
 
-  const incrementLoading1 = useCallback(() => {
-    let newVal = loadingCounter1 + 1;
-    setLoadingCounter1(newVal);
-  }, []);
-  const incrementLoading2 = useCallback(() => {
-    let newVal = loadingCounter2 + 1;
-    setLoadingCounter2(newVal);
-  }, []);
+  
 
   const setUser = useCallback((user, name) => {
     dispatch(
@@ -32,7 +25,7 @@ const HomePage = () => {
         provider: user.hasOwnProperty("identities"),
       })
     );
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     let result = {};
@@ -57,8 +50,8 @@ const HomePage = () => {
     >
       {loadingCounter1 + loadingCounter2 < 2 && <Loader />}
       <Header signed={true} />
-      <RecentDeadlines increment={incrementLoading1} />
-      <CatalogueContainer increment={incrementLoading2} />
+      <RecentDeadlines increment={setLoadingCounter1} />
+      <CatalogueContainer increment={setLoadingCounter2} />
       <Footer />
     </Flex>
   );

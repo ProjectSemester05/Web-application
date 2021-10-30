@@ -26,7 +26,7 @@ const RecentDeadlines = ({ increment }) => {
           />
         ));
         setReminders(components);
-        increment();
+        increment(1);
 
         console.log(components);
       }

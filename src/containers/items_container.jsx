@@ -85,7 +85,7 @@ const ItemContainer = ({ uuid, increment }) => {
     async function fetchItems() {
       result = await getItems(uuid);
       setItems(result.Items);
-      increment();
+      increment(1);
     }
     fetchItems();
   }, [increment,uuid]);
