@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import "@fontsource/montserrat";
 import { Heading } from "@chakra-ui/react";
@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import "../style/catalogues.css";
 import ItemContainer from "../containers/items_container";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import ChildrenCatalogueContainer from "../containers/children_catalogue";
 import Loader from "../components/loader";
 
@@ -17,8 +17,16 @@ const CataloguePage = () => {
   console.log(catalogueName);
   const [loadingCounter1, setLoadingCounter1] = useState(0);
   const [loadingCounter2, setLoadingCounter2] = useState(0);
-  console.log("new page loaded");
-  
+  const history = useHistory();
+
+  useEffect(() => {
+    return history.listen(() => {
+      if (history.action === "POP") {
+        setLoadingCounter1(0);
+        setLoadingCounter2(0);
+      }
+    });
+  }, [history]);
   return (
     <Flex
       flexDirection="column"
@@ -34,7 +42,10 @@ const CataloguePage = () => {
           {catalogueName}
         </Heading>
         <Box backgroundColor="#000000" mb="6" border="1px solid #000000" />
-        <ChildrenCatalogueContainer uuid={uuid} increment={setLoadingCounter1} />
+        <ChildrenCatalogueContainer
+          uuid={uuid}
+          increment={setLoadingCounter1}
+        />
         <ItemContainer uuid={uuid} increment={setLoadingCounter2} />
         <Footer minHeight="20px" />
       </Flex>

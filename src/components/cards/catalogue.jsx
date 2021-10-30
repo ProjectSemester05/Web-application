@@ -11,7 +11,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import CatalogueForm from "../forms/catalogue_form"
 
 
-const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updateCatalogue , pUUID }) => {
+const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updateCatalogue , pUUID, increment }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
   console.log(name);
@@ -36,6 +36,9 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
     >
     <Flex flexDirection="column">
       <Flex justifyContent="space-around" data-testname ={`up_card`} onClick={() => {
+        if(increment){
+          increment(0);
+        }
         history.push(`/catalogues/${name}`,{uuid:uuid, catalogueName: name});
       }}>
         <Box>

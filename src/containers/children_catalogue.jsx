@@ -90,6 +90,7 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
                   key={cat.UUID}
                   updateCatalogue={updateCatalogue}
                   pUUID={uuid}
+                  increment ={increment}
                 />
               ))
             ]}
