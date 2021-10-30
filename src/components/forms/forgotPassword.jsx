@@ -17,6 +17,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import "../../style/landing.css";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import FormLoader from "../FormLoader";
 
 import {
   forgotPasswordEmail,
@@ -28,9 +29,12 @@ const ForgottenPasswordForm = ({ onClose }) => {
   const [emailSent, setEmailSent] = useState(false);
   const [passwordShow, setPasswordShow] = useState(false);
   const handlePasswordShow = () => setPasswordShow(!passwordShow);
+  const [loading, setLoading] = useState(false);
+
 
   const forgotSubmit = async ({ values }) => {
     let result = {};
+    setLoading(true);
     if (!emailSent) {
       result = await forgotPasswordEmail(values.email);
     } else {
@@ -41,6 +45,7 @@ const ForgottenPasswordForm = ({ onClose }) => {
       );
     }
     console.log(emailSent);
+    setLoading(false);
     if (result.success && emailSent) {
       onClose();
     } else if (result.success && !emailSent) {
@@ -75,6 +80,8 @@ const ForgottenPasswordForm = ({ onClose }) => {
       >
         {(_props) => (
           <Box data-testid="forgot-pass">
+            {loading && <FormLoader />}
+            
             <Text fontSize="16px" color="tomato"></Text>
             <FormControl
               isInvalid={_props.errors.email && _props.touched.email}
