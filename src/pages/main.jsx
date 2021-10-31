@@ -11,12 +11,8 @@ function Main() {
         <Route path="/catalogues/:name">
           <CataloguePage />
         </Route>
-        <Route path="/home/">
-          <HomePage />
-        </Route>
-        <Route path="/home/#access_token">
-          <HomePage />
-        </Route>
+        <Route render={({location}) => location.pathname.includes("home") ? <HomePage/> :<LandingPage/>}/>
+        
         <Route component={LandingPage} path="/" />
       </Switch>
     </BrowserRouter>

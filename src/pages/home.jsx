@@ -48,6 +48,7 @@ const HomePage = () => {
     <Flex
       flexDirection="column"
       overflow={loadingCounter1 + loadingCounter2 === 2 ? "auto" : "hidden"}
+      minH = "100vh"
       maxH={loadingCounter1 + loadingCounter2 === 2 ? "auto" : "100vh"}
     >
       {loadingCounter1 + loadingCounter2 < 2 && <Loader />}
