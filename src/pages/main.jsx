@@ -11,8 +11,14 @@ function Main() {
         <Route path="/catalogues/:name">
           <CataloguePage />
         </Route>
-        <Route render={({location}) => location.pathname.includes("home") ? <HomePage/> :<LandingPage/>}/>
-        
+        <Route
+          render={({ location }) => {
+            console.log("include home?");
+            console.log(location.pathname.includes("home"));
+            return location.pathname.includes("home") ? <HomePage /> : <LandingPage />;
+          }}
+        />
+
         <Route component={LandingPage} path="/" />
       </Switch>
     </BrowserRouter>
