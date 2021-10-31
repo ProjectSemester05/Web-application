@@ -11,7 +11,6 @@ function Main() {
         <Route path="/catalogues/:name">
           <CataloguePage />
         </Route>
-        
         <Route
           render={({ location }) => {
             console.log("include home?");
