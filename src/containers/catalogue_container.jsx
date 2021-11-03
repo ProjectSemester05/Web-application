@@ -4,7 +4,7 @@ import CatalogueCard from "../components/cards/catalogue";
 import NewCatalogueCard from "../components/cards/new_catalogue";
 import { getCatalogues } from "../api/catalogue";
 
-const CatalogueContainer = ({increment}) => {
+const CatalogueContainer = ({ increment }) => {
   const [catalogues, setCatalogues] = useState([]);
   const addCatalogue = (catalogue) => {
     setCatalogues([...catalogues, catalogue]);
@@ -26,16 +26,16 @@ const CatalogueContainer = ({increment}) => {
 
   useEffect(() => {
     let result = {};
-
     async function fetchCatalogues() {
       result = await getCatalogues();
       if (result.success) {
         setCatalogues(result.Catalogues);
       }
       increment(1);
-
     }
-    fetchCatalogues();
+    setTimeout(() => {
+      fetchCatalogues();
+    }, 3000);
   }, [increment]);
 
   return (

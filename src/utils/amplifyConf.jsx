@@ -1,5 +1,5 @@
 import Amplify, { Auth } from "aws-amplify";
-import {config} from "../config/config";
+import { config } from "../config/config";
 
 Amplify.configure({
   Auth: {
@@ -15,8 +15,10 @@ Amplify.configure({
       domain: config.DOMAIN,
       redirectSignIn: config.REDIRECT_SIGN_IN,
       redirectSignOut: config.REDIRECT_SIGN_OUT,
-      responseType: config.RESPONSE_TYPE
+      responseType: config.RESPONSE_TYPE,
     },
+    userpoolClientReadAttributes: ["email"],
+    autoVerifiedAttributes: ["email"],
   },
 });
 
@@ -30,7 +32,7 @@ export const signUp = async (name, email, password) => {
         email,
       },
     });
-    localStorage.setItem("authenticated",true);
+    localStorage.setItem("authenticated", true);
 
     return { result: user, success: true };
   } catch (error) {
@@ -42,11 +44,11 @@ export const lwaSignUp = async () => {
   try {
     let result = await Auth.federatedSignIn({ provider: "LoginWithAmazon" });
     console.log(result);
-    localStorage.setItem("authenticated",true);
+    localStorage.setItem("authenticated", true);
     return { result: result, success: true };
   } catch (error) {
-    localStorage.setItem("lwa",false);
-    localStorage.setItem("authenticated",false);
+    localStorage.setItem("lwa", false);
+    localStorage.setItem("authenticated", false);
     return { success: false, error: error };
   }
 };
@@ -54,7 +56,7 @@ export const lwaSignUp = async () => {
 export const signIn = async (email, password) => {
   try {
     const user = await Auth.signIn(email, password);
-    localStorage.setItem("authenticated",true);
+    localStorage.setItem("authenticated", true);
     return { result: user, success: true };
   } catch (error) {
     console.log("error");
@@ -80,70 +82,74 @@ export const resendConfirmationCode = async (email) => {
   }
 };
 
-
 export const forgotPasswordEmail = async (email) => {
-  try{
-    let result = await Auth.forgotPassword(email)
+  try {
+    let result = await Auth.forgotPassword(email);
     console.log(result);
-    return {result: result, success: true};
-  } 
-  catch(error){
-    return {error: error, success: false};
-  } 
-}
+    return { result: result, success: true };
+  } catch (error) {
+    return { error: error, success: false };
+  }
+};
 
-export const forgotPasswordSubmit =async (email, code, new_password) =>{
-  try{
-    let result = await Auth.forgotPasswordSubmit(email, code, new_password)
-    return {result:result, success: true}
+export const forgotPasswordSubmit = async (email, code, new_password) => {
+  try {
+    let result = await Auth.forgotPasswordSubmit(email, code, new_password);
+    return { result: result, success: true };
+  } catch (error) {
+    return { error: error, success: false };
   }
-  catch(error){
-    return {error:error, success: false}
-  }
-}
+};
 
 export const getUser = async () => {
-  try{
+  try {
     let result = await Auth.currentUserInfo();
-    return {result:result, success: true}
+    return { result: result, success: true };
+  } catch (error) {
+    return { error: error, success: false };
   }
-  catch(error){
-    return {error:error, success: false}
-  }
-}
+};
 
 export const updateUser = async (data) => {
-  try{
+  try {
     let user = await Auth.currentAuthenticatedUser();
 
     let result = await Auth.updateUserAttributes(user, data);
-    return {result:result, success: true}
+    return { result: result, success: true };
+  } catch (error) {
+    return { error: error, success: false };
   }
-  catch(error){
-    return {error:error, success: false}
-  }
-}
+};
 
 export const changePassword = async (oldPassword, newPassword) => {
-  try{
+  try {
     let user = await Auth.currentAuthenticatedUser();
 
     let result = await Auth.changePassword(user, oldPassword, newPassword);
-    return {result:result, success: true}
+    return { result: result, success: true };
+  } catch (error) {
+    return { error: error, success: false };
   }
-  catch(error){
-    return {error:error, success: false}
-  }
-}
+};
 
 export const signOut = async () => {
   try {
     await Auth.signOut();
     localStorage.clear();
-    return {success: true}
-
+    return { success: true };
   } catch (error) {
-    console.log('error signing out: ', error);
-    return {success: false}
+    console.log("error signing out: ", error);
+    return { success: false };
   }
-}
+};
+
+
+export const currentUser = async () => {
+  try{
+    await Auth.currentAuthenticatedUser();
+    return true;
+  }
+  catch(error){
+    return false;
+  }
+};

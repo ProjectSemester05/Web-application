@@ -25,13 +25,16 @@ const RecentDeadlines = ({ increment }) => {
             img={item.ImageURL}
           />
         ));
+
         setReminders(components);
         increment(1);
 
         console.log(components);
       }
     }
-    fetchReminders();
+    setTimeout(() => {
+      fetchReminders();
+    }, 3000);
   }, [increment]);
   return (
     <Flex width="full" py={5}>
