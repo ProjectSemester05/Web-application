@@ -20,9 +20,8 @@ const RecentDeadlines = ({ increment }) => {
         let components = result.Reminders.map((item) => (
           <RecentItem
             name={item.ItemName}
-            catalogue={"test"}
             date={formatDate(item.Date)}
-            img={item.ImageURL}
+            img={item.ImageUrl}
           />
         ));
 

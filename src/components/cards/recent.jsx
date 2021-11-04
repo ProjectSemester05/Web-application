@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Text, Flex, Image } from "@chakra-ui/react";
 import "../../style/animation.css";
 
-const RecentItem = ({ name, img, catalogue, date }) => {
+const RecentItem = ({ name, img, date }) => {
   return (
     <Flex
       mt="0"
