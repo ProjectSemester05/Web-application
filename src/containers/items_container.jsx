@@ -62,7 +62,7 @@ const ItemContainer = ({ uuid, increment }) => {
       width: "5%",
       render: (item) => (
         <Image
-          src={item.ImageUrl ? item.ImageUrl : "/assets/images/paint.png"}
+          src={item.ImageUrl ? item.ImageUrl : "/assets/images/default-item.png"}
           height="40px"
           my={2}
           ml={2}
