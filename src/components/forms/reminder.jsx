@@ -10,7 +10,7 @@ import {
 } from "../../api/reminders";
 import "../../style/material.css";
 
-const Reminder = ({ uuid }) => {
+const Reminder = ({ uuid, itemName }) => {
   const [reminders, setReminders] = useState([]);
 
   const addReminder = async (reminder) => {
@@ -78,7 +78,7 @@ const Reminder = ({ uuid }) => {
         editable={{
           onRowUpdate: (newData, oldData) => updateReminderClick(newData,oldData),
           onRowDelete: (data) => deleteReminderClick(data.UUID),
-          onRowAdd: (data) => addReminder({ ...data, ItemUUID: uuid }),
+          onRowAdd: (data) => addReminder({ ...data, ItemUUID: uuid , ItemName: itemName}),
         }}
         style={{ zIndex: 10000 }}
       />

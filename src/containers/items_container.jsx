@@ -173,7 +173,7 @@ const ItemContainer = ({ uuid, increment }) => {
           <ModalCloseButton />
           <ModalBody pb={6}>
             {/* <AddItemForm onClose={reminderPopup.onClose} uuid={uuid} add={isAdd} func={addItem} item={currentItem}/> */}
-            <Reminder uuid={currentItem.UUID} />
+            <Reminder uuid={currentItem.UUID} itemName={currentItem.ItemName}/>
           </ModalBody>
         </ModalContent>
       </Modal>
