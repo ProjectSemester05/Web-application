@@ -1,0 +1,145 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-11-08T12:53:56.435Z",
+    "end": "2021-11-08T12:54:26.013Z",
+    "duration": 29578,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "af89d29a-83f2-492d-9db7-9042f88bf8cb",
+      "title": "",
+      "fullFile": "cypress/integration/catalogue.spec.js",
+      "file": "cypress/integration/catalogue.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f50bb406-0ae4-4b71-98b5-e0e7f96d8ff5",
+          "title": " Catalogue tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should create a new catalogue",
+              "fullTitle": " Catalogue tests should create a new catalogue",
+              "timedOut": null,
+              "duration": 18987,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(8000);\ncy.contains(\"Add New\", {\n  timeout: 15000\n}).click();\ncy.get(\"input[name='CatalogueName']\").type(\"Heavy Items\");\ncy.contains(\"Submit\").click().wait(\"@getSiteInfo\", {\n  timeout: 20000\n}).then(xhr => {\n  cy.log(JSON.stringify(xhr.response));\n  cy.log(JSON.stringify(xhr.response.statusMessage));\n  cy.log(JSON.stringify(xhr.response.body));\n  cy.log(xhr.response.body.newCatalogue);\n  cy.log(xhr.response.body.newCatalogue.UUID);\n  uuid = xhr.response.body.newCatalogue.UUID;\n});\ncy.contains(\"Heavy Items\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "d0139103-89d1-4a24-9c4e-b5c930ac5a2e",
+              "parentUUID": "f50bb406-0ae4-4b71-98b5-e0e7f96d8ff5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should update the catalogue",
+              "fullTitle": " Catalogue tests should update the catalogue",
+              "timedOut": null,
+              "duration": 4844,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(2000);\ncy.get(`[data-testid=${uuid}_edit]`).click();\ncy.get(\"input[name='CatalogueName']\").clear();\ncy.get(\"input[name='CatalogueName']\").type(\"Heavy Items_0\");\ncy.contains(\"Submit\").click().wait(\"@updateSiteInfo\", {\n  timeout: 20000\n}).then(xhr => {\n  cy.log(JSON.stringify(xhr.response));\n  cy.log(JSON.stringify(xhr.response.statusMessage));\n  cy.log(JSON.stringify(xhr.response.body));\n  uuid = xhr.response.body.newCatalogue.UUID;\n});\ncy.contains(\"Heavy Items_0\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "b8c12ddb-0a84-43cd-8750-094f5dc580ea",
+              "parentUUID": "f50bb406-0ae4-4b71-98b5-e0e7f96d8ff5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should delete a catalogue",
+              "fullTitle": " Catalogue tests should delete a catalogue",
+              "timedOut": null,
+              "duration": 5631,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(2000);\ncy.get(`[data-testid=${uuid}_edit]`).click();\ncy.contains(\"Delete\").click();\ncy.get('button:contains(\"Confirm\")').click().wait(\"@deleteSiteInfo\", {\n  timeout: 20000\n}).then(xhr => {\n  cy.log(JSON.stringify(xhr.response));\n  cy.log(JSON.stringify(xhr.response.statusMessage));\n  cy.log(JSON.stringify(xhr.response.body));\n});\ncy.wait(2000);\ncy.contains(\"Success\", {\n  timeout: 2000\n}).should(\"be.visible\");",
+              "err": {},
+              "uuid": "5d14564e-52af-46a0-9f1e-4406dfb5578a",
+              "parentUUID": "f50bb406-0ae4-4b71-98b5-e0e7f96d8ff5",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "d0139103-89d1-4a24-9c4e-b5c930ac5a2e",
+            "b8c12ddb-0a84-43cd-8750-094f5dc580ea",
+            "5d14564e-52af-46a0-9f1e-4406dfb5578a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 29462,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mocha",
+        "quite": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

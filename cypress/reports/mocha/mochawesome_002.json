@@ -1,0 +1,145 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-11-08T12:54:37.623Z",
+    "end": "2021-11-08T12:55:28.127Z",
+    "duration": 50504,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "31b75847-37bf-4bff-aba0-ae439db82aee",
+      "title": "",
+      "fullFile": "cypress/integration/item.spec.js",
+      "file": "cypress/integration/item.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "8f7087f2-7139-4e00-a5f2-260fa2820182",
+          "title": "item tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should create a new item",
+              "fullTitle": "item tests should create a new item",
+              "timedOut": null,
+              "duration": 34374,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(3000);\ncy.contains(\"Add New Item\", {\n  timeout: 15000\n}).click();\ncy.wait(3000);\ncy.get(\"input[name='ItemName']\").type(\"Box\");\ncy.contains(\"Submit\").click().wait(\"@getSiteInfo\", {\n  timeout: 20000\n}).then(xhr => {\n  cy.log(JSON.stringify(xhr.response));\n  cy.log(JSON.stringify(xhr.response.statusMessage));\n  cy.log(JSON.stringify(xhr.response.body));\n});\ncy.contains(\"Box\").should(\"be.visible\");",
+              "err": {},
+              "uuid": "b8b8e620-d523-4893-b86c-4d7343b5c165",
+              "parentUUID": "8f7087f2-7139-4e00-a5f2-260fa2820182",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should update the item",
+              "fullTitle": "item tests should update the item",
+              "timedOut": null,
+              "duration": 9032,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(3000);\ncy.get(`[data-testid=edit-material]`).click();\ncy.wait(3000);\ncy.get(\"input[name='ItemName']\").clear();\ncy.get(\"input[name='ItemName']\").type(\"Box_0\");\ncy.contains(\"Submit\").click();\ncy.contains(\"Box_0\").should(\"be.visible\", {\n  timeout: 15000\n});",
+              "err": {},
+              "uuid": "07a3d952-ba24-4e0f-a29e-9a8cdc15ab5f",
+              "parentUUID": "8f7087f2-7139-4e00-a5f2-260fa2820182",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should delete the item",
+              "fullTitle": "item tests should delete the item",
+              "timedOut": null,
+              "duration": 6952,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(3000);\ncy.get(`[data-testid=delete-material]`).click();\ncy.wait(3000);\ncy.contains(\"Are you sure\").should(\"be.visible\");\ncy.get(`[data-testid=check-material]`).click();\ncy.contains(\"Box_0\").should(\"not.exist\", {\n  timeout: 15000\n});",
+              "err": {},
+              "uuid": "2eedbee4-03e6-4851-a428-45546fafa4ce",
+              "parentUUID": "8f7087f2-7139-4e00-a5f2-260fa2820182",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b8b8e620-d523-4893-b86c-4d7343b5c165",
+            "07a3d952-ba24-4e0f-a29e-9a8cdc15ab5f",
+            "2eedbee4-03e6-4851-a428-45546fafa4ce"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 50358,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mocha",
+        "quite": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

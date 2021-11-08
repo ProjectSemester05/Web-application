@@ -60,7 +60,7 @@ const DeleteCatalogueForm = ({ onClose,onCloseMain, uuid, deleteFunc }) => {
                 mr="2"
                 color="white"
               >
-                <Text>Delete</Text>
+                <Text>Confirm</Text>
               </Button>
               <Button
                 onClick={onClose}

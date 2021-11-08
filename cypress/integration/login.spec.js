@@ -13,7 +13,7 @@ describe("Login tests", () => {
         cy.get("input[name='email']").type(Cypress.env("TESTUSER"))
         cy.get("input[name='password']").type(Cypress.env("TESTPASS"))
         cy.get("#login-normal").click()
-        cy.contains("New Catalogue",{timeout:15000}).should('be.visible')
+        cy.contains("Add New",{timeout:15000}).should('be.visible')
     } )
 
     it("User should be able to login thorugh amazon account", () =>{

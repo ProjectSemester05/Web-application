@@ -3,10 +3,8 @@ import { BASE_API } from "../../src/utils/constants";
 
 describe(" Catalogue tests", () => {
   let uuid;
-  beforeEach(() => {
-    cy.server().route("POST", `${BASE_API}**`).as("getSiteInfo");
-    cy.server().route("DELETE", `${BASE_API}**`).as("deleteSiteInfo");
-    cy.server().route("PUT", `${BASE_API}**`).as("updateSiteInfo");
+
+  before(() => {
     cy.visit("/");
     cy.contains("LogIn").click();
 
@@ -15,21 +13,18 @@ describe(" Catalogue tests", () => {
 
     cy.get("#login-normal").click();
   });
+  beforeEach(() => {
+    cy.server().route("POST", `${BASE_API}**`).as("getSiteInfo");
+    cy.server().route("DELETE", `${BASE_API}**`).as("deleteSiteInfo");
+    cy.server().route("PUT", `${BASE_API}**`).as("updateSiteInfo");
+  });
 
   it("should create a new catalogue", () => {
-    cy.wait(3000);
-    cy.contains("New Catalogue", { timeout: 15000 }).click();
-    cy.wait(3000);
+    cy.wait(8000);
+    cy.contains("Add New", { timeout: 15000 }).click();
 
     cy.get("input[name='CatalogueName']").type("Heavy Items");
 
-    // cy.intercept("POST", `${BASE_API}catalogue/new`,{
-    //     fixture: "catalogue.json"
-    // })
-    // cy.intercept('*',(req) => {
-    //     console.log('MATCHED INTERCEPT')
-    //     req.headers['userid'] = '9bb957ef-10ca-4994-8e97-510dfe057560'
-    //   })
     cy.contains("Submit")
       .click()
       .wait("@getSiteInfo", { timeout: 20000 })
@@ -46,10 +41,8 @@ describe(" Catalogue tests", () => {
   });
 
   it("should update the catalogue", () => {
-    cy.wait(3000);
-
+    cy.wait(2000);
     cy.get(`[data-testid=${uuid}_edit]`).click();
-    cy.wait(3000);
     cy.get("input[name='CatalogueName']").clear();
     cy.get("input[name='CatalogueName']").type("Heavy Items_0");
 
@@ -67,11 +60,11 @@ describe(" Catalogue tests", () => {
   });
 
   it("should delete a catalogue", () => {
-    cy.wait(3000);
+    cy.wait(2000);
 
     cy.get(`[data-testid=${uuid}_edit]`).click();
-
-    cy.contains("Delete")
+    cy.contains("Delete").click();
+    cy.get('button:contains("Confirm")')
       .click()
       .wait("@deleteSiteInfo", { timeout: 20000 })
       .then((xhr) => {
@@ -80,6 +73,6 @@ describe(" Catalogue tests", () => {
         cy.log(JSON.stringify(xhr.response.body));
       });
     cy.wait(2000);
-    cy.contains("Success",{timeout:2000}).should("be.visible");
+    cy.contains("Success", { timeout: 2000 }).should("be.visible");
   });
 });

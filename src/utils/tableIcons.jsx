@@ -15,8 +15,8 @@ import Search from '@material-ui/icons/Search';
 import InsertInvitation from '@material-ui/icons/InsertInvitation';
 
 const tableIcons = {
-    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
-    Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
+    Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} data-testid="add-material"/>),
+    Check: forwardRef((props, ref) => <Check {...props} ref={ref} data-testid="check-material"/>),
     Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
     Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} data-testid="delete-material"/>),
     Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} data-testid="edit-material"/>),
@@ -27,7 +27,7 @@ const tableIcons = {
     ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
     Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
     SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
-    InsertInvitation: forwardRef((props, ref) => <InsertInvitation {...props} ref={ref} />)
+    InsertInvitation: forwardRef((props, ref) => <InsertInvitation {...props} ref={ref} data-testid="reminder-material"/>)
 };
 
 export default tableIcons;

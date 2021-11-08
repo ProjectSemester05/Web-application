@@ -1,0 +1,145 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-11-08T12:55:42.370Z",
+    "end": "2021-11-08T12:56:36.315Z",
+    "duration": 53945,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "7865b780-3db4-408f-8568-852f11ce0523",
+      "title": "",
+      "fullFile": "cypress/integration/reminder.spec.js",
+      "file": "cypress/integration/reminder.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c44a1ae4-e31b-4e83-b3b1-f8d0623f8e8e",
+          "title": "reminder tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should create a new reminder",
+              "fullTitle": "reminder tests should create a new reminder",
+              "timedOut": null,
+              "duration": 33392,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(3000);\ncy.get(`[data-testid=reminder-material]`).click();\ncy.get(`[data-testid=add-material]`).click();\ncy.get(`[aria-label=\"ReminderDate: press space to edit\"]`).click();\ncy.contains(\"OK\", {\n  timeout: 2000\n}).click();\ncy.get(`[aria-label=\"Description\"]`).type(\"Test\");\ncy.get(`[data-testid=check-material]`).click();\ncy.contains(\"Success\").should(\"be.visible\", {\n  timeout: 15000\n});",
+              "err": {},
+              "uuid": "204358a6-2ff3-43b7-924f-ce8e907f94cc",
+              "parentUUID": "c44a1ae4-e31b-4e83-b3b1-f8d0623f8e8e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should update the reminder",
+              "fullTitle": "reminder tests should update the reminder",
+              "timedOut": null,
+              "duration": 9138,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(3000);\ncy.get(`[data-testid=edit-material]`).last().click();\ncy.wait(3000);\ncy.get(`[aria-label=\"Description\"]`).clear();\ncy.get(`[aria-label=\"Description\"]`).type(\"Test_1\");\ncy.get(`[data-testid=check-material]`).click();\ncy.contains(\"Test_1\").should(\"be.visible\", {\n  timeout: 15000\n});",
+              "err": {},
+              "uuid": "20740e19-f566-4db3-91dc-a10ebeaaed66",
+              "parentUUID": "c44a1ae4-e31b-4e83-b3b1-f8d0623f8e8e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should delete the reminder",
+              "fullTitle": "reminder tests should delete the reminder",
+              "timedOut": null,
+              "duration": 6880,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.wait(3000);\ncy.get(`[data-testid=delete-material]`).last().click();\ncy.wait(3000);\ncy.contains(\"Are you sure\").should(\"be.visible\");\ncy.get(`[data-testid=check-material]`).click();\ncy.contains(\"Test_1\").should(\"not.exist\", {\n  timeout: 15000\n});",
+              "err": {},
+              "uuid": "8be1b50a-945c-42f4-af16-feaa2ee912d8",
+              "parentUUID": "c44a1ae4-e31b-4e83-b3b1-f8d0623f8e8e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "204358a6-2ff3-43b7-924f-ce8e907f94cc",
+            "20740e19-f566-4db3-91dc-a10ebeaaed66",
+            "8be1b50a-945c-42f4-af16-feaa2ee912d8"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 49410,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mocha",
+        "quite": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

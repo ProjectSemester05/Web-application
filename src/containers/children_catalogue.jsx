@@ -10,20 +10,7 @@ import NewCatalogueCard from "../components/cards/new_catalogue";
 const ChildrenCatalogueContainer = ({ increment, uuid }) => {
   const [childrenCatalogue, setChildrenCatalogue] = useState([]);
   const addChildrenCatalogue = (catalogue) => {
-    setChildrenCatalogue([
-      ...childrenCatalogue,
-      <CatalogueCard
-        name={catalogue.CatalogueName}
-        uuid={catalogue.UUID}
-        iCount="21"
-        cCount="6"
-        pUUID={uuid}
-        img="/assets/images/kitchen_items.png"
-        deleteCatalogue={deleteCatalogue}
-        key={catalogue.UUID}
-        updateCatalogue={updateCatalogue}
-      />,
-    ]);
+    setChildrenCatalogue([...childrenCatalogue, catalogue]);
   };
 
   const deleteCatalogue = (uuid) => {
@@ -88,9 +75,9 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
                   key={cat.UUID}
                   updateCatalogue={updateCatalogue}
                   pUUID={uuid}
-                  increment ={increment}
+                  increment={increment}
                 />
-              ))
+              )),
             ]}
             cardGap={"350px"}
           />

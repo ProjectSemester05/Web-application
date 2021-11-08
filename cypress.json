@@ -11,5 +11,11 @@
             "html": false,
             "json": true
         }
-    }
+    },
+    "testFiles": [
+        "login.spec.js",
+        "catalogue.spec.js",
+        "item.spec.js",
+        "reminder.spec.js"
+    ]
 }

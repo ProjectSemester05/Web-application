@@ -18,8 +18,12 @@ describe("catalogue container tests", () => {
   let cardContainer;
 
   beforeEach(async () => {
-    const { getByTestId } = render(<ChildrenCatalogueContainer />);
-    cardContainer = await waitFor(() => getByTestId("child-cat-cont"));
+    let incrementspy = jest.fn();
+    const { getByTestId } = render(<ChildrenCatalogueContainer increment={incrementspy} />);
+    await waitFor(() => expect(getByTestId('child-cat-cont')).toBeInTheDocument(),{
+      timeout: 10000
+    });
+    cardContainer = getByTestId("child-cat-cont")
   });
 
   beforeAll(() => {
@@ -78,8 +82,8 @@ describe("catalogue container tests", () => {
     fireEvent.click(deleteBtn);
 
     await waitFor(() => screen.getByTestId("child-cat-cont"));
-    expect(mockDeleteCatalogue).toHaveBeenCalledTimes(1);
-    expect(catalogueCard).not.toBeInTheDocument();
+    expect(screen.getByText("Delete Confirmation")).toBeTruthy();
+
   });
 
   test("catalogue container update catalogue", async () => {
@@ -117,7 +121,6 @@ describe("catalogue container tests", () => {
 
     let cards = await waitFor(() => screen.getByTestId("child-cat-cont"));
     expect(mockCreateCatalogue).toHaveBeenCalledTimes(1);
-    screen.debug();
     expect(cards).toHaveTextContent(createCatalogue.newCatalogue.CatalogueName);
   });
 });

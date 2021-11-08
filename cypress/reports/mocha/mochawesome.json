@@ -1,0 +1,126 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-11-08T12:53:22.171Z",
+    "end": "2021-11-08T12:53:45.679Z",
+    "duration": 23508,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "9a8ad9de-b244-4b1d-af2c-ca76a7711d10",
+      "title": "",
+      "fullFile": "cypress/integration/login.spec.js",
+      "file": "cypress/integration/login.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "157d0583-4c97-4098-a558-26e3e625a87a",
+          "title": "Login tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "User should be able to login",
+              "fullTitle": "Login tests User should be able to login",
+              "timedOut": null,
+              "duration": 14217,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('LogIn').click();\ncy.get(\"input[name='email']\").type(Cypress.env(\"TESTUSER\"));\ncy.get(\"input[name='password']\").type(Cypress.env(\"TESTPASS\"));\ncy.get(\"#login-normal\").click();\ncy.contains(\"Add New\", {\n  timeout: 15000\n}).should('be.visible');",
+              "err": {},
+              "uuid": "37173f27-0261-4dc9-8e53-39f8cb6d7bce",
+              "parentUUID": "157d0583-4c97-4098-a558-26e3e625a87a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "User should be able to login thorugh amazon account",
+              "fullTitle": "Login tests User should be able to login thorugh amazon account",
+              "timedOut": null,
+              "duration": 9190,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Log In with Amazon').click(); // cy.get(\"input[name='email']\",{timeout:15000}).type(Cypress.env(\"LWAUSER\"))\n// cy.get(\"input[name='password']\").type(Cypress.env(\"LWAPASS\"))\ncy.get(\"#signInSubmit\", {\n  timeout: 15000\n}).should('be.visible'); // cy.contains(\"New Catalogue\",{timeout:15000}).should('be.visible')",
+              "err": {},
+              "uuid": "594a7dba-0f43-4ae8-bc18-1ed907b4fc47",
+              "parentUUID": "157d0583-4c97-4098-a558-26e3e625a87a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "37173f27-0261-4dc9-8e53-39f8cb6d7bce",
+            "594a7dba-0f43-4ae8-bc18-1ed907b4fc47"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 23407,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mocha",
+        "quite": true,
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "5.2.0"
+    }
+  }
+}

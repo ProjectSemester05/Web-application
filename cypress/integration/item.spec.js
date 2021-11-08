@@ -17,7 +17,7 @@ describe("item tests", () => {
     cy.get("#login-normal").click();
 
     cy.wait(6000);
-    cy.contains("New Catalogue", { timeout: 15000 }).click();
+    cy.contains("Add New", { timeout: 15000 }).click();
     cy.wait(3000);
 
     cy.get("input[name='CatalogueName']").type("Heavy Items");
@@ -34,18 +34,6 @@ describe("item tests", () => {
       });
     cy.wait(3000);
     cy.get(`[data-testname=up_card]`, { timeout: 10000 }).click();
-  });
-
-  after(() => {
-    cy.visit("/home");
-    cy.wait(3000);
-
-    cy.get(`[data-testid=${uuid}_edit]`).click();
-    cy.waitFor(2000);
-    cy.contains("Delete")
-      .click();
-    cy.wait(2000);
-    cy.contains("Success", { timeout: 2000 }).should("be.visible");
   });
 
   it("should create a new item", () => {
@@ -77,17 +65,20 @@ describe("item tests", () => {
     cy.contains("Submit")
       .click();
 
-    cy.contains("Box_0").should("be.visible");
+    cy.contains("Box_0").should("be.visible", { timeout: 15000 });
   });
   
   it("should delete the item", () => {
     cy.wait(3000);
-
     cy.get(`[data-testid=delete-material]`).click();
     cy.wait(3000);
 
    
     cy.contains("Are you sure").should("be.visible");
+    cy.get(`[data-testid=check-material]`).click();
+    cy.contains("Box_0").should("not.exist", { timeout: 15000 });
+
+
   });
 
   
