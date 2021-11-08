@@ -90,7 +90,6 @@ const SignUpForm = () => {
             if (result.success) {
               onOpen();
             } else {
-              console.log(result);
               toast({
                 title: "error",
                 status: "error",

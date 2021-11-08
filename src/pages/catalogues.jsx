@@ -14,8 +14,6 @@ import { withAuthenticator } from 'aws-amplify-react'
 const CataloguePage = () => {
   const location = useLocation();
   const { uuid, catalogueName } = location.state;
-  console.log(uuid);
-  console.log(catalogueName);
   const [loadingCounter1, setLoadingCounter1] = useState(0);
   const [loadingCounter2, setLoadingCounter2] = useState(0);
   const history = useHistory();

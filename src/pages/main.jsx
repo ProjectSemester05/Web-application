@@ -13,8 +13,6 @@ function Main() {
         </Route>
         <Route
           render={({ location }) => {
-            console.log("include home?");
-            console.log(location.pathname.includes("home"));
             return location.pathname.includes("home") ? <HomePage /> : <LandingPage />;
           }}
         />

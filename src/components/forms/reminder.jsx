@@ -20,9 +20,7 @@ const Reminder = ({ uuid, itemName }) => {
     }
   };
   const deleteReminderClick = async (UUID) => {
-      console.log(UUID);
     let result = await deleteReminder(UUID);
-    console.log(result);
     if (result.success) {
       let newReminders = reminders.filter((reminder) => reminder.UUID !== UUID);
       setReminders(newReminders);
@@ -31,7 +29,6 @@ const Reminder = ({ uuid, itemName }) => {
 
   const updateReminderClick = async (newData,oldData) => {
     let result = await updateReminder(newData);
-    console.log(result);
     if (result.success) {
       let newReminders = reminders.filter((reminder) => reminder.UUID !== oldData.UUID);
       setReminders([...newReminders, result.newReminder]);

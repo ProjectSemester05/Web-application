@@ -46,12 +46,10 @@ const ChildrenCatalogueContainer = ({ increment, uuid }) => {
     async function fetchChildrenCatalogues() {
       result = await getChildrenCatalogues(uuid);
 
-      console.log(result);
       if (result.hasOwnProperty("Catalogues")) {
         let newChildren = result.Catalogues;
         setChildrenCatalogue(newChildren);
         increment(1);
-        console.log(newChildren);
       }
     }
 

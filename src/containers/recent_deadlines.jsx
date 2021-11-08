@@ -13,9 +13,7 @@ const RecentDeadlines = ({ increment }) => {
     let result = {};
     async function fetchReminders() {
       result = await getReminders();
-      console.log(result);
 
-      console.log(JSON.stringify(result.Reminders));
       if (result.Reminders) {
         let components = result.Reminders.map((item) => (
           <RecentItem
@@ -28,7 +26,6 @@ const RecentDeadlines = ({ increment }) => {
         setReminders(components);
         increment(1);
 
-        console.log(components);
       }
     }
     setTimeout(() => {
@@ -39,7 +36,7 @@ const RecentDeadlines = ({ increment }) => {
     <Flex width="full" py={5}>
       <Flex width="full" px="3">
         <Box flex="2" mx="2" overflowX="hidden" px="2">
-          <Box>
+          <Box display="none">
             <SearchBar w="full" />
           </Box>
           <Text fontSize="24px" mt="4" mb="20px">

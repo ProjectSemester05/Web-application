@@ -14,7 +14,6 @@ import CatalogueForm from "../forms/catalogue_form"
 const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updateCatalogue , pUUID, increment }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
-  console.log(name);
   let catalogue={CatalogueName: name}
   return (
     <>
@@ -61,13 +60,13 @@ const CatalogueCard = ({ name, iCount, cCount, img, uuid, deleteCatalogue, updat
       </Flex>
       <Flex justifyContent="space-around" mt={["5px", "5px"]}>
         <Stack isInline>
-          <Text fontWeight="bold" color="black">
+          <Text fontWeight="bold" color="black" display="none">
             {iCount}
           </Text>
           <Text color="#757171">Items</Text>
         </Stack>
         <Stack isInline>
-          <Text fontWeight="bold" color="black">
+          <Text fontWeight="bold" color="black" display="none">
             {cCount}
           </Text>
           <Text color="#757171">Sub Catalogues</Text>

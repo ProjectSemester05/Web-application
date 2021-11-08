@@ -39,11 +39,11 @@ const CatalogueContainer = ({ increment }) => {
   }, [increment]);
 
   return (
-    <Flex width="full" flexDirection="column" p="20px" pb="-20px">
+    <Flex width="full" flexDirection="column" p="20px" pb="-20px" >
       <Text fontSize="22px" mb="2">
         My Catalogues
       </Text>
-      <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" />
+      <Box backgroundColor="#E0E0E0" mb="6" border="2px solid #E0E0E0" data-testid="cat-cards"/>
       {catalogues.length > 0 ? (
         <Grid
           templateColumns={[
@@ -53,7 +53,6 @@ const CatalogueContainer = ({ increment }) => {
             "repeat(4, 350px)",
           ]}
           gap={4}
-          data-testid="cat-cards"
         >
           <GridItem>
             <NewCatalogueCard empty={false} addCatalogue={addCatalogue} />

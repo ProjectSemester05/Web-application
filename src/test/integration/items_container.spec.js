@@ -16,7 +16,8 @@ describe("catalogue container item tests", () => {
   let cardContainer;
 
   beforeEach(async () => {
-    const { getByTestId } = render(<ItemContainer />);
+    let incrementspy = jest.fn();
+    const { getByTestId } = render(<ItemContainer uuid="1" increment={incrementspy} />);
     cardContainer = await waitFor(() => getByTestId("item-cont"));
   });
 
@@ -126,7 +127,8 @@ describe("catalogue container reminder tests", () => {
   let reminderContainer;
 
   beforeEach(async () => {
-    const { getByTestId } = render(<ItemContainer />);
+    let incrementspy = jest.fn();
+    const { getByTestId } = render(<ItemContainer increment={incrementspy} uuid="1"/>);
     await waitFor(() => getByTestId("item-cont"));
 
     const reminderBtn = screen.getAllByRole("button", { name: "Reminders" })[0];

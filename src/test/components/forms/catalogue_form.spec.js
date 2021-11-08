@@ -92,7 +92,7 @@ describe("catalogue form tests", () => {
   test("delete catalogue", async () => {
     let func = jest.fn();
     let onClose = jest.fn();
-    let { getAllByText } = render(
+    let { getByText } = render(
       <CatalogueForm
         catalogue={createCatalogue.newCatalogue}
         add={false}
@@ -104,9 +104,7 @@ describe("catalogue form tests", () => {
     fireEvent.click(submit);
 
     await waitFor(() => screen.getByTestId("addcatalogue-form"));
-    expect(mockDeleteCatalogue).toHaveBeenCalledTimes(1);
-    expect(onClose).toHaveBeenCalledTimes(1);
-    expect(getAllByText("Success")).toHaveLength(3);
+    expect(getByText("Delete Confirmation")).toBeTruthy();
   });
 });
 
@@ -179,7 +177,7 @@ describe("catalogue form error tests", () => {
   test("delete catalogue error", async () => {
     let func = jest.fn();
     let onClose = jest.fn();
-    let { getAllByText } = render(
+    let { getByText } = render(
       <CatalogueForm
         catalogue={createCatalogue.newCatalogue}
         add={false}
@@ -191,8 +189,7 @@ describe("catalogue form error tests", () => {
     fireEvent.click(submit);
 
     await waitFor(() => screen.getByTestId("addcatalogue-form"));
-    expect(mockDeleteCatalogue).toHaveBeenCalledTimes(1);
-    expect(onClose).toHaveBeenCalledTimes(0);
-    expect(getAllByText("Error")).toBeTruthy();
+    expect(getByText("Delete Confirmation")).toBeTruthy();
+
   });
 });

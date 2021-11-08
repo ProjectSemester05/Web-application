@@ -44,7 +44,6 @@ const ForgottenPasswordForm = ({ onClose }) => {
         values.password
       );
     }
-    console.log(emailSent);
     setLoading(false);
     if (result.success && emailSent) {
       onClose();

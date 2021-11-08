@@ -23,8 +23,6 @@ export const isAuthenticated = () => {
         result =true
       }
     })
-    console.log("result")
-    console.log(result)
     return result;
     
 }

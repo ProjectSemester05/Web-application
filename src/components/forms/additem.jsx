@@ -68,7 +68,6 @@ const AddItemForm = ({ item, onClose, uuid, add, func, img }) => {
           values.CatalogueUUID = uuid;
 
           if (add) {
-            console.log(values);
             result = await createItem(values);
           } else {
             result = await updateItem(values);

@@ -43,7 +43,6 @@ export const signUp = async (name, email, password) => {
 export const lwaSignUp = async () => {
   try {
     let result = await Auth.federatedSignIn({ provider: "LoginWithAmazon" });
-    console.log(result);
     localStorage.setItem("authenticated", true);
     return { result: result, success: true };
   } catch (error) {
@@ -59,7 +58,6 @@ export const signIn = async (email, password) => {
     localStorage.setItem("authenticated", true);
     return { result: user, success: true };
   } catch (error) {
-    console.log("error");
     return { error: error, success: false };
   }
 };
@@ -85,7 +83,6 @@ export const resendConfirmationCode = async (email) => {
 export const forgotPasswordEmail = async (email) => {
   try {
     let result = await Auth.forgotPassword(email);
-    console.log(result);
     return { result: result, success: true };
   } catch (error) {
     return { error: error, success: false };
@@ -138,7 +135,6 @@ export const signOut = async () => {
     localStorage.clear();
     return { success: true };
   } catch (error) {
-    console.log("error signing out: ", error);
     return { success: false };
   }
 };
