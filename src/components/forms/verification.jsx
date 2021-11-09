@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -21,17 +21,14 @@ import {
   resendConfirmationCode,
   signIn,
 } from "../../utils/amplifyConf";
-import Loader from "../loader";
 
 const VerificationForm = ({ email, password }) => {
   let toast = useToast();
   const history = useHistory();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
 
   return (
     <Box my={4} textAlign="center">
-      {loading && <Loader />}
       <Formik
         initialValues={{
           code: "",
@@ -40,17 +37,14 @@ const VerificationForm = ({ email, password }) => {
           code: Yup.string().max(50).required("Required"),
         })}
         onSubmit={async (values) => {
-          setLoading(true);
           let result = await confirmSignUp(email, values.code);
           if (result.success) {
             result = await signIn(email, password);
-            setLoading(false);
             if (result.success) {
               dispatch(auth());
               history.push("/home");
             }
           } else {
-            setLoading(false);
             toast({
               title: "Invalid code",
               status: "error",
@@ -62,46 +56,49 @@ const VerificationForm = ({ email, password }) => {
         }}
       >
         {(props) => (
-          <Box data-testid="verification-form">
-            <Text fontSize="16px" color="tomato"></Text>
-            <FormControl
-              isInvalid={props.errors.code && props.touched.code}
-              mr={2}
-            >
-              <FormLabel>Code</FormLabel>
-              <Input
-                data-testid="verification-code"
-                type="text"
-                name="code"
-                value={props.initialValues.code}
-                {...props.getFieldProps("code")}
-                borderColor="black"
-                borderBottomWidth="1px"
-              />
-              <FormErrorMessage>{props.errors.code}</FormErrorMessage>
-            </FormControl>
-            <Stack inline>
-              <Button
-                onClick={props.submitForm}
-                backgroundColor="#0F4C75"
-                _hover={{ bg: "#0F4CAE" }}
-                color="white"
-                mt={4}
+          <Box>
+
+            <Box data-testid="verification-form">
+              <Text fontSize="16px" color="tomato"></Text>
+              <FormControl
+                isInvalid={props.errors.code && props.touched.code}
+                mr={2}
               >
-                Validate
-              </Button>
-              <Button
-                onClick={() => {
-                  resendConfirmationCode(email);
-                }}
-                backgroundColor="#0F4C75"
-                _hover={{ bg: "#0F4CAE" }}
-                color="white"
-                mt={4}
-              >
-                Resend Code
-              </Button>
-            </Stack>
+                <FormLabel>Code</FormLabel>
+                <Input
+                  data-testid="verification-code"
+                  type="text"
+                  name="code"
+                  value={props.initialValues.code}
+                  {...props.getFieldProps("code")}
+                  borderColor="black"
+                  borderBottomWidth="1px"
+                />
+                <FormErrorMessage>{props.errors.code}</FormErrorMessage>
+              </FormControl>
+              <Stack inline>
+                <Button
+                  onClick={props.submitForm}
+                  backgroundColor="#0F4C75"
+                  _hover={{ bg: "#0F4CAE" }}
+                  color="white"
+                  mt={4}
+                >
+                  Validate
+                </Button>
+                <Button
+                  onClick={() => {
+                    resendConfirmationCode(email);
+                  }}
+                  backgroundColor="#0F4C75"
+                  _hover={{ bg: "#0F4CAE" }}
+                  color="white"
+                  mt={4}
+                >
+                  Resend Code
+                </Button>
+              </Stack>
+            </Box>
           </Box>
         )}
       </Formik>
