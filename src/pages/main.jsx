@@ -3,6 +3,7 @@ import LandingPage from "./landing";
 import HomePage from "./home";
 import CataloguePage from "./catalogues";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import PrivacyPage from "./privacy";
 
 function Main() {
   return (
@@ -10,6 +11,9 @@ function Main() {
       <Switch>
         <Route path="/catalogues/:name">
           <CataloguePage />
+        </Route>
+        <Route path="/privacy">
+          <PrivacyPage />
         </Route>
         <Route
           render={({ location }) => {
