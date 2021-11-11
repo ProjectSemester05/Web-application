@@ -4,6 +4,7 @@ import HomePage from "./home";
 import CataloguePage from "./catalogues";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivacyPage from "./privacy";
+import UserManualPage from "./user_manual";
 
 function Main() {
   return (
@@ -14,6 +15,9 @@ function Main() {
         </Route>
         <Route path="/privacy">
           <PrivacyPage />
+        </Route>
+        <Route path="/user-manual">
+          <UserManualPage />
         </Route>
         <Route
           render={({ location }) => {
